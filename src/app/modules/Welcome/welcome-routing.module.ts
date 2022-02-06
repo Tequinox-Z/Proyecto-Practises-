@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { WelcomeComponent } from './Page/welcome/welcome.component';
 
 
-const router: Routes = [
+const routes: Routes = [
   {
     path: '',
     component: WelcomeComponent
@@ -12,7 +12,7 @@ const router: Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forChild(router)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class WelcomeRoutingModule { 

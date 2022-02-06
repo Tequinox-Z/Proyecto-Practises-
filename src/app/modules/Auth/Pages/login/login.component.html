@@ -1,0 +1,8 @@
+<p>login works!</p>
+<form #login="ngForm" (ngSubmit)="submit()">
+    <div>
+        <input [(ngModel)]="model.email" name="email" id="correo" type="mail" pattern="^[^@]+@[^@]+\.[a-zA-Z]{2,}$" required #email="ngModel">
+        <input [(ngModel)]="model.password" name="password" id="contraseña" type="password" required #password="ngModel">
+        <input [disabled]="login.invalid" id="submit" type="submit" value="Enviar">
+    </div>
+</form>
