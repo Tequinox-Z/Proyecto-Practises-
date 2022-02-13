@@ -1,0 +1,124 @@
+#container {
+    height: 100vh;
+    background: url(/assets/img/background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+}
+
+form {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    padding: 1.5em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 30vh;
+    background-color: rgba(182, 182, 182, 0.288);
+    max-width: 23em;
+    border: 1px solid rgba(184, 184, 184, 0.404);
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.46);
+}
+
+form > h2 {
+    font-size: 1.2em;
+    color: var(--primary);
+    font-weight: lighter;
+    margin-left: 0.3em;
+}
+
+form > div {
+    text-align: center;
+    padding-top: 0.8em;
+}
+
+.text {
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.528);
+    width: 80%;
+    margin-left: auto;
+    padding: 0.5em 0.5em;
+    margin-top: 0.7em;
+    margin-right: auto;
+    background-color: none;
+    display: block;
+    color: white;
+}
+
+.text::placeholder {
+    color: rgba(255, 255, 255, 0.658);
+}
+
+.text:focus {
+    outline: none;
+}
+
+input[type="submit"] {
+    width: 85%;
+    margin-top: 2em;
+    padding: 7px 2px;
+    border: 1px solid ;
+    color: white;
+    background-color: transparent;
+}
+
+input:disabled {
+    background-color: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.623);
+}
+
+
+#float-bottom {
+    background-color: rgb(255, 255, 255);
+    padding: 0.3em;
+    top: 0;
+    left: 50vh;
+    display: inline-block;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.494);
+    transition: 1s;
+}
+
+#float-bottom:hover {
+    transform: rotateZ(360deg);
+    width: 2.5em;
+    height: 2.5em;
+}
+
+#google {
+    width: 100%;
+}
+
+#float {
+    display: block;
+    position: absolute;
+    bottom: 25vh;
+    width: 100%;
+    text-align: center;
+}
+
+.err {
+    width: 5%;
+    display: inline-block;
+    position: absolute;
+    right: 1.2em;
+    margin-top: -23px;
+    transition: 1s;
+    animation-name: introErr;
+    animation-duration: 1s;
+}
+
+@keyframes introErr {
+    0% {
+        width: 0;
+        transform: rotateZ(360deg);
+    }
+    100% {
+        width: 5%;
+    }
+}

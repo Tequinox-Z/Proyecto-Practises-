@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   model: UserLoginRequest = {
-    "email" : "",
+    "dni" : "",
     "password" : ""
   }
 
@@ -29,11 +29,12 @@ export class LoginComponent implements OnInit {
   submit() {
     this.auth.login(this.model).subscribe({
       next: (response: LoginResponse) => {
-        this.auth.setToken(response.access_token + '');
-          this.router.navigate(['/']);
+        this.auth.setToken(response.jwt_token + '');
+        this.router.navigate(['/']);
       },
-      error: (response: HttpErrorResponse) => {
-          Swal.fire('Error ', ((response.error.message == undefined)? 'Del servidor' : response.error.message));
+      error: (response) => {
+        console.log(response);
+          Swal.fire('Error ', ((response.message == undefined)? 'Servidor no disponible' : response.message));
       }
     })
   }

@@ -1,0 +1,89 @@
+#welcome {
+    background: url(/assets/img/background.jpg);
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-attachment: fixed;
+    clip-path: polygon(0px 0%, 100% 0px, 100% 90%, 0px 100%);
+}
+
+#welcome::after {
+    width: 100%;
+    height: 100%;
+    content: '';
+    background-color: rgba(0, 0, 0, 0.322);
+    display: block;
+}
+
+#title {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px 5px black;
+    animation-name: intro;
+    animation-duration: 2s;
+}
+
+@keyframes intro {
+    from {
+        transform: rotate3d(1, 1, 1, 240deg);
+    }
+    to {
+        transform: rotate3d(1, 1, 1, 0deg);
+    }
+}
+
+#title > h1 {
+    margin: 0.4em;
+}
+
+#title > img {
+    margin-top: 20vh;
+    width: 30vh;
+    transition: 1s;
+    animation-name: loopAnimation;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+}
+
+@keyframes loopAnimation {
+    0% {
+        transform: rotate3d(1, 1, 1, 20deg);
+    }
+    50% {
+        transform: rotate3d(1, 1, 1, 0deg);
+    }
+    100% {
+        transform: rotate3d(1, 1, 1, 20deg);
+    }
+}
+
+#title > a {
+    transition: 0.5s;
+    background-color: rgba(255, 0, 55, 0.124);
+    margin: 1%;
+    padding: 0.7em 2em;
+    position: relative;
+    font-size: 1.1em;
+    top: 2%;
+    border: 2px solid rgb(255, 0, 55);
+    border-radius: 30px;
+    box-shadow: 1px 1px 10px black;
+    color: white
+}
+
+#title > a:hover {
+    background-color: rgb(255, 0, 55);
+}
+
+#title > a ~ a {
+    background-color: rgba(255, 0, 55, 0.61);
+}
+
+#title > a ~ a:hover {
+    background-color: rgb(255, 0, 55);
+    border-color: rgb(255, 0, 55);
+}

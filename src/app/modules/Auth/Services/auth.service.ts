@@ -9,7 +9,7 @@ import { UserLoginRequest } from '../../../core/interfaces/user-login-request/us
 })
 export class AuthService {
 
-  SERVER_URL: string = 'http://localhost:8000/';
+  SERVER_URL: string = 'http://localhost:8080/';
 
   constructor(private http: HttpClient, private router: Router) { 
     
@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   login(user: UserLoginRequest) {
-    return this.http.post<LoginResponse>(this.SERVER_URL + "auth/login", user);
+    return this.http.post<LoginResponse>(this.SERVER_URL + "login", user);
   }
 
   logout() {
@@ -40,6 +40,10 @@ export class AuthService {
 
   getToken() {
     return localStorage.getItem('token');
+  }
+
+  register(user: UserLoginRequest) {
+    return this.http.post(this.SERVER_URL + "auth/register", user);
   }
 
   private async sendToken(token: string) {

@@ -1,5 +1,5 @@
 export interface LoginResponse {
-    access_token ?: string,
+    jwt_token ?: string,
     status?: string,
     message?: string
 }
