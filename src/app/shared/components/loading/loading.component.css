@@ -1,0 +1,58 @@
+.preloader {
+    width: 70px;
+    height: 70px;
+    border: 10px solid transparent;
+    border-bottom: 10px solid rgb(255, 0, 76);
+    border-radius: 50%;
+    animation-name: rotateElement;
+    animation-duration: 1.7s;
+    animation-iteration-count: infinite;
+    margin-top: 40vh;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  @keyframes rotateElement {
+    from {
+      transform: rotate(deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  #background {
+      position: fixed;
+      width: 100%;
+      height: 100vh;
+      top: 0;
+      z-index: 10;
+      background-color: rgba(0, 0, 0, 0.261);
+      backdrop-filter: blur(20px);
+      min-height: 520px;
+  }
+
+  h3 {
+    color: white;
+    font-size: 1.5em;
+    font-variant: petite-caps;
+    margin-top: 10vh;
+    text-align: center;
+  }
+
+  #text {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    bottom: 5vh;
+    text-align: center;
+    color: white;
+  }
+
+  .subtitle { 
+    margin-left: 5%;
+    margin-right: 5%;
+    color: rgba(255, 255, 255, 0.747);
+    margin-top: 1em;
+  }

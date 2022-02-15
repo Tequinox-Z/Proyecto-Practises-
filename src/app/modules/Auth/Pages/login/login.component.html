@@ -2,15 +2,16 @@
     <form #login="ngForm" (ngSubmit)="submit()">
         <h2>Iniciar sesión</h2>
         <div>
-            <input class="text" [(ngModel)]="model.dni" name="dni" id="dni" placeholder="Usuario" type="text" pattern="" required #dni="ngModel"> <img *ngIf="dni.invalid && dni.touched" class="err" title="Indique un dni con formato 8 números y una letra" src="/assets/img/err.png">
+            <input class="text" pattern="[0-9]{8}[A-Za-z]{1}" [(ngModel)]="model.dni" name="dni" id="dni" placeholder="Usuario" type="text" required #dni="ngModel"> <img *ngIf="dni.invalid && dni.touched" class="err" title="Indique un dni con formato 8 números y una letra" src="/assets/img/err.png">
             <input class="text" [(ngModel)]="model.password" name="password" id="contraseña" placeholder="Contraseña" type="password" required #password="ngModel"> <img *ngIf="password.invalid && password.touched" class="err" title="La contraseña debe de tener mínimo 8 carácteres" src="/assets/img/err.png">
 
             <input [disabled]="login.invalid" id="submit" type="submit" value="Iniciar sesión">
         </div>   
     </form>
-</div>
-<div id="float">
     <a id="float-bottom">
-        <img id="google" src="/assets/img/google.png">
+        <img id="google" title="Iniciar sesión con Google" src="/assets/img/google.png">
     </a>  
 </div>
+
+<app-loading *ngIf="loading"></app-loading>
+

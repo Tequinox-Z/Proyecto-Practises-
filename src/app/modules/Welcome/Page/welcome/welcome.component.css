@@ -1,89 +1,97 @@
-#welcome {
-    background: url(/assets/img/background.jpg);
-    width: 100%;
-    height: 100vh;
-    background-size: cover;
-    background-attachment: fixed;
-    clip-path: polygon(0px 0%, 100% 0px, 100% 90%, 0px 100%);
+* {
+    text-shadow: 2px 2px 7px black;
+    transition: 1s;
 }
 
-#welcome::after {
+a {
+    display: inline-block;
+    padding: 0.7em 1.0em;
+    margin-top: 1em;
+    color: white;
+    background-color: rgb(255, 0, 76);
+}
+
+a:hover {
+    background-color:  rgb(255, 166, 0);
+}
+
+#title img {
     width: 100%;
-    height: 100%;
-    content: '';
-    background-color: rgba(0, 0, 0, 0.322);
-    display: block;
+    max-width: 24em;
+    animation-name: animated;
+    animation-duration: 3s;
+}
+
+@keyframes animated {
+    0% {
+        transform: rotate3d(1, 1, 1, 120deg);
+    }
 }
 
 #title {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100vh;
-    text-align: center;
     color: white;
-    text-shadow: 1px 1px 5px black;
-    animation-name: intro;
-    animation-duration: 2s;
+    text-align: center;
+    height: 100vh;
 }
 
-@keyframes intro {
-    from {
-        transform: rotate3d(1, 1, 1, 240deg);
-    }
-    to {
-        transform: rotate3d(1, 1, 1, 0deg);
-    }
+#title:before {
+    content: '';
+    width: 100%;
+    height: 99.2vh;
+    position: absolute;
+    left: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(132,97,23,0) 39%, rgba(253,187,45,0) 100%);
+    border-bottom: 5px solid rgb(255, 0, 76);
 }
 
-#title > h1 {
-    margin: 0.4em;
+h4 {
+    font-size: 2em;
+    font-weight: lighter;
 }
 
-#title > img {
-    margin-top: 20vh;
-    width: 30vh;
+p {
+    color: var(--secundary);
+    margin: 0.7em;
+}
+
+#title > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
+}
+
+#text {
+    animation-name: up;
+    animation-duration: 1s;
+    position: relative;
     transition: 1s;
-    animation-name: loopAnimation;
-    animation-iteration-count: infinite;
-    animation-duration: 2s;
 }
 
-@keyframes loopAnimation {
+@keyframes up {
     0% {
-        transform: rotate3d(1, 1, 1, 20deg);
-    }
-    50% {
-        transform: rotate3d(1, 1, 1, 0deg);
+        opacity: 0;
+        bottom: 5em;
     }
     100% {
-        transform: rotate3d(1, 1, 1, 20deg);
+        bottom: 0;
     }
 }
 
-#title > a {
-    transition: 0.5s;
-    background-color: rgba(255, 0, 55, 0.124);
-    margin: 1%;
-    padding: 0.7em 2em;
-    position: relative;
-    font-size: 1.1em;
-    top: 2%;
-    border: 2px solid rgb(255, 0, 55);
-    border-radius: 30px;
-    box-shadow: 1px 1px 10px black;
-    color: white
+#text a {
+    animation-name: flip;
+    animation-duration: 3s;
 }
 
-#title > a:hover {
-    background-color: rgb(255, 0, 55);
+@keyframes flip {
+    0% {
+        bottom: -10em;
+    }
+    100% {
+        bottom: 0;
+    }
 }
 
-#title > a ~ a {
-    background-color: rgba(255, 0, 55, 0.61);
-}
-
-#title > a ~ a:hover {
-    background-color: rgb(255, 0, 55);
-    border-color: rgb(255, 0, 55);
+#color {
+    color: rgb(255, 0, 76) !important;
 }

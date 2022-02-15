@@ -4,7 +4,7 @@ import { UserLoginRequest } from '../../../../core/interfaces/user-login-request
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { LoginResponse } from '../../../../core/interfaces/login-response/login-response';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,23 +18,37 @@ export class LoginComponent implements OnInit {
     "password" : ""
   }
 
-  constructor(private auth: AuthService, private router: Router) { 
+  loading: boolean = false; 
+
+  constructor(private auth: AuthService, private router: Router, private route: ActivatedRoute) { 
     
   }
 
   ngOnInit(): void {
-    
+    if (this.auth.getToken() != null) {
+      this.router.navigateByUrl('/');
+    }
   }
 
   submit() {
+    
+    this.loading = true;
+
     this.auth.login(this.model).subscribe({
       next: (response: LoginResponse) => {
+        this.loading = false;
+
         this.auth.setToken(response.jwt_token + '');
         this.router.navigate(['/']);
       },
       error: (response) => {
-        console.log(response);
-          Swal.fire('Error ', ((response.message == undefined)? 'Servidor no disponible' : response.message));
+        this.loading = false;
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: ((response.error.message == undefined)? 'Servidor no disponible' : response.error.message),
+          /*footer: '<a href="">Why do I have this issue?</a>'*/
+        })
       }
     })
   }

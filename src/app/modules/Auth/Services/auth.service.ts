@@ -9,7 +9,7 @@ import { UserLoginRequest } from '../../../core/interfaces/user-login-request/us
 })
 export class AuthService {
 
-  SERVER_URL: string = 'http://localhost:8080/';
+  SERVER_URL: string = 'http://localhost:8080/auth/';
 
   constructor(private http: HttpClient, private router: Router) { 
     
@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   register(user: UserLoginRequest) {
-    return this.http.post(this.SERVER_URL + "auth/register", user);
+    return this.http.post(this.SERVER_URL + "register", user);
   }
 
   private async sendToken(token: string) {
@@ -54,7 +54,7 @@ export class AuthService {
       })
     }
 
-    return await this.http.get(this.SERVER_URL + 'tokenCheck', options).toPromise()
+    return await this.http.get(this.SERVER_URL + 'checktoken', options).toPromise()
     .then(() => {
         return true;
     })

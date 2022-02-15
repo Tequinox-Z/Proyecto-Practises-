@@ -1,0 +1,109 @@
+nav {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.481);
+    padding: 7px;
+    font-variant: petite-caps;
+    padding-left: 0.7em !important;
+    position: fixed;
+    width: 100%;
+    backdrop-filter: blur(7px);
+}
+
+#menu, h3, #menuBurguer {
+    transition: 0.5s;
+}
+
+#content {
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+}
+
+#menu {
+    top: 3.45em;
+    left: 0;
+    width: 30%;
+    display: inline-block;
+    position: fixed;
+    
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.481);
+    max-width: 250px;
+    backdrop-filter: blur(20px);
+}
+
+#menuBurguer:hover {
+    transform: rotateZ(180deg);
+}
+
+.close {
+    left: -12em !important;
+}
+
+.close i:hover {
+    transform: rotate3d(1, 1, 1, 5deg)
+}
+
+.activated {
+    color: #f6e307 !important;
+}
+
+.close h3 {
+    display: none !important;
+}
+
+#menu i {
+    float: right;
+    position: relative;
+    top: 0.6em;
+    right: 1em;
+}
+
+#content {
+    width: 100%;
+}
+
+#menu {
+    display: inline-block;
+}
+
+#menu > a {
+    color: rgba(255, 255, 255, 0.753);
+    display: block;
+    font-variant: petite-caps;
+    width: 98.9%;
+    height: 2.5em;
+    text-align: center;
+    line-height: 2.5em;
+}
+
+#menu > a:hover {
+    border-right: 3px solid orange;
+}
+
+#menu h3 {
+    margin-left: 1em;
+    font-variant: small-caps;
+}
+
+h3 {
+    padding: 0.5em;
+    color: white;
+}
+
+#title {
+    display: inline-block;
+    margin-left: 1em;
+}
+
+@media (max-width: 840px) {
+    #menu {
+        width: 100%;
+    }
+}
+
+@media (max-width: 250px) {
+    .close {
+        left: -16em !important;
+    }
+}
