@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../Services/auth.service';
 import { UserLoginRequest } from '../../../../core/interfaces/user-login-request/user-login-request';
-import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { LoginResponse } from '../../../../core/interfaces/login-response/login-response';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -46,7 +45,7 @@ export class LoginComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: ((response.error.message == undefined)? 'Servidor no disponible' : response.error.message),
+          text: ((response.error.mensaje == undefined)? 'Servidor no disponible' : response.error.mensaje),
           /*footer: '<a href="">Why do I have this issue?</a>'*/
         })
       }

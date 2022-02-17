@@ -1,15 +1,21 @@
-<div *ngIf="!loading">
-    <div id="content">
+<div *ngIf="person" id="fullContainer">
+    <div>
         <nav>
             <h3>
                 <i id="menuBurguer" (click)="menuToggle()" class="fa-solid fa-bars"></i>
                 <p id="title">Dashboard</p>
             </h3>
+            <img id="user" src="{{ (!person.image || person.image == '') ? '/assets/img/not_image.png' : person.image  }}" title="{{ (person.name) ? person.name : 'Sin nombre' }} {{ (person.lastName) ? person.lastName : 'Sin apellidos ' }}">
         </nav>    
+        <div id="content">
+            <div id="router">
 
+            </div>
+        </div>
     </div>
     
     <div id="menu" class="close">
+
         <h3>Centro</h3>
         <a class="activated">
             <i class="fa-solid fa-school"></i>
@@ -24,11 +30,13 @@
             <i class="fa-solid fa-user-plus"></i>
             Registrar persona
         </a>
-        <a>Option</a>
-        <a>Option</a>
-        <a>Option</a>
-        <a>Option</a>
-        <a>Option</a>
+        <div *ngIf="rol == 'ROLE_ADMIN'">
+            <a>Option</a>
+            <a>Option</a>
+            <a>Option</a>
+            <a>Option</a>
+            <a>Option</a>
+        </div>
     </div>    
 </div>
-<app-loading *ngIf="loading"></app-loading>
+<app-loading *ngIf="!person"></app-loading>
