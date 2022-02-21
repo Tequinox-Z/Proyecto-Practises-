@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ScrollToUpComponent } from './components/scroll-to-up/scroll-to-up.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 
 @NgModule({
   declarations: [
-    NavbarComponent,
     LoadingComponent,
-    ScrollToUpComponent
+    ScrollToUpComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    NavbarComponent,
     LoadingComponent,
+    SearchComponent,
     ScrollToUpComponent
   ]
 })

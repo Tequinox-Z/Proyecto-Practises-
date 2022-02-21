@@ -4,7 +4,6 @@
     height: 99.2vh;
 }
 
-
 #container:before {
     content: '';
     width: 100%;
@@ -21,6 +20,7 @@ form {
     width: 80%;
     padding: 1.5em;
     position: absolute;
+    height: max-content;
     left: 0;
     right: 0;
     top: 30vh;
@@ -163,16 +163,16 @@ form {
 
 
 @keyframes touchMe {
-0% {
-    width: 2em;
-    height: 2em;
-}
-50% {
-    width: 2.4em;
-    height: 2.4em;
-}
-100% {
-    width: 2em;
-    height: 2em;
-}
+    0% {
+        width: 2em;
+        height: 2em;
+    }
+    50% {
+        width: 2.4em;
+        height: 2.4em;
+    }
+    100% {
+        width: 2em;
+        height: 2em;
+    }
 }
