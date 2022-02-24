@@ -1,0 +1,13 @@
+<div id="schools">
+    <div *ngFor="let school of schools" class="school" id="{{ school.id }}">
+         <img src="{{ school.image }}" alt="">
+        {{ school.name }}
+        <a *ngIf="setSchoolMode" (click)="setSchool($event)">
+            Administrar
+        </a>
+    </div>
+</div>
+
+<div *ngIf="!schools || schools.length == 0">
+    <h1>No se han encontrado centros</h1>
+</div>

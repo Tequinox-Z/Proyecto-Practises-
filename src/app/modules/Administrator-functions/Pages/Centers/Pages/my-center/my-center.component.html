@@ -1,0 +1,7 @@
+<div *ngIf="currentSchool" >
+    <img src="{{ currentSchool.image }}">
+    <h1>{{ currentSchool.name }}</h1>
+    <p>{{ currentSchool.address }}</p>
+    <p>{{ currentSchool.id }}</p>
+</div>
+<app-find-centers *ngIf="!currentSchool" (emitSchool)="settedSchool($event)"></app-find-centers>

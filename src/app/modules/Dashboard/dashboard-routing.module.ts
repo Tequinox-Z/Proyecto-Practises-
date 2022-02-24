@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './Page/dashboard/dashboard.component';
+import { DashboardComponent } from './Page/Dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -9,19 +9,19 @@ const routes: Routes = [
     children: [
       {
         path: 'teacher',
-        loadChildren: () => import('../teacher-functions/teacher-functions.module').then( m =>
+        loadChildren: () => import('../Teacher-functions/teacher-functions.module').then( m =>
           m.TeacherFunctionsModule  
         )
       },
       {
         path: 'student',
-        loadChildren: () => import('../student-functions/student-functions.module').then( m =>
+        loadChildren: () => import('../Student-functions/student-functions.module').then( m =>
           m.StudentFunctionsModule  
         )
       },
       {
         path: 'administrator',
-        loadChildren: () => import('../administrator-functions/administrator-functions.module').then( m =>
+        loadChildren: () => import('../Administrator-functions/administrator-functions.module').then( m =>
           m.AdministratorFunctionsModule
         )
       }

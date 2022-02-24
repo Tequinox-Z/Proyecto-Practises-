@@ -1,0 +1,179 @@
+<div *ngIf="person" id="fullContainer">
+    <div>
+        <nav>
+            <h3>
+                <i id="menuBurguer" (click)="menuToggle()" class="fa-solid fa-bars"></i>
+                <p id="title">Dashboard</p>
+            </h3>
+            <img (click)="userToggle()" id="user" src="{{ (!person.image || person.image == '') ? '/assets/img/not_image.png' : person.image  }}" title="{{ (person.name) ? person.name : 'Sin nombre' }} {{ (person.lastName) ? person.lastName : 'Sin apellidos ' }}">
+            
+            <div class="hidden" id="optionsNav">
+                <a alt="Muestra ajustes generales de la aplciación" title="Muestra ajustes generales de la aplciación" (click)="changeVisiblityOfSettings()">
+                    <i class="fa-solid fa-gear"></i>
+					Ajustes
+				</a>
+				<a alt="Accesibilidad" title="Accesibilidad" (click)="changeVisiblityOfAccesibility()">
+                    <i class="fa-solid fa-universal-access"></i>
+					Accesibilidad
+				</a>				
+                <a id="exit" (click)="exitConfirm()" alt="Salir de la aplicación" title="Salir de la aplicación">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Cerrar sesión
+				</a>
+			</div>
+
+        </nav>    
+        <div id="content">
+            <div id="router" (click)="closeMenus()">
+                <router-outlet (notification)="showMessage($event)"></router-outlet>
+            </div>
+        </div>
+    </div>
+    
+    <div id="menu" class="close">
+        <div *ngIf="rol == 'ROLE_ADMIN'">
+            <h3>Centro</h3>
+            <a title="Mi centro" alt="Mi centro" routerLink="administrator/centers/my-center" routerLinkActive="activated">
+                <i class="fa-solid fa-school"></i>
+                Mi centro
+            </a>
+            <a title="Buscar centros" alt="Buscar centros" routerLink="administrator/centers/find-centers" routerLinkActive="activated">
+                <i class="fa-solid fa-magnifying-glass" style="margin-right: 2px;"></i>
+                Buscar
+            </a>            
+            <a title="Nuevo centro" alt="Nuevo centro" routerLink="administrator/centers/new-center" routerLinkActive="activated">
+                <i class="fa-solid fa-plus" style="margin-right: 4px;"></i>
+                Nuevo centro
+            </a>
+
+            <h3>Personas</h3>
+            
+            <a title="Registrar persona" alt="Registrar persona" routerLink="administrator/persons/new-person" routerLinkActive="activated">
+                <i class="fa-solid fa-user-plus"></i>
+                Registrar persona
+            </a>
+            <a title="Gestionar personas" alt="Gestionar personas" routerLinkActive="activated" routerLink="administrator/persons/management-persons">
+                <i class="fa-solid fa-users-gear"></i>
+                Gestionar personas
+            </a>
+
+            <h3>Estudiantes</h3>
+            <a alt="Nueva matrícula" title="Nueva matrícula" routerLinkActive="activated" routerLink="administrator/students/new-enrollment">
+                <i class="fa-solid fa-square-plus" style="margin-right: 5px;"></i>
+                Nueva matrícula
+            </a>
+            <a alt="Eliminar matrícula" title="Eliminar matrícula" routerLinkActive="activated" routerLink="administrator/students/management-enrollments">
+                <i class="fa-solid fa-graduation-cap" style="margin-right: 1px;"></i>
+                Gestionar matrículas
+            </a>
+
+        </div>
+        <div *ngIf="rol == 'ROLE_TEACHER' || rol == 'ROLE_ADMIN'">
+            <h3>Ciclos del centro</h3>
+            <a alt="Ver ciclos" title="Ver ciclos" routerLinkActive="activated">
+                <i class="fa-solid fa-chalkboard-user" style="margin-right: 3px;"></i>
+                Ver ciclos
+            </a>
+            <h3>Empresas</h3>
+            <a alt="Ver empresas" title="Ver empresas" routerLinkActive="activated">
+                <i class="fa-solid fa-building" style="margin-right: 5px;"></i>
+                Ver empresas
+            </a>
+        </div>
+        <div *ngIf="rol == 'ROLE_STUDENT'">
+            <h3>Matrículas</h3>
+            <a alt="Mis matrículas" title="Mis matrículas" routerLinkActive="activated">
+                <i class="fa-solid fa-chalkboard-user" style="margin-right: 3px;"></i>
+                Mis matrículas
+            </a>
+
+            <h3>Empresas</h3>
+            <a alt="Ver empresas" title="Ver empresas" routerLinkActive="activated">
+                <i class="fa-solid fa-building" style="margin-right: 5px;"></i>
+                Ver empresas
+            </a>
+            <a alt="Mi empresa" title="Mi empresa" routerLinkActive="activated">
+                <i class="fa-solid fa-building" style="margin-right: 5px;"></i>
+                Mi empresa
+            </a>
+        </div>
+
+        <a id="last-item"></a>
+
+    </div>    
+</div>
+
+<!-- Menú de accesibilidad -->
+
+<div id="accesibility" class="noShow">
+    <div id="modal">
+        <a id="close" (click)="changeVisiblityOfAccesibility()">
+            <i class="fa-solid fa-xmark"></i>
+        </a>
+        <h3>
+            <i class="fa-solid fa-universal-access" style="margin-right: 0.5em;"></i>
+            Accesibilidad
+        </h3>
+                
+        <div class="option">
+            <p class="titleButton">
+                <i class="fa-solid fa-eye-low-vision c-primary"></i>
+                Escala de grises
+            </p>
+
+            <label class="switch">
+                <input id="btn-a" (click)="changeGray()" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+                
+        <div class="option">
+            <p class="titleButton">
+                <i class="fa-solid fa-arrow-turn-up c-primary" style="margin-left: 0.3em ;margin-right: 0.2em;"></i>
+                Alto constraste
+            </p>
+
+            <label class="switch">
+                <input id="btn-b" (click)="changeConstrast()" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Menú de ajustes -->
+
+<div id="settings" class="noShow">
+    <div id="modal">
+        <a id="close" (click)="changeVisiblityOfSettings()">
+            <i class="fa-solid fa-xmark"></i>
+        </a>
+        <h3>
+            <i class="fa-solid fa-gear"></i>
+            Ajustes
+        </h3>
+
+        <div class="option">
+            <p class="titleButton">Nombre</p>
+        </div>
+        <div class="option">
+            <p class="titleButton">Apellidos</p>
+        </div>
+
+        <div class="option">
+            <p class="titleButton">Color de la aplicación</p>
+
+            <label class="switch">
+                <input id="btn-b" (click)="changeConstrast()" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>        
+    </div>
+
+</div>
+
+<!-- Notificaciones -->
+
+<!-- Pantalla de carga -->
+
+<app-loading *ngIf="!person"></app-loading>

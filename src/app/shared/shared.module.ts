@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoadingComponent } from './components/loading/loading.component';
-import { ScrollToUpComponent } from './components/scroll-to-up/scroll-to-up.component';
-import { SearchComponent } from './components/search/search.component';
+import { LoadingComponent } from './Components/Loading/loading.component';
+import { ScrollToUpComponent } from './Components/Scroll-to-up/scroll-to-up.component';
+import { SearchComponent } from './Components/Search/search.component';
+import { LoadingComponentComponent } from './Components/loading-component/loading-component.component';
 
 
 
@@ -10,7 +11,8 @@ import { SearchComponent } from './components/search/search.component';
   declarations: [
     LoadingComponent,
     ScrollToUpComponent,
-    SearchComponent
+    SearchComponent,
+    LoadingComponentComponent
   ],
   imports: [
     CommonModule
