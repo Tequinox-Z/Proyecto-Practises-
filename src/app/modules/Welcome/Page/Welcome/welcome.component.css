@@ -3,15 +3,14 @@
     transition: 1s;
 }
 
-a {
+#init {
     display: inline-block;
     padding: 0.7em 1.0em;
-    margin-top: 1em;
     color: white;
     background-color: rgb(255, 0, 76);
 }
 
-a:hover {
+#init:hover {
     background-color:  rgb(255, 166, 0);
 }
 
@@ -76,11 +75,6 @@ p {
     100% {
         bottom: 0;
     }
-}
-
-#text a {
-    animation-name: flip;
-    animation-duration: 3s;
 }
 
 @keyframes flip {

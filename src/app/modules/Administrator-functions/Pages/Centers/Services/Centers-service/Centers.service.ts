@@ -54,4 +54,16 @@ export class CentersService {
     return this.http.post<School>(environment.serverAddress + '/administrator/' + this.userService.getDni() + '/school', school , options);
   }
 
+
+  getCenter(idCenter: string): Observable<School> {
+
+    const options: HttpOptions = {
+      headers: new HttpHeaders ({
+        'Authorization': `Bearer ${this.auth.getToken()}`
+      })
+    }
+
+    return this.http.get<School>(environment.serverAddress + '/school/' + idCenter, options);
+  }
+
 }

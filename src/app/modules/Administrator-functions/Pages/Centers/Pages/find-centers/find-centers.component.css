@@ -1,0 +1,125 @@
+#no-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    font-variant: small-caps;
+    font-size: 0.8em;
+    text-shadow: 2px 2px 6px black;
+    color: #ffffff;
+}
+  
+  .school:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+  .container {
+    padding: 2px 16px;
+  }
+
+#no-content > img {
+    width: 80%;
+    position: relative;
+    top: -5%;
+    max-width: 300px;
+}
+
+#no-content > p {
+    font-size: 1.2em;
+    width: 24%;
+    position: relative;
+    top: 1%;
+}
+
+#schools {
+    text-align: center;
+    width: 100%;
+}
+
+.school > img {
+    height: 60%;
+}
+
+.school {
+    border-radius: 2%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.507);
+    height: 19em;
+    margin: 1em;
+    color: white;
+    width: 40%;
+    min-width: 200px;
+    overflow: hidden;
+    max-width: 250px;
+}
+
+.title {
+    color: white;
+    font-variant: small-caps;
+    padding: 1em;
+}
+
+.container > h4 {
+    text-align: left;
+    font-size: 1.1em;
+    padding: 0.6em;
+}
+
+.container > a {
+    background-color: white;
+    color: black;
+    padding: 10px 50px;
+    position: relative;
+    top: 1.2em;
+}
+
+.container > p {
+   text-align: left;
+   padding-left: 5%;
+   color: rgb(208, 208, 208);
+   font-size: 0.8em;
+   position: relative;
+   top: -0.5em;
+}
+
+
+
+@media (max-width: 1000px) {
+    #no-content > p {
+        width: 40%;
+    }    
+}
+
+@media (max-width: 600px) {
+    #no-content > p {
+        width: 70%;
+    }    
+    .school {
+        margin: 5%;
+    }
+    
+    .container > a {
+        position: relative !important;
+        width: 100%;
+        left: -3.5%;
+    }
+}
+
+#search {
+    background-color: rgba(0, 0, 0, 0.507);
+    margin-top: -10%;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 5%;
+    text-align: center;
+    position: relative;
+    top: -0.5em;
+    width: 40%;
+    max-width: 320px;
+    margin-bottom: 0.5em;
+    color: white;
+}

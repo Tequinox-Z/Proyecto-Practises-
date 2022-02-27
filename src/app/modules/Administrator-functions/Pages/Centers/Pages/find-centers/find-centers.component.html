@@ -1,13 +1,24 @@
 <div id="schools">
+
+    <h1 class="title" *ngIf="setSchoolMode">Elija un centro</h1>
+    <input id="search" placeholder="Buscar" type="text">
+    <br>
+
     <div *ngFor="let school of schools" class="school" id="{{ school.id }}">
-         <img src="{{ school.image }}" alt="">
-        {{ school.name }}
-        <a *ngIf="setSchoolMode" (click)="setSchool($event)">
+        <img src="{{ school.image }}" alt="Avatar" style="width:100%">
+        <div class="container">
+          <h4><b>{{ school.name }}</b></h4>
+          <p>{{ school.address }}</p>
+          <a *ngIf="setSchoolMode" (click)="setSchool($event)">
             Administrar
         </a>
+        </div>
     </div>
+
 </div>
 
-<div *ngIf="!schools || schools.length == 0">
+<div id="no-content" *ngIf="!schools || schools.length == 0">
+    <img src="/assets/img/school.png">
     <h1>No se han encontrado centros</h1>
+    <p *ngIf="setSchoolMode">Actualmente no administras ningún centro, elige cual deseas administrar</p>
 </div>

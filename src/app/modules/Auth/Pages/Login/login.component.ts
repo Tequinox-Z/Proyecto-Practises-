@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    
+
     this.loading = true;
 
     this.auth.login(this.model).subscribe({

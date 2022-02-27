@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LoginResponse } from '../../../../core/Interfaces/login-response/login-response';
 import { UserLoginRequest } from '../../../../core/Interfaces/user-login-request/user-login-request';
 import { environment } from '../../../../../environments/environment';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,7 @@ export class AuthService {
   }
 
   login(user: UserLoginRequest) {
+    user.password = CryptoJS.MD5(user.password).toString();
     return this.http.post<LoginResponse>(environment.serverAddress + "/auth/login", user);
   }
 
@@ -42,6 +44,7 @@ export class AuthService {
   }
 
   register(user: UserLoginRequest) {
+    user.password = CryptoJS.MD5(user.password).toString();
     return this.http.post(environment.serverAddress + "/auth/register", user);
   }
 
