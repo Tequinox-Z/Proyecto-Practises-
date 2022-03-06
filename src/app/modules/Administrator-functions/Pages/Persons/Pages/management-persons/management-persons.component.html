@@ -1,1 +1,28 @@
-<p>management-persons works!</p>
+<h1 class="title">Administradores</h1>
+
+  <div class="data">
+      <div id="container-table">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Dni</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>Fecha de nacimiento</th>
+            </tr>
+       </thead>
+        <tbody>
+            <tr *ngFor="let administrator of administrators">
+                <td>{{ administrator.name }}</td>
+                <td>{{ administrator.lastName }}</td>
+                <td>{{ administrator.dni }}</td>
+                <td>{{ administrator.address }}</td>
+                <td>{{ administrator.telefone }}</td>
+                <td>{{ administrator.birthDate }}</td>
+            </tr>
+            </tbody>
+        </table>
+       </div>
+</div>

@@ -3,6 +3,8 @@ import { UserService } from '../../../../../Dashboard/Services/UserService/user.
 import { CentersService } from '../../Services/Centers-service/Centers.service';
 import { School } from 'src/app/core/Interfaces/school/school';
 import Swal from 'sweetalert2';
+import { Administrator } from '../../../../../../core/Interfaces/administrator/administrator';
+import { ProfessionalDegree } from '../../../../../../core/Interfaces/professionalDegree/professional-degree';
 
 @Component({
   selector: 'app-my-center',
@@ -19,20 +21,41 @@ export class MyCenterComponent implements OnInit {
   ngOnInit(): void {
     this.centerService.getMyCenter(this.userService.getDni()).subscribe({
       next: (school: School) => {
-        this.currentSchool = school;
+          this.currentSchool = school;
+          this.getAditionalInfoCenter();
       },
-      error: (response) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: ((response.error.mensaje == undefined)? 'Servidor no disponible' : response.error.mensaje),
-        })
-      }
+      error: () => {
+        
+      }  
     })
   }
 
   settedSchool(school: School) {
     this.notification.emit('Centro asignado correctamente');
     this.currentSchool = school;
+    this.getAditionalInfoCenter();
+  }
+
+
+  getAditionalInfoCenter() {
+    this.centerService.getAdministratorsFromCenter(this.currentSchool.id + '')
+    .subscribe({
+      next: (response: Administrator[]) => {
+        this.currentSchool.administrators = response;
+      },
+      error: () => {
+
+      }
+    })
+
+    this.centerService.getProfessionalDegreesFromCenter(this.currentSchool.id + '')
+    .subscribe({
+      next: (response: ProfessionalDegree[]) => {
+        this.currentSchool.professionalDegrees = response;
+      },
+      error: () => {
+
+      }
+    })
   }
 }

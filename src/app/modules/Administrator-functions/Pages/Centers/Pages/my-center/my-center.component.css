@@ -1,0 +1,13 @@
+#center {
+    color: white;
+    text-align: center;
+}
+
+#center img {
+    height: 100vh;
+}
+
+.title {
+    text-align: center;
+    color: white;
+}

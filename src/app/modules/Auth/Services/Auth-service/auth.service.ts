@@ -26,8 +26,13 @@ export class AuthService {
   }
 
   login(user: UserLoginRequest) {
-    user.password = CryptoJS.MD5(user.password).toString();
-    return this.http.post<LoginResponse>(environment.serverAddress + "/auth/login", user);
+
+    let userEncrypt: UserLoginRequest = {
+      "dni": user.dni, 
+      "password": CryptoJS.MD5(user.password).toString()
+    };
+
+    return this.http.post<LoginResponse>(environment.serverAddress + "/auth/login", userEncrypt);
   }
 
   logout() {

@@ -1,6 +1,7 @@
 nav {
     color: white;
     background-color: rgba(0, 0, 0, 0.481);
+    /* rgb(255 255 255 / 9%); */
     padding: 7px;
     font-variant: petite-caps;
     padding-left: 0.7em !important;
@@ -16,7 +17,6 @@ nav {
 
 #router {
     margin-left: 58px;
-    height: 91.5vh;
     position: relative;
     top: 3.45em;
     z-index: 0;
@@ -35,6 +35,7 @@ nav {
     display: inline-block;
     position: fixed;
     height: 100vh;
+    /* rgba(0, 0, 0, 0.481); */
     background-color: rgba(0, 0, 0, 0.481);
     max-width: 250px;
     backdrop-filter: blur(20px);
@@ -165,7 +166,7 @@ nav > h3 {
     display: block;
     font-size: 0.9em;
     color: white;
-    text-align: center;
+    text-align: left;
     margin-right: 5px;
     padding: 15px 20px;
 }
@@ -216,12 +217,12 @@ nav > h3 {
     z-index: 10;
     text-align: center;
     backdrop-filter: blur(10px);
-    background-color: rgba(0, 0, 0, 0.411);
+    background-color: rgba(0, 0, 0, 0.481);
 }
 
 #accesibility #modal {
     width: 70%;
-    background-color: rgba(0, 0, 0, 0.433);
+    background-color: rgba(255, 255, 255, 0.159);
     max-width: 40em;
     position: relative;
     margin-left: auto;
@@ -231,7 +232,7 @@ nav > h3 {
 }
 
 #modal {
-    border: 1px solid rgb(73, 73, 73);
+    border: 1px solid rgb(124, 124, 124);
     transition: 0.5s;
 }
 
@@ -376,7 +377,7 @@ input:checked + .slider:before {
 
 #settings #modal {
     width: 70%;
-    background-color: rgba(0, 0, 0, 0.433);
+    background-color: rgba(255, 255, 255, 0.159);
     max-width: 40em;
     position: relative;
     margin-left: auto;
@@ -395,6 +396,6 @@ input:checked + .slider:before {
     z-index: 10;
     text-align: center;
     backdrop-filter: blur(10px);
-    background-color: rgba(0, 0, 0, 0.411);
+    background-color: rgba(0, 0, 0, 0.46);
 }
 

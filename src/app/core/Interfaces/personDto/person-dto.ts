@@ -5,6 +5,7 @@ export interface PersonDto {
     lastName?: string,
     image?: string,
     telefone?: string,
+    password?: string,
     address?: string,
     rol?: Rol
 }

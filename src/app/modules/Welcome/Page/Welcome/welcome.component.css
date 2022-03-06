@@ -6,12 +6,17 @@
 #init {
     display: inline-block;
     padding: 0.7em 1.0em;
+    position: absolute;
+    right: 1em;
+    transition: 0.5s;
+    top: 1em;
     color: white;
     background-color: rgb(255, 0, 76);
+    z-index: 200;
 }
 
 #init:hover {
-    background-color:  rgb(255, 166, 0);
+    background-color:  rgb(255, 79, 117);
 }
 
 #title img {
@@ -30,7 +35,7 @@
 #title {
     color: white;
     text-align: center;
-    height: 100vh;
+    height: 99%;
 }
 
 #title:before {

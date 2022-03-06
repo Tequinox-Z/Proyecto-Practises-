@@ -1,24 +1,81 @@
-<div id="schools">
-
-    <h1 class="title" *ngIf="setSchoolMode">Elija un centro</h1>
-    <input id="search" placeholder="Buscar" type="text">
-    <br>
-
-    <div *ngFor="let school of schools" class="school" id="{{ school.id }}">
-        <img src="{{ school.image }}" alt="Avatar" style="width:100%">
-        <div class="container">
-          <h4><b>{{ school.name }}</b></h4>
-          <p>{{ school.address }}</p>
-          <a *ngIf="setSchoolMode" (click)="setSchool($event)">
-            Administrar
-        </a>
+<div id = "find" (click)="hiddenMenu()">
+    <div id="schools">
+        <div>
+            <h1 class="title" *ngIf="setSchoolMode && findEnable">Elija un centro</h1>
+            <h1 class="title" *ngIf="!setSchoolMode && findEnable">Centros educativos</h1>
+            <input *ngIf="findEnable" id="search" (keyup)="find($event)" autocomplete="off" placeholder="Buscar" type="text">
+            <br>
         </div>
+
+        <div id="schoolsElements">
+            <div (contextmenu)="updateMenuData($event)" *ngFor="let school of schools" class="school" id="{{ school.id }}" >
+                <img src="{{ (school.image)? school.image: '/assets/img/noPhotoSchool.jpg' }}" alt="Avatar" style="width:100%">
+                <div class="container">
+                <h4><b>{{ school.name }}</b></h4>
+                <p>{{ school.address }}</p>
+                <a *ngIf="setSchoolMode" (click)="setSchool($event)">
+                    Administrar
+                </a>
+                <a *ngIf="!setSchoolMode" (click)="getInfo($event)">
+                    Información
+                </a>
+                </div>
+            </div>
+        </div>
+
+    
     </div>
 
+    <!-- No centers found -->
+    
+    <div id="no-content" *ngIf="!schools">
+        <img src="/assets/img/school.png">
+        <h1>No se han encontrado centros</h1>
+        <p *ngIf="setSchoolMode">Actualmente no administras ningún centro, elige cual deseas administrar</p>
+    </div>
+    
+    <!-- Menú clic derecho -->
+    
+    <div id="context-menu">
+        <div class="item">
+            <p>
+                <i class="fa-solid fa-circle-info"></i>
+                Información
+            </p>
+        </div>
+        <div class="item" (click)="setSchool(idSchoolForMenu)">
+            <p>
+                <i class="fa-solid fa-bars-progress"></i>
+                Administrar
+            </p>
+        </div>
+    </div>
 </div>
 
-<div id="no-content" *ngIf="!schools || schools.length == 0">
-    <img src="/assets/img/school.png">
-    <h1>No se han encontrado centros</h1>
-    <p *ngIf="setSchoolMode">Actualmente no administras ningún centro, elige cual deseas administrar</p>
+
+<div id="information" class="noShow">
+    <div id="modal"> 
+        <a id="close" (click)="changeVisiblityOfInfo()">
+            <i class="fa-solid fa-xmark"></i>
+        </a>
+        <h3>
+            <i class="fa-solid fa-circle-info"></i>
+            Administradores
+        </h3>
+        <div id="admins">
+
+            <p id="noAdmins" *ngIf="adminInfo && adminInfo.length == 0">Sin administradores</p>
+            
+            <div *ngFor="let administrator of adminInfo">
+                <p class="name">
+                    <i class="fa-solid fa-user c-primary"></i>
+                    {{ administrator.name }} 
+                    -
+                    {{ administrator.telefone }}
+                </p>   
+                <br>
+            </div>
+ 
+        </div>
+    </div>
 </div>
