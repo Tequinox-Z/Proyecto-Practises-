@@ -9,7 +9,7 @@
 
         <div id="schoolsElements">
             <div (contextmenu)="updateMenuData($event)" *ngFor="let school of schools" class="school" id="{{ school.id }}" >
-                <img src="{{ (school.image)? school.image: '/assets/img/noPhotoSchool.jpg' }}" alt="Avatar" style="width:100%">
+                <img src="{{ (school.image)? school.image: 'assets/img/noPhotoSchool.jpg' }}" alt="Avatar" style="width:100%">
                 <div class="container">
                 <h4><b>{{ school.name }}</b></h4>
                 <p>{{ school.address }}</p>
@@ -29,7 +29,7 @@
     <!-- No centers found -->
     
     <div id="no-content" *ngIf="!schools">
-        <img src="/assets/img/school.png">
+        <img src="assets/img/school.png">
         <h1>No se han encontrado centros</h1>
         <p *ngIf="setSchoolMode">Actualmente no administras ningún centro, elige cual deseas administrar</p>
     </div>
