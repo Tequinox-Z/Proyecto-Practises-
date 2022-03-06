@@ -22,7 +22,7 @@ html {
     animation-name: clear;
     transition: 1s;
     animation-duration: 1s;
-    background: url(/assets/img/background.jpg);
+    background: url(src/assets/img/background.jpg);
     background-size: cover;
     background-attachment: fixed;
     font-size: 100%;
