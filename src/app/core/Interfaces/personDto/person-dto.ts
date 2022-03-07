@@ -1,17 +1,23 @@
+
+// Interfaz de persona
+
 export interface PersonDto {
-    dni ?: string,
-    birthDate?: Date,
-    name?: string,
-    lastName?: string,
-    image?: string,
-    telefone?: string,
-    password?: string,
-    address?: string,
-    rol?: Rol
+    dni ?: string,                                // Dni de la persona
+    birthDate?: Date,                             // Fecha de nacimiento
+    name?: string,                                // Nombre
+    lastName?: string,                            // Apellidos
+    image?: string,                               // Imagen
+    telefone?: string,                            // Teléfono
+    password?: string,                            // Contraseña
+    address?: string,                             // Dirección
+    rol?: Rol                                     // Rol
 }
 
+
+// Enumerado de roles 
+
 export enum Rol {
-    ROLE_STUDENT,
-    ROLE_TEACHER,
-    ROLE_ADMIN
+    ROLE_STUDENT,                                // Rol de estudiante
+    ROLE_TEACHER,                                // Rol de profesor
+    ROLE_ADMIN                                   // Rol de administrador
 }

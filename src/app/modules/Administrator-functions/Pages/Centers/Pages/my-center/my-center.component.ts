@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { UserService } from '../../../../../Dashboard/Services/UserService/user.service';
 import { CentersService } from '../../Services/Centers-service/Centers.service';
 import { School } from 'src/app/core/Interfaces/school/school';
-import Swal from 'sweetalert2';
 import { Administrator } from '../../../../../../core/Interfaces/administrator/administrator';
 import { ProfessionalDegree } from '../../../../../../core/Interfaces/professionalDegree/professional-degree';
 

@@ -1,4 +1,7 @@
+
+// Interfaz de ciclo
+
 export interface ProfessionalDegree {
-    id: string,
-    name: string
+    id: string,                                            // Identificador del ciclo
+    name: string                                           // Nombre del ciclo
 }

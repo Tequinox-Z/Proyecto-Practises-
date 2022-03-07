@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuardGuard } from '../../core/Guards/auth-guard/auth-guard.guard';
+
+// Rutas de funciones de estudiantes
 
 const routes: Routes = [
     {
       path: 'enrollments',
-      loadChildren: () => import('./Pages/Enrollments/enrollments.module').then( m =>
-        m.EnrollmentsModule  
-      )
+      loadChildren: () => import('./Pages/Enrollments/enrollments.module').then( m =>                              // Gestión de matrículas
+        m.EnrollmentsModule
+      ),
+      canActivate: [AuthGuardGuard]
     }
 ];
 

@@ -14,7 +14,6 @@ export class NewCenterComponent implements OnInit {
 
   public form!: FormGroup;
   newSchool!: School;
-  step:number = 1;
 
   constructor(private formBuilder: FormBuilder, private centersService: CentersService) { 
     

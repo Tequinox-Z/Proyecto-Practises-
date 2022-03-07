@@ -6,7 +6,7 @@ const routes: Routes = [
 
       {
         path: 'view-degrees',
-        component: ViewDegreesComponent
+        component: ViewDegreesComponent                                                      // Vista de ciclos
       },
 
 ];

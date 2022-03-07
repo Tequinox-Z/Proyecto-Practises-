@@ -12,12 +12,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  model: UserLoginRequest = {
+  model: UserLoginRequest = {                                                          // Este objeto almacenará el dni y contraseñá proporcionados por el usuario
     "dni" : "",
     "password" : ""
   }
 
-  loading: boolean = false; 
+  loading: boolean = false;                                                            // Indica si la pantalla de carga debe mostrarse u ocultarse
 
   constructor(private auth: AuthService, private router: Router, private route: ActivatedRoute) { 
     
@@ -25,23 +25,29 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.getToken() != null) {
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/');                                                  // Si tiene token lo redirigimos a la aplicación
     }
   }
 
+  /**
+   * Inicia sesión
+   */
   submit() {
 
-    this.loading = true;
+    this.loading = true;                                                                // Mostramos la pantalla de carga
 
-    this.auth.login(this.model).subscribe({
+    this.auth.login(this.model).subscribe({                                             // Lanzamos la petición
       next: (response: LoginResponse) => {
-        this.loading = false;
-        this.auth.setToken(response.jwt_token + '');
-        this.router.navigate(['/']);
+        this.loading = false;                                                           // Ocultamos la pantalla de carga
+        this.auth.setToken(response.jwt_token + '');                                    // Establecemos el token
+        this.router.navigate(['/']);                                                    // Navegamos hasta la aplicación
       },
       error: (response) => {
-        this.loading = false;
-        Swal.fire({
+        this.loading = false;                                                           // En caso de error ocultamos la pantalla de carga
+        
+        // Indicamos el error ocurrido
+
+        Swal.fire({                                                                     
           icon: 'error',
           title: 'Oops...',
           text: ((response.error.mensaje == undefined)? 'Servidor no disponible' : response.error.mensaje),

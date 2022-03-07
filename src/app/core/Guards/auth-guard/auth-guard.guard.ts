@@ -3,6 +3,9 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } fro
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/modules/Auth/Services/Auth-service/auth.service';
 
+
+// ====================================================== Guardián ======================================================
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,8 +15,9 @@ export class AuthGuardGuard implements CanActivate {
 
   }
 
+  // Checkea si se puede acceder a la ruta
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.authService.isValidToken();
+    return this.authService.isValidToken();                                                              // Checkeamos si el token es válido
   }
   
 }

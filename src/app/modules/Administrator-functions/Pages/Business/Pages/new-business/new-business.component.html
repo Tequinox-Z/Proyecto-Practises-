@@ -1,0 +1,46 @@
+<div id="container">
+    <h1 class="title">Nueva empresa</h1>
+
+    <form [formGroup]="form" (submit)="send()" id="msform">
+         
+        <!-- Nombre -->
+
+        <h3>Datos de la empresa</h3>
+    
+        <div>
+            <label for="name">Nombre</label>
+            <input type="text" id="name" formControlName="name">
+        </div>
+    
+        <!-- Nombre -->
+    
+        <div>
+            <label for="cif">CIF</label>
+            <input type="text" id="cif" formControlName="cif">
+        </div>
+    
+        <!-- Número de estudiantes -->
+    
+        <div>
+            <label for="numberOfStudents">Número de estudiantes</label>
+            <input type="number" id="numberOfStudents" formControlName="numberOfStudents">
+        </div>
+    
+        <!-- Envío -->
+    
+        <input type="submit" value="Crear" [disabled]="form.invalid">
+
+    </form>
+
+    
+
+</div>
+
+        <!-- Foto
+    
+        <div>
+            <label for="photo">Imagen</label>
+            <input type="file" id="photo" formControlName="photo" (change)="">
+        </div>
+    
+         -->

@@ -19,8 +19,9 @@ import { LoadingComponentComponent } from './Components/loading-component/loadin
   ],
   exports: [
     LoadingComponent,
+    ScrollToUpComponent,
     SearchComponent,
-    ScrollToUpComponent
+    LoadingComponentComponent
   ]
 })
 export class SharedModule { }

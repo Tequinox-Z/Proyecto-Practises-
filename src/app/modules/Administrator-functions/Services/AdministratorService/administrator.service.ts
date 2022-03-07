@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../../Auth/Services/Auth-service/auth.service';
 import { HttpOptions } from '../../../../core/Interfaces/httpOptions/http-options';
 import { environment } from '../../../../../environments/environment';
-import { PersonDto } from '../../../../core/Interfaces/personDto/person-dto';
 import { Administrator } from '../../../../core/Interfaces/administrator/administrator';
 
 @Injectable({
@@ -15,6 +14,10 @@ export class AdministratorService {
 
   }
 
+  /**
+   * Obtiene todos los administradores
+   * @returns 
+   */
   getAll() {
     const options: HttpOptions = {
       headers: new HttpHeaders ({
@@ -22,6 +25,6 @@ export class AdministratorService {
       })
     }
 
-    return this.http.get<Administrator[]>(environment.serverAddress + '/administrator', options);
+    return this.http.get<Administrator[]>(environment.serverAddress + '/administrator', options);            // Lanza la petición y devuelve la respuesta
   }
 }

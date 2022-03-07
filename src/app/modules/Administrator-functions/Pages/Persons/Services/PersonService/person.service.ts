@@ -17,16 +17,21 @@ export class PersonService {
       private http: HttpClient
   ) { }
 
+  /**
+   * Crea una nueva persona
+   * @param newPerson Datos de la nueva persona
+   * @returns Persona creada
+   */
   createNewPerson(newPerson: PersonDto) {
-    newPerson.password = CryptoJS.MD5(newPerson.password + '').toString();
+    newPerson.password = CryptoJS.MD5(newPerson.password + '').toString();                                  // Encriptamos la contraseña
     
      const options: HttpOptions = {
       headers: new HttpHeaders ({
-        'Authorization': `Bearer ${this.auth.getToken()}`
+        'Authorization': `Bearer ${this.auth.getToken()}`                                                   // Insertamos el token
       })
     }
     
-    return this.http.post<PersonDto>(environment.serverAddress + '/auth/register', newPerson , options);
+    return this.http.post<PersonDto>(environment.serverAddress + '/auth/register', newPerson , options);    // Lanzamos la petición
   }
   
 }

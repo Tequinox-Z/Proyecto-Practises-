@@ -7,35 +7,28 @@
 
         <h3>1. Datos del centro</h3>
     
-        <div *ngIf="step == 1">
+        <div>
             <label for="name">Nombre</label>
             <input type="text" id="name" formControlName="name">
         </div>
     
         <!-- Direccion -->
     
-        <div *ngIf="step == 1">
+        <div>
             <label for="address">Dirección</label>
             <input type="text" id="address" formControlName="address">
         </div>
     
         <!-- Contraseña -->
     
-        <div *ngIf="step == 2">
+        <div>
             <label for="password">Contraseña</label>
             <input type="password" id="password" formControlName="password">
         </div>
     
         <!-- Envío -->
     
-        <input *ngIf="step == 2" type="submit" value="Crear" [disabled]="form.invalid">
-
-
-        <ul id="progressbar">
-            <li class="active">Nombre y foto</li>
-            <li>Datos relacionados</li>
-            <li>Contraseña</li>
-        </ul>
+        <input type="submit" value="Crear" [disabled]="form.invalid">
 
     </form>
 

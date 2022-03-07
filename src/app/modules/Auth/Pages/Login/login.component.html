@@ -1,4 +1,7 @@
 <div id="container">
+
+    <!-- Formulario de login -->
+
     <form #login="ngForm" (ngSubmit)="submit()">
         <h2>Iniciar sesión</h2>
         <div>
@@ -8,10 +11,14 @@
             <input [disabled]="login.invalid" id="submit" type="submit" value="Iniciar sesión">
         </div>   
     </form>
+
+    <!-- Iniciar sesión con Google -->
+
     <a id="float-bottom">
         <img id="google" title="Iniciar sesión con Google" src="assets/img/google.png">
     </a>  
 </div>
 
+<!-- Pantalla de carga -->
 <app-loading *ngIf="loading"></app-loading>
 

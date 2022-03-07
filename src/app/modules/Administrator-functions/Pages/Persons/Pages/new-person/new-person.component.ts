@@ -104,11 +104,19 @@ export class NewPersonComponent implements OnInit {
   }
 */
 
+  /**
+   * Crea una nueva persona
+   */
   send() {
+
+    // Lanzamos la petición para crear uan persona
 
     this.personService.createNewPerson(this.form.value)
     .subscribe({
       next: (response) => {
+          
+        // Indicamos que está creada la persona
+        
           Swal.fire(
           'Usuario creado',
           `Puede administrar el usuario en gestionar personas`,
@@ -116,6 +124,9 @@ export class NewPersonComponent implements OnInit {
         )
       },
       error: (response) => {
+
+        // En caso de error mostramos el error
+
           Swal.fire({
           icon: 'error',
           title: 'Oops...',

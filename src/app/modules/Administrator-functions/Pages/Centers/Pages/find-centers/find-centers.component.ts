@@ -13,34 +13,43 @@ import { Administrator } from '../../../../../../core/Interfaces/administrator/a
 })
 export class FindCentersComponent implements OnInit {
 
-  schools!: School[];
-  findEnable!: boolean;
-  adminInfo!: Administrator[];
+  schools!: School[];                                                                        // Lista de escuelas
+  findEnable!: boolean;                                                                      // Habilita o deshabilita la búsqueda
+  adminInfo!: Administrator[];                                                               // Mantiene la lista de administradores de una escuela
 
-  @Input() setSchoolMode: boolean = false;
-  @Output() emitSchool: EventEmitter<School> = new EventEmitter<School>();
 
-  menu!: HTMLElement;
+  @Input() setSchoolMode: boolean = false;                                                   // Indica si hay que habilitar el modo establecer escuela o no
+  @Output() emitSchool: EventEmitter<School> = new EventEmitter<School>();                   // Emite un evento indicando que el usuario ha establecido una escuela
 
-  idSchoolForMenu = "";
+
+  menu!: HTMLElement;                                                                        // Menú de usuario
+
+  idSchoolForMenu = "";                                                                      // Identificador de la escuela para menú
 
   constructor(private centersService: CentersService) { 
 
   }
 
   ngOnInit(): void {
-    this.getAllCenters();
+
+    this.getAllCenters();                                                                                    // Obtenemos todos los centros
+
+        
+    // Evento Menú click derecho
 
     document.querySelector('#schoolsElements')?.addEventListener("contextmenu", (event: Event) => {
-       event.preventDefault(); 
+       event.preventDefault();                                                                               // Quitamos el evento por defecto
 
        if (event.target === document.querySelector('#schoolsElements'))  {
-          this.hiddenMenu();
+          this.hiddenMenu();                                                                                 // Ocultamos el menú si ha pulsado otra cosa
        }
        else {
-          this.showMenu();
+          this.showMenu();                                                                                   // Mostramos la escuela si ha pulsado una escuela
        }
     });
+
+
+    // Muestra el menú donde se ha hecho click derecho
 
     document.querySelector('#schoolsElements')?.addEventListener("contextmenu", (event: PointerEventInit) => {
       
@@ -52,50 +61,72 @@ export class FindCentersComponent implements OnInit {
     this.menu = document.querySelector('#context-menu')!;
   }
 
+  /**
+   * Actualzia los datos del menú
+   * @param event Evento
+   */
   updateMenuData(event: Event) {
     this.idSchoolForMenu = (event.currentTarget as HTMLDivElement).getAttribute('id') + '';
   }
 
+  /**
+   * Oculta el menú
+   */
   hiddenMenu() {
-    this.menu.classList.add('minimized');
+    this.menu.classList.add('minimized');                                          // Aplicamos la animación
     setTimeout(() => {
-      this.menu.style.display = "none";
+      this.menu.style.display = "none";                                            // Al poco tiempo lo quitamos
     }, 100)
   }
 
+  /**
+   * Muestra el menú
+   */
   showMenu() {
-    this.menu.style.display = "inline-block";
+    this.menu.style.display = "inline-block";                                      // Lo mostramos
     setTimeout(() => {
-      this.menu.classList.remove('minimized');
+      this.menu.classList.remove('minimized');                                     // Quitamos la minimización para que haga la animación
     }, 100);
   }
 
+  /**
+   * Busca centros
+   * @param event Evento
+   */
   find (event: Event) {
 
-    let text = (event.target as HTMLInputElement).value.trim();
+    let text = (event.target as HTMLInputElement).value.trim();                    // Texto de búsqueda
 
     if (text.length == 0) {
-      this.getAllCenters();
+      this.getAllCenters();                                                        // Si no hay nada obtenemos todos los centros
     }
     else {
-      this.getAllCentersByName(text);
+      this.getAllCentersByName(text);                                              // Si hay algo obtiene los centros por nombre
     }
   }
 
+  /**
+   * Establece una determinada escuela
+   * @param event Evento o String
+   */
   setSchool (event:(Event | string)) {
 
-    let schoolId: string;
+    let schoolId: string;                      // Obtenemos el id del colegio
 
     if (typeof event == "string") {
-      schoolId = event;
+      schoolId = event;                        // Si es de tipo string asignamos el evento directamente ya que ya tenemos el di
     }
     else {
-      schoolId = (event.target as HTMLDivElement).parentElement?.parentElement?.getAttribute("id") + '';
+      schoolId = (event.target as HTMLDivElement).parentElement?.parentElement?.getAttribute("id") + '';          // Si no sacamos el número
     }
     
+    // Obtenemos el centro
+
     this.centersService.getCenter(schoolId)
     .subscribe({
       next: (school: School) => {
+
+        // Pedimos la contraseña
 
         Swal.fire({
           title: 'Introduzca la contraseña',
@@ -109,51 +140,64 @@ export class FindCentersComponent implements OnInit {
           cancelButtonColor: 'transparent',
           showLoaderOnConfirm: true,
           preConfirm: (login) => {
-            let passwordEncrypt = CryptoJS.MD5(login).toString();
+
+            let passwordEncrypt = CryptoJS.MD5(login).toString();        // Ciframos la contraseá 
 
             if (passwordEncrypt != school.password) {
-              Swal.showValidationMessage("Contraseña incorrecta");
+              Swal.showValidationMessage("Contraseña incorrecta");       // Verificamos la contraseña
             }
           },
           allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
           if (result.isConfirmed) {
+
+            // Si la contraseña es correcta establecemos el centro
+
             this.centersService.setCenter(schoolId)
             .subscribe({
               next: (response: School) => {
-                this.emitSchool.emit(response);
+                this.emitSchool.emit(response);                               // Emitimos el centro
               },
               error: (error) => {
-                this.message(error.error.mensaje);
+                this.message(error.error.mensaje);                            // En caso de error lanzamos el error
               }
             });
           }
         })
       },
       error: (error) => {
-        this.message(error.error.mensaje);
+        this.message(error.error.mensaje);                            // En caso de error lanzamos error
       }
     });
 
   }
 
-
+  /**
+   * Obtiene todos los centros por nombre
+   */
   getAllCentersByName(text: string) {
+
+    // Lanzamos la petición
+
     this.centersService.getAllByName(text)
     .subscribe({
       next: (response: School[]) => {
-        this.schools = response;
+        this.schools = response;                  // Establecemos los centros
       },
       error: (error) => {
-        this.schools = [];
-        this.message(error.error.mensaje);
+        this.schools = [];                        // En caso de no haber o error vaciamos los colegios
+        this.message(error.error.mensaje);        // Mostramos el error
       }
     })
   }
 
-
+  /**
+   * Obtiene todos los centros
+   */
   getAllCenters() {
 
+    // Lanzamos la petición
+    
     this.centersService.getAll()
     .subscribe({
       next: (response: School[]) => {

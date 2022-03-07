@@ -1,11 +1,14 @@
 <div *ngIf="person" id="fullContainer">
     <div>
+
+        <!-- Menú de usuario -->
+
         <nav>
             <h3>
                 <i id="menuBurguer" (click)="menuToggle()" class="fa-solid fa-bars"></i>
                 <p id="title">Dashboard</p>
             </h3>
-            <img (click)="userToggle()" id="user" src="{{ (!person.image || person.image == '') ? '/assets/img/not_image.png' : person.image  }}" title="{{ (person.name) ? person.name : 'Sin nombre' }} {{ (person.lastName) ? person.lastName : 'Sin apellidos ' }}">
+            <img (click)="userToggle()" id="user" src="{{ (!person.image || person.image == '') ? 'assets/img/not_image.png' : person.image  }}" title="{{ (person.name) ? person.name : 'Sin nombre' }} {{ (person.lastName) ? person.lastName : 'Sin apellidos ' }}">
             
             <div class="hidden" id="optionsNav">
                 <a alt="Muestra ajustes generales de la aplciación" title="Muestra ajustes generales de la aplciación" (click)="changeVisiblityOfSettings()">
@@ -21,16 +24,27 @@
                     Cerrar sesión
 				</a>
 			</div>
-
         </nav>    
+
+        <!-- Menú de usuario -->
+
+        <!-- Contenido -->
+
         <div id="content">
             <div id="router" (click)="closeMenus()">
                 <router-outlet (notification)="showMessage($event)"></router-outlet>
             </div>
         </div>
+
+        <!-- Contenido -->
     </div>
     
+    <!-- Menú de navegación -->
+
     <div id="menu" class="close">
+
+        <!-- Funciones de administrador -->
+
         <div *ngIf="rol == 'ROLE_ADMIN'">
             <h3>Centro</h3>
             <a title="Mi centro" alt="Mi centro" routerLink="administrator/centers/my-center" routerLinkActive="activated">
@@ -66,8 +80,12 @@
                 <i class="fa-solid fa-graduation-cap" style="margin-right: 1px;"></i>
                 Gestionar matrículas
             </a>
-
         </div>
+
+        <!-- Funciones de administrador -->
+
+        <!-- Funciones de profesor -->
+
         <div *ngIf="rol == 'ROLE_TEACHER' || rol == 'ROLE_ADMIN'">
             <h3>Ciclos del centro</h3>
             <a alt="Ver ciclos" title="Ver ciclos" routerLinkActive="activated">
@@ -79,7 +97,16 @@
                 <i class="fa-solid fa-building" style="margin-right: 5px;"></i>
                 Ver empresas
             </a>
+            <a alt="Nueva empresa" title="Nueva empresa" routerLinkActive="activated" routerLink="administrator/business/new-business">
+                <i class="fa-solid fa-plus" style="margin-right: 4px;"></i>
+                Nueva empresa
+            </a>
         </div>
+
+        <!-- Funciones de profesor -->
+
+        <!-- Funciones de estudiante -->
+
         <div *ngIf="rol == 'ROLE_STUDENT'">
             <h3>Matrículas</h3>
             <a alt="Mis matrículas" title="Mis matrículas" routerLinkActive="activated">
@@ -98,7 +125,12 @@
             </a>
         </div>
 
-        <a id="last-item"></a>
+        <!-- Funciones de estudiante -->
+
+
+        <a id="last-item"></a>                                                      <!-- Elemento adicional para la separación inferior -->
+
+        <!-- Menú de navegación -->
 
     </div>    
 </div>
@@ -130,7 +162,7 @@
         <div class="option">
             <p class="titleButton">
                 <i class="fa-solid fa-arrow-turn-up c-primary" style="margin-left: 0.3em ;margin-right: 0.2em;"></i>
-                Alto constraste
+                Alto contraste
             </p>
 
             <label class="switch">

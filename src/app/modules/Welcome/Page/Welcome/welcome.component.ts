@@ -16,9 +16,12 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit(): void {
     
+
     if (this.auth.getToken() != null) {
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/');                                              // Comprobamos si el usuario tiene un token, si lo tiene lo redirigimos a la aplicación
     }
+
+
 
     /*const cargarImagen = (entradas:any) => {
       entradas.forEach((entrada:any) => {
@@ -41,18 +44,21 @@ export class WelcomeComponent implements OnInit {
         observador.observe(image);
     })*/
 
+    /**
+     * Este código nos permite cambiar el texto de bienvenida de la aplicación
+     */
     const typed = new Typed('.typed', {
       strings: [
                 ' Practises management',
-                ' Administrador de prácticas'
+                ' Administrador de prácticas'                                            // Texto
       ],
-      typeSpeed: 75,
-      shuffle: true,
-      backSpeed: 50,
-      loop: true,
-      cursorChar: '<span id="color">_</span>',
-      fadeOutClass: 'typed-fade-out',
-      backDelay: 1500
+      typeSpeed: 75,                                                                     // Velocidad de tipado
+      shuffle: true,                                                                     // Aleatorio
+      backSpeed: 50,                                                                     // Velocidad de borrado
+      loop: true,                                                                        // Repetir
+      cursorChar: '<span id="color">_</span>',                                           // Cursor
+      fadeOutClass: 'typed-fade-out',                                                    // Clase al tipear
+      backDelay: 1500                                                                    // Tiempo de retorno
   });
 
   }

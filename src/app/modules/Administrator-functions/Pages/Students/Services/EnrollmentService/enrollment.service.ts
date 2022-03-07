@@ -14,14 +14,17 @@ export class EnrollmentService {
 
   }
 
-
+  /**
+   * Obtiene todas las matrículas
+   * @returns 
+   */
   getAll() {
     const options: HttpOptions = {
       headers: new HttpHeaders ({
-        'Authorization': `Bearer ${this.auth.getToken()}`
+        'Authorization': `Bearer ${this.auth.getToken()}`                                                // Indicamos el token
       })
     }
 
-    return this.http.get<Enrollment[]>(environment.serverAddress + '/enrollment', options);
+    return this.http.get<Enrollment[]>(environment.serverAddress + '/enrollment', options);              // Lanzamos la petición
   }
 }
