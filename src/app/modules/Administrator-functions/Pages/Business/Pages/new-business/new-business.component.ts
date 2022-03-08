@@ -57,7 +57,7 @@ export class NewBusinessComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: ((response.error.message == undefined)? 'Servidor no disponible' : response.error.message),
+          text: ((response.error.message == undefined)? 'Ya existe una empresa con este cif' : response.error.message),
         })
       }
     })

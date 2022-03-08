@@ -25,14 +25,7 @@ export class CentersService {
    * @returns Observable escuela
    */
   getMyCenter(dni: String): Observable<School> {
-
-    const options: HttpOptions = {
-      headers: new HttpHeaders ({
-        'Authorization': `Bearer ${this.auth.getToken()}`
-      })
-    }
-
-    return this.http.get<School>(environment.serverAddress + '/administrator/' + dni + '/school', options);            // Lanzamos la petición
+    return this.http.get<School>(environment.serverAddress + '/administrator/' + dni + '/school', this.auth.getHeadersToken());            // Lanzamos la petición
   }
 
   /**
@@ -41,13 +34,7 @@ export class CentersService {
    * @returns Observable de escuela
    */
   getAllByName(text: string): Observable<School[]> {
-    const options: HttpOptions = {
-      headers: new HttpHeaders ({
-        'Authorization': `Bearer ${this.auth.getToken()}`
-      })
-    }
-
-    return this.http.get<School[]>(`${environment.serverAddress}/school?name=${text}`, options);                        // Lanzamos la petición
+    return this.http.get<School[]>(`${environment.serverAddress}/school?name=${text}`, this.auth.getHeadersToken());                        // Lanzamos la petición
   }
 
   /**
@@ -55,13 +42,7 @@ export class CentersService {
    * @returns Lista de centros
    */
   getAll(): Observable<School[]> {
-    const options: HttpOptions = {
-      headers: new HttpHeaders ({
-        'Authorization': `Bearer ${this.auth.getToken()}`
-      })
-    }
-
-    return this.http.get<School[]>(environment.serverAddress + '/school', options);                                                      // Lanzamos la petición
+    return this.http.get<School[]>(environment.serverAddress + '/school', this.auth.getHeadersToken());                                                      // Lanzamos la petición
   }
 
   /**
@@ -70,17 +51,11 @@ export class CentersService {
    * @returns Observable de colegio
    */
   setCenter(idCenter: string): Observable<School> {
-    const options: HttpOptions = {
-      headers: new HttpHeaders ({
-        'Authorization': `Bearer ${this.auth.getToken()}`
-      })
-    }
-
     let administrator: PersonDto = {
       "dni": this.userService.getDni().toString()                                                                                       // Creamos un objeto con el dni del usuario
     };
 
-    return this.http.post<School>(environment.serverAddress + '/school/' + idCenter + '/administrator', administrator , options);       // Lanzamos la petición
+    return this.http.post<School>(environment.serverAddress + '/school/' + idCenter + '/administrator', administrator , this.auth.getHeadersToken());       // Lanzamos la petición
   }
 
   /**
@@ -89,14 +64,7 @@ export class CentersService {
    * @returns Observable del centro
    */
   getCenter(idCenter: string): Observable<School> {
-
-    const options: HttpOptions = {
-      headers: new HttpHeaders ({
-        'Authorization': `Bearer ${this.auth.getToken()}`                                                                                
-      })
-    }
-
-    return this.http.get<School>(environment.serverAddress + '/school/' + idCenter, options);                                            // Lanzamos la petición
+    return this.http.get<School>(environment.serverAddress + '/school/' + idCenter, this.auth.getHeadersToken());                                            // Lanzamos la petición
   }
 
   /**
@@ -105,13 +73,7 @@ export class CentersService {
    * @returns Observable de administradores
    */
   getAdministratorsFromCenter(idCenter: string): Observable<Administrator[]> {
-    const options: HttpOptions = {
-      headers: new HttpHeaders ({
-        'Authorization': `Bearer ${this.auth.getToken()}`
-      })
-    }
-
-    return this.http.get<Administrator[]>(`${environment.serverAddress}/school/${idCenter}/administrator`, options);                      // Lanzamos la petición
+    return this.http.get<Administrator[]>(`${environment.serverAddress}/school/${idCenter}/administrator`, this.auth.getHeadersToken());                      // Lanzamos la petición
   }
 
   /**
@@ -120,22 +82,10 @@ export class CentersService {
    * @returns 
    */
   getProfessionalDegreesFromCenter(idCenter: string): Observable<ProfessionalDegree[]> {
-
-    const options: HttpOptions = {
-      headers: new HttpHeaders ({
-        'Authorization': `Bearer ${this.auth.getToken()}`
-      })
-    }
-
-    return this.http.get<ProfessionalDegree[]>(`${environment.serverAddress}/school/${idCenter}/professionalDegree`, options);            // Lanzamos la petición
+    return this.http.get<ProfessionalDegree[]>(`${environment.serverAddress}/school/${idCenter}/professionalDegree`, this.auth.getHeadersToken());            // Lanzamos la petición
   }
 
   newCenter(school: School) {
-    const options: HttpOptions = {
-      headers: new HttpHeaders ({
-        'Authorization': `Bearer ${this.auth.getToken()}`
-      })
-    }
 
     let newSchool: School = {
       name: school.name,
@@ -144,7 +94,7 @@ export class CentersService {
       administrators: school.administrators
     };
 
-    return this.http.post<School>(environment.serverAddress + '/school/', newSchool , options);                                          // Lanzamos la petición
+    return this.http.post<School>(environment.serverAddress + '/school/', newSchool , this.auth.getHeadersToken());                                          // Lanzamos la petición
 
   }
 }

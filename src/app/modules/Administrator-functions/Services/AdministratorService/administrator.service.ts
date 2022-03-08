@@ -19,12 +19,6 @@ export class AdministratorService {
    * @returns 
    */
   getAll() {
-    const options: HttpOptions = {
-      headers: new HttpHeaders ({
-        'Authorization': `Bearer ${this.auth.getToken()}`
-      })
-    }
-
-    return this.http.get<Administrator[]>(environment.serverAddress + '/administrator', options);            // Lanza la petición y devuelve la respuesta
+    return this.http.get<Administrator[]>(environment.serverAddress + '/administrator', this.auth.getHeadersToken());            // Lanza la petición y devuelve la respuesta
   }
 }

@@ -4,7 +4,6 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from '../../../Auth/Services/Auth-service/auth.service';
 import { PersonDto } from '../../../../core/Interfaces/personDto/person-dto';
 import { Observable } from 'rxjs';
-import { HttpOptions } from '../../../../core/Interfaces/httpOptions/http-options';
 
 @Injectable({
   providedIn: 'root'
@@ -22,14 +21,7 @@ export class UserService {
    * @returns Observable de persona
    */
   getUser(): Observable<PersonDto>{
-    
-    const options: HttpOptions = {
-      headers: new HttpHeaders ({
-        'Authorization': `Bearer ${this.auth.getToken()}`
-      })
-    }
-
-    return this.http.get<PersonDto>(`${environment.serverAddress}/person`, options);
+    return this.http.get<PersonDto>(`${environment.serverAddress}/person`, this.auth.getHeadersToken());
   }
 
 

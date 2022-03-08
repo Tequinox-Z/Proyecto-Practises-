@@ -5,13 +5,14 @@ import { LoginResponse } from '../../../../core/Interfaces/login-response/login-
 import { UserLoginRequest } from '../../../../core/Interfaces/user-login-request/user-login-request';
 import { environment } from '../../../../../environments/environment';
 import * as CryptoJS from 'crypto-js';
+import { HttpOptions } from '../../../../core/Interfaces/httpOptions/http-options';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private router: Router) { 
+  constructor(private http: HttpClient, private router: Router, private auth: AuthService) { 
     
   }
 
@@ -84,14 +85,8 @@ export class AuthService {
    * @returns Observable
    */
   private async sendToken(token: string) {
-    const options = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',                                                          // Establecemos las cabeceras
-        'Authorization': `Bearer ${<string> token}`
-      })
-    }
 
-    return await this.http.get(environment.serverAddress + '/auth/checktoken', options).toPromise()  // Lanzamos la petición
+    return await this.http.get(environment.serverAddress + '/auth/checktoken', this.auth.getHeadersToken()).toPromise()  // Lanzamos la petición
     .then(() => {
         return true;                                                                                 // Si es válido retornamos true
     })
@@ -100,5 +95,13 @@ export class AuthService {
         this.router.navigate(['welcome']);                                                           // Navegamos a la pantalla de bienvenida
         return false;
     })
+  }
+
+  getHeadersToken(): HttpOptions {
+    return {
+      headers: new HttpHeaders ({
+        'Authorization': `Bearer ${this.getToken()}`
+      })
+    }
   }
 }

@@ -12,10 +12,7 @@ import { environment } from '../../../../../../../environments/environment';
 })
 export class PersonService {
 
-  constructor(
-      private auth: AuthService,
-      private http: HttpClient
-  ) { }
+  constructor(private auth: AuthService, private http: HttpClient) { }
 
   /**
    * Crea una nueva persona
@@ -25,13 +22,7 @@ export class PersonService {
   createNewPerson(newPerson: PersonDto) {
     newPerson.password = CryptoJS.MD5(newPerson.password + '').toString();                                  // Encriptamos la contraseña
     
-     const options: HttpOptions = {
-      headers: new HttpHeaders ({
-        'Authorization': `Bearer ${this.auth.getToken()}`                                                   // Insertamos el token
-      })
-    }
-    
-    return this.http.post<PersonDto>(environment.serverAddress + '/auth/register', newPerson , options);    // Lanzamos la petición
+    return this.http.post<PersonDto>(environment.serverAddress + '/auth/register', newPerson , this.auth.getHeadersToken());    // Lanzamos la petición
   }
   
 }
