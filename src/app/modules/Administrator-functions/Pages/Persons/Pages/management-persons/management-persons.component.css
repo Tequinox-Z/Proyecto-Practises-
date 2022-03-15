@@ -10,6 +10,18 @@ th {
     color: white;
 }
 
+.center {
+  text-align: center;
+}
+
+td {
+  text-align: center;
+}
+
+input{
+  color: black;
+}
+
 
 #DataTables_Table_0_length {
     color: white !important;
@@ -45,7 +57,7 @@ only screen and (max-width: 760px),
     }
  
 	td { 
-        color: white;
+      color: white;
 		border: none;
 		position: relative;
         height: 1em;

@@ -1,24 +1,32 @@
 <!-- Si tenemos un centro asignado mostramos su información -->
 
-    <div *ngIf="currentSchool">
-        <h1 class="title">{{ currentSchool.name }}</h1>
+<div id="container" *ngIf="currentSchool">
+
+    <h1 id="hora">{{now|date:'HH:mm'}} <p>{{ now |date: 'ss'}}</p></h1>
+
+        <div>
+            <p id="title">{{ currentSchool.name }} </p>
+        </div>
 
         <div id="center">
-            <img src="{{ (currentSchool.image)? currentSchool.image: 'assets/img/noPhotoSchool.jpg' }}">
-            <p>Dirección: {{ currentSchool.address }}</p>
-            <p>Identificador: {{ currentSchool.id }}</p>
+            <img id="background" src="{{ (currentSchool.image)? currentSchool.image: 'assets/img/noPhotoSchool.jpg' }}">
+            <p id="address">{{ currentSchool.address }}</p>
         </div>
         
-        <div>
-            <h2>Administradores</h2>
-            <div *ngFor="let administrator of currentSchool.administrators">
-                <p>{{ administrator.name }}</p>
+        <div id="tables">
+            <div>
+                <h2><span>{{ currentSchool.administrators?.length }}</span> Administradores</h2>
+                <div *ngFor="let administrator of currentSchool.administrators">
+                    <p><i class="fa-solid fa-user"></i>{{ administrator.name }} {{ administrator.lastName }}</p>
+                </div>
             </div>
-        </div>
-        <div>
-            <h2>Ciclos</h2>
-            <div *ngFor="let professionalDegree of currentSchool.professionalDegrees">
-                <p>{{ professionalDegree.name }}</p>
+            <div>
+                <h2><span>{{ currentSchool.professionalDegrees?.length }} </span> Ciclos</h2>
+                <div *ngFor="let professionalDegree of currentSchool.professionalDegrees">
+                    <p>{{ professionalDegree.name }}</p>
+                </div>
+                <img id="nodegree" *ngIf="currentSchool.professionalDegrees == null || currentSchool.professionalDegrees?.length == 0" src="assets/img/degree.png">
+                <p *ngIf="currentSchool.professionalDegrees == null || currentSchool.professionalDegrees?.length == 0">Sin ciclos</p>
             </div>
         </div>
     </div>

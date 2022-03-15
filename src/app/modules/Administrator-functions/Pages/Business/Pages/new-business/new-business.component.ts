@@ -25,7 +25,9 @@ export class NewBusinessComponent implements OnInit {
     this.form = this.formBuilder.group({
       cif: ['', {
         validators: [
-          Validators.required
+          Validators.required,
+          Validators.maxLength(9),
+          Validators.minLength(9)
         ]
       }],
       name: ['', {
@@ -36,7 +38,7 @@ export class NewBusinessComponent implements OnInit {
       numberOfStudents: ['', {
         validators: [
           Validators.required,
-          Validators.minLength(8)
+          Validators.min(0)
         ]
       }],
     });

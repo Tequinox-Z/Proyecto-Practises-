@@ -1,38 +1,41 @@
 <div id="container">
     <h1 class="title">Nuevo centro</h1>
 
-    <form [formGroup]="form" (submit)="send()" id="msform">
+    <div id="flex">
+        <img src="assets/img/school.png">
+        <form [formGroup]="form" (submit)="send()" id="msform">
          
-        <!-- Nombre -->
-
-        <h3>1. Datos del centro</h3>
+            <!-- Nombre -->
     
-        <div>
-            <label for="name">Nombre</label>
-            <input type="text" id="name" formControlName="name">
-        </div>
+            <p id="form-title">Datos del centro</p>
+        
+            <div>
+                <input placeholder="Nombre" type="text" id="name" formControlName="name">
+                <p *ngIf="form.controls['name'].invalid && form.controls['name'].touched">Indique el nombre del centro</p>
+            </div>
+        
+            <!-- Direccion -->
+        
+            <div>
+                <input placeholder="Dirección" type="text" id="address" formControlName="address">
+                <p *ngIf="form.controls['address'].invalid && form.controls['address'].touched">Indique la dirección del centro</p>
+            </div>
+        
+            <!-- Contraseña -->
+        
+            <div>
+                <input placeholder="Contraseña" type="password" id="password" formControlName="password">
+                <p *ngIf="form.controls['password'].invalid && form.controls['password'].touched">Indique una contraseña con un mínimo de 8 carácteres</p>
+            </div>
+        
+            <!-- Envío -->
+        
+            <input id="add" type="submit" value="Crear" [disabled]="form.invalid">
     
-        <!-- Direccion -->
+        </form>
     
-        <div>
-            <label for="address">Dirección</label>
-            <input type="text" id="address" formControlName="address">
-        </div>
     
-        <!-- Contraseña -->
-    
-        <div>
-            <label for="password">Contraseña</label>
-            <input type="password" id="password" formControlName="password">
-        </div>
-    
-        <!-- Envío -->
-    
-        <input type="submit" value="Crear" [disabled]="form.invalid">
-
-    </form>
-
-    
+    </div>
 
 </div>
 

@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CentersService } from '../../Services/Centers-service/Centers.service';
 import { School } from '../../../../../../core/Interfaces/school/school';
 import Swal from 'sweetalert2';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-new-center',
@@ -25,11 +24,6 @@ export class NewCenterComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      /*photo: ['', {
-        validators: [
-          Validators.required
-        ]
-      }],*/
       name: ['', {
         validators: [
           Validators.required
@@ -49,19 +43,6 @@ export class NewCenterComponent implements OnInit {
     });
     
   }
-/*
-  onFileChange(event: Event) {
-
-    let files: any = (event.target as HTMLInputElement).files;
-  
-    if (files.length > 0) {
-      const file = files[0];
-      this.form.patchValue({
-        fileSource: file
-      });
-    }
-  }
-*/
 
   send() {
     this.centersService.newCenter(this.form.value)

@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import { AuthService } from '../../../Auth/Services/Auth-service/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CentersService } from '../../../Administrator-functions/Pages/Centers/Services/Centers-service/Centers.service';
+import { School } from '../../../../core/Interfaces/school/school';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,12 +22,13 @@ export class DashboardComponent implements OnInit {
   teacherDefaultPage : String = "student/";                                                         // Ruta por defecto para al estudiante
   studentDefaultPage : String = "teacher/degrees/viewDegrees";                                      // Ruta por defecto para al profesor
 
-  constructor(private toastService: ToastrService, private route: ActivatedRoute, private router: Router, private auth: AuthService, private userService: UserService) { }
+  constructor(private toastService: ToastrService, private route: ActivatedRoute, private router: Router, private auth: AuthService, private userService: UserService, public centerService: CentersService) { }
 
   person!: PersonDto;                                                                              // Persona actual
   rol!: string;                                                                                    // Rol asignado
 
   ngOnInit(): void {
+
     
     // Obtenemos el usuario
 
@@ -42,6 +45,22 @@ export class DashboardComponent implements OnInit {
 
         switch(this.rol) {
           case "ROLE_ADMIN": {
+
+            // Obtenemos el centro
+            
+            this.centerService.getMyCenter(this.userService.getDni()).subscribe({
+              next: (school: School) => {
+                  this.centerService.setIdSchool(school.id!);
+              },
+              error: (response) => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: ((response.error.mensaje == undefined)? 'Servidor no disponible' : response.error.mensaje),        // En caso de error mostramos el error
+                  /*footer: '<a href="">Why do I have this issue?</a>'*/
+                })
+              }
+            });
             this.router.navigate([this.administratorDefaultPage], { relativeTo: this.route });     // En caso de que sea administrador
             break;
           }

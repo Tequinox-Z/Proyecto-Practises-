@@ -4,6 +4,8 @@ import { CentersService } from '../../Services/Centers-service/Centers.service';
 import { School } from 'src/app/core/Interfaces/school/school';
 import { Administrator } from '../../../../../../core/Interfaces/administrator/administrator';
 import { ProfessionalDegree } from '../../../../../../core/Interfaces/professionalDegree/professional-degree';
+import Swal from 'sweetalert2';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-my-center',
@@ -13,18 +15,33 @@ import { ProfessionalDegree } from '../../../../../../core/Interfaces/profession
 export class MyCenterComponent implements OnInit {
 
   constructor(private centerService: CentersService, private userService: UserService) { }
+  now!: Date;
 
   currentSchool!: School;
   @Output() notification: EventEmitter<String> = new EventEmitter<String>();
 
   ngOnInit(): void {
+
+    this.now = new Date();
+    setInterval(() => {
+      this.now = new Date();
+    }, 1000);
+
     this.centerService.getMyCenter(this.userService.getDni()).subscribe({
       next: (school: School) => {
           this.currentSchool = school;
           this.getAditionalInfoCenter();
+          this.centerService.setIdSchool(this.currentSchool.id!);
       },
-      error: () => {
-        
+      error: (error: HttpErrorResponse) => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: '¡Bienvenido!',
+          text: 'Para comenzar, elige la escuela que administras',
+          showConfirmButton: false,
+          timer: 5000
+        })
       }  
     })
   }
@@ -33,6 +50,7 @@ export class MyCenterComponent implements OnInit {
     this.notification.emit('Centro asignado correctamente');
     this.currentSchool = school;
     this.getAditionalInfoCenter();
+    this.centerService.setIdSchool(school.id!);
   }
 
 
@@ -42,18 +60,19 @@ export class MyCenterComponent implements OnInit {
       next: (response: Administrator[]) => {
         this.currentSchool.administrators = response;
       },
-      error: () => {
+      error: (response: HttpErrorResponse) => {
 
       }
     })
 
     this.centerService.getProfessionalDegreesFromCenter(this.currentSchool.id + '')
-    .subscribe({
+    .subscribe(
+      {
       next: (response: ProfessionalDegree[]) => {
         this.currentSchool.professionalDegrees = response;
       },
-      error: () => {
-
+      error: response => {
+        
       }
     })
   }

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { PersonDto, Rol } from '../../../../../../core/Interfaces/personDto/person-dto';
+import { PersonDto } from '../../../../../../core/Interfaces/personDto/person-dto';
 import * as CryptoJS from 'crypto-js';
-import { HttpOptions } from '../../../../../../core/Interfaces/httpOptions/http-options';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../../../Auth/Services/Auth-service/auth.service';
 import { environment } from '../../../../../../../environments/environment';
+import { AbstractControl, AsyncValidator, ValidationErrors } from '@angular/forms';
+import { catchError, map, Observable, of } from 'rxjs';
 
 
 @Injectable({
@@ -24,5 +25,5 @@ export class PersonService {
     
     return this.http.post<PersonDto>(environment.serverAddress + '/auth/register', newPerson , this.auth.getHeadersToken());    // Lanzamos la petición
   }
-  
+
 }

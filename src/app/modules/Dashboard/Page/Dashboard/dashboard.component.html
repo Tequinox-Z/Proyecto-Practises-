@@ -5,7 +5,7 @@
 
         <nav>
             <h3>
-                <i id="menuBurguer" (click)="menuToggle()" class="fa-solid fa-bars"></i>
+                <i id="menuBurguer" (click)="menuToggle()" *ngIf="this.centerService.getIdSchool() != null" class="fa-solid fa-bars"></i>
                 <p id="title">Dashboard</p>
             </h3>
             <img (click)="userToggle()" id="user" src="{{ (!person.image || person.image == '') ? 'assets/img/not_image.png' : person.image  }}" title="{{ (person.name) ? person.name : 'Sin nombre' }} {{ (person.lastName) ? person.lastName : 'Sin apellidos ' }}">
@@ -41,7 +41,7 @@
     
     <!-- Menú de navegación -->
 
-    <div id="menu" class="close">
+    <div id="menu" class="close" *ngIf="this.centerService.getIdSchool() != null">
 
         <!-- Funciones de administrador -->
 
@@ -59,7 +59,7 @@
                 <i class="fa-solid fa-plus" style="margin-right: 4px;"></i>
                 Nuevo centro
             </a>
-
+            
             <h3>Personas</h3>
             
             <a title="Registrar persona" alt="Registrar persona" routerLink="administrator/persons/new-person" routerLinkActive="activated">
@@ -70,7 +70,7 @@
                 <i class="fa-solid fa-users-gear"></i>
                 Gestionar personas
             </a>
-
+<!--
             <h3>Estudiantes</h3>
             <a alt="Nueva matrícula" title="Nueva matrícula" routerLinkActive="activated" routerLink="administrator/students/new-enrollment">
                 <i class="fa-solid fa-square-plus" style="margin-right: 5px;"></i>
@@ -80,6 +80,7 @@
                 <i class="fa-solid fa-graduation-cap" style="margin-right: 1px;"></i>
                 Gestionar matrículas
             </a>
+-->
         </div>
 
         <!-- Funciones de administrador -->
@@ -87,11 +88,14 @@
         <!-- Funciones de profesor -->
 
         <div *ngIf="rol == 'ROLE_TEACHER' || rol == 'ROLE_ADMIN'">
+            
+<!--
             <h3>Ciclos del centro</h3>
             <a alt="Ver ciclos" title="Ver ciclos" routerLinkActive="activated">
                 <i class="fa-solid fa-chalkboard-user" style="margin-right: 3px;"></i>
                 Ver ciclos
             </a>
+-->
             <h3>Empresas</h3>
             <a alt="Ver empresas" title="Ver empresas" routerLinkActive="activated">
                 <i class="fa-solid fa-building" style="margin-right: 5px;"></i>

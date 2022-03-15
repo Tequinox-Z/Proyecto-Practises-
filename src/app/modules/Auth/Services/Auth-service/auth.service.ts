@@ -12,7 +12,7 @@ import { HttpOptions } from '../../../../core/Interfaces/httpOptions/http-option
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private router: Router, private auth: AuthService) { 
+  constructor(private http: HttpClient, private router: Router) { 
     
   }
 
@@ -86,7 +86,7 @@ export class AuthService {
    */
   private async sendToken(token: string) {
 
-    return await this.http.get(environment.serverAddress + '/auth/checktoken', this.auth.getHeadersToken()).toPromise()  // Lanzamos la petición
+    return await this.http.get(environment.serverAddress + '/auth/checktoken', this.getHeadersToken()).toPromise()  // Lanzamos la petición
     .then(() => {
         return true;                                                                                 // Si es válido retornamos true
     })
@@ -98,10 +98,12 @@ export class AuthService {
   }
 
   getHeadersToken(): HttpOptions {
-    return {
+    let options: HttpOptions = {
       headers: new HttpHeaders ({
         'Authorization': `Bearer ${this.getToken()}`
       })
     }
+
+    return options;
   }
 }

@@ -3,6 +3,7 @@ import { PersonDto } from '../../../../../../core/Interfaces/personDto/person-dt
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PersonService } from '../../Services/PersonService/person.service';
+import { Validate } from '../../Services/PersonService/validate';
 
 @Component({
   selector: 'app-new-person',
@@ -14,7 +15,7 @@ export class NewPersonComponent implements OnInit {
   public form!: FormGroup;
   newPerson!: PersonDto;
 
-  constructor(private formBuilder: FormBuilder, private personService: PersonService) { 
+  constructor(private formBuilder: FormBuilder, private validate: Validate, private personService: PersonService) { 
 
   }
 
@@ -24,13 +25,6 @@ export class NewPersonComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      
-      /*photo: ['', {
-        validators: [
-          Validators.required
-        ]
-      }],*/
-
 
       name: ['', {
         validators: [
@@ -47,7 +41,8 @@ export class NewPersonComponent implements OnInit {
         validators: [
           Validators.required,
           Validators.pattern('^[0-9]{8}[a-zA-Z]{1}$')
-        ]
+          // ,[this.validate]
+        ],
       }],
 
       lastName: ['', {
@@ -136,5 +131,9 @@ export class NewPersonComponent implements OnInit {
     })
   }
 
+  fieldNoValid(field: string ) {
+    return this.form.get(field)?.invalid
+            && this.form.get(field)?.touched;
+  }
 
 }

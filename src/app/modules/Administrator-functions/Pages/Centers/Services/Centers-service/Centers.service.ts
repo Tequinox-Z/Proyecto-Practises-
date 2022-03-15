@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { School } from 'src/app/core/Interfaces/school/school';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../../../../Auth/Services/Auth-service/auth.service';
-import { HttpOptions } from 'src/app/core/Interfaces/httpOptions/http-options';
 import { UserService } from '../../../../../Dashboard/Services/UserService/user.service';
 import { Administrator } from '../../../../../../core/Interfaces/administrator/administrator';
 import { ProfessionalDegree } from '../../../../../../core/Interfaces/professionalDegree/professional-degree';
@@ -19,6 +18,8 @@ export class CentersService {
 
   constructor(private http: HttpClient, private auth: AuthService, private userService: UserService) { }
   
+  idSchool: (number | null) = null;
+
   /**
    * Obtiene el centro que administra el administrador
    * @param dni : Dni del usuario
@@ -82,7 +83,7 @@ export class CentersService {
    * @returns 
    */
   getProfessionalDegreesFromCenter(idCenter: string): Observable<ProfessionalDegree[]> {
-    return this.http.get<ProfessionalDegree[]>(`${environment.serverAddress}/school/${idCenter}/professionalDegree`, this.auth.getHeadersToken());            // Lanzamos la petición
+    return this.http.get<ProfessionalDegree[]>(`${environment.serverAddress}/school/${idCenter}/professional-degree`, this.auth.getHeadersToken());            // Lanzamos la petición
   }
 
   newCenter(school: School) {
@@ -96,5 +97,13 @@ export class CentersService {
 
     return this.http.post<School>(environment.serverAddress + '/school/', newSchool , this.auth.getHeadersToken());                                          // Lanzamos la petición
 
+  }
+
+  getIdSchool() {
+    return this.idSchool;
+  }
+
+  setIdSchool(idSchool: number) {
+    this.idSchool = idSchool;
   }
 }

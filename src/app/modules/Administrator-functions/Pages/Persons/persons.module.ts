@@ -2,9 +2,8 @@ import { ManagementPersonsComponent } from './Pages/management-persons/managemen
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PersonsRoutingModule } from './persons-routing-module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormsModule } from '@angular/forms';
 import { NewPersonComponent } from './Pages/new-person/new-person.component';
-import { MatTableModule } from '@angular/material/table';
 import { DataTablesModule } from 'angular-datatables';
 
 
@@ -14,7 +13,6 @@ import { DataTablesModule } from 'angular-datatables';
   imports: [
     CommonModule,
     PersonsRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     DataTablesModule
   ]
