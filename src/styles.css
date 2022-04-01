@@ -6,8 +6,11 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     user-select: none;
+    box-sizing: border-box;
+    outline: none;
+    text-size-adjust: none;
 }
 
 
@@ -28,10 +31,6 @@ html {
     animation-name: clear;
     transition: 1s;
     animation-duration: 1s;
-    background: url(assets/img/background.jpg);
-    background-size: cover;
-    background-attachment: fixed;
-    font-size: 100%;
 }
 
 
@@ -327,4 +326,9 @@ a {
 
   .swal2-success-circular-line-left, .swal2-success-fix, .swal2-success-circular-line-right {
     visibility: hidden !important;
+  }
+
+  .notShow {
+    opacity: 0;
+    z-index: -2;
   }

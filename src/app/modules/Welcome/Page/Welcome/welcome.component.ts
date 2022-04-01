@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class WelcomeComponent implements OnInit {
 
+
   constructor(private auth: AuthService, private router: Router, private route: ActivatedRoute) { 
     
   }
@@ -20,29 +21,6 @@ export class WelcomeComponent implements OnInit {
     if (this.auth.getToken() != null) {
       this.router.navigateByUrl('/');                                              // Comprobamos si el usuario tiene un token, si lo tiene lo redirigimos a la aplicación
     }
-
-
-
-    /*const cargarImagen = (entradas:any) => {
-      entradas.forEach((entrada:any) => {
-          if (entrada.isIntersecting) {
-              entrada.target.classList.remove('invisible');
-          }
-          else {
-              entrada.target.classList.add('invisible');
-          }
-      })
-    }
-
-    const observador = new IntersectionObserver(cargarImagen, {
-      root: null,
-      rootMargin: '0px 0px 0px 0px',
-      threshold: 0.5,
-    })
-
-    document.querySelectorAll('.efect').forEach((image) => {
-        observador.observe(image);
-    })*/
 
     /**
      * Este código nos permite cambiar el texto de bienvenida de la aplicación
@@ -60,7 +38,23 @@ export class WelcomeComponent implements OnInit {
       fadeOutClass: 'typed-fade-out',                                                    // Clase al tipear
       backDelay: 1500                                                                    // Tiempo de retorno
   });
+  }
 
+  toggleMenu() {
+    let actions = document.querySelector('#actions') as HTMLDivElement;
+
+    if (actions.classList.contains('noShowMenu')) {
+      actions.classList.remove('noShowMenu');
+    }
+    else {
+      actions.classList.add('noVisibility');
+      
+      setTimeout(() => {
+        actions.classList.add('noShowMenu');
+        actions.classList.remove('noVisibility');
+
+      }, 500)
+    }
   }
 
 }
