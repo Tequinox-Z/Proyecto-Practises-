@@ -42,11 +42,14 @@ export class WelcomeComponent implements OnInit {
 
   toggleMenu() {
     let actions = document.querySelector('#actions') as HTMLDivElement;
+    let menu = document.querySelector("#menu");
 
     if (actions.classList.contains('noShowMenu')) {
       actions.classList.remove('noShowMenu');
+      menu?.classList.add("invert", "cross");
     }
     else {
+      menu?.classList.remove("invert", "cross");
       actions.classList.add('noVisibility');
       
       setTimeout(() => {
@@ -57,4 +60,17 @@ export class WelcomeComponent implements OnInit {
     }
   }
 
+  scroll () {
+    let currentPosition = window.pageYOffset;
+    let nav = document.querySelector('#nav');
+    
+    let divs = document.querySelectorAll(".section");
+
+    if ((currentPosition >= divs[0].clientHeight && currentPosition <= divs[0].clientHeight + divs[1].clientHeight) || (currentPosition >= divs[0].clientHeight + divs[1].clientHeight + divs[2].clientHeight && currentPosition <= divs[0].clientHeight + divs[1].clientHeight + divs[2].clientHeight + divs[3].clientHeight)) {
+        nav?.classList.add("section-white");
+    }
+    else {
+      nav?.classList.remove("section-white");
+    }
+  }
 }

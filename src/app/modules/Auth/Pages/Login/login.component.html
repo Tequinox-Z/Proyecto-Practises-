@@ -9,7 +9,8 @@
             <input class="text" [(ngModel)]="model.password" name="password" id="contraseña" placeholder="Contraseña" type="password" required #password="ngModel"> <img *ngIf="password.invalid && password.touched" class="err" title="La contraseña debe de tener mínimo 8 carácteres" src="assets/img/err.png">
 
             <input [disabled]="login.invalid" id="submit" type="submit" value="Iniciar sesión">
-        </div>   
+        </div>
+        <button>Google</button>
     </form>
 
     <!-- Iniciar sesión con Google -->

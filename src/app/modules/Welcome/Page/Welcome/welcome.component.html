@@ -1,7 +1,13 @@
-<!-- Secciones-->
+<div (window:scroll)="scroll()">
+
+    <!-- Secciones-->
 
 <div id="nav">
-    <img id="menu" title="Menú" alt="Menú" (click)="toggleMenu()" src="/../assets/img/menu.png">
+    <div id="menu" title="Menú" alt="Menú" (click)="toggleMenu()">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
     <img id="logo" src="/../assets/img/logo.png">
 
     <div id="actions" class="noShowMenu">
@@ -53,7 +59,7 @@
         </div> 
         <h3 class="text-h3"><strong>Practises Management</strong> es una aplicación disponible para PC, Android e IOS que te permite gestionar tu centro y las prácticas relacionadas con los ciclos de Formación Profesional.</h3>
     </div>
-    <img class="" src="/../assets/img/dashboard.png">
+    <img id="dashboard-img" class="max-width" src="/../assets/img/dashboard.png">
 </div>
 
 <div id="security-section" class="section">
@@ -63,7 +69,7 @@
 
 </div>
 
-<div id="center-section" class="section">
+<div id="functions-section" class="section">
 
     <div>
         <div>
@@ -122,3 +128,4 @@
 <footer>
 
 </footer>
+</div>
