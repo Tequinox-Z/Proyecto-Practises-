@@ -50,7 +50,7 @@
 
 #welcome {
     display: flex;
-    background-image: url("/assets/img/background-welcome.png");
+    background-image: url(/assets/img/background-welcome.png);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -268,7 +268,7 @@ footer {
     background-size: 90%;
     background-repeat: no-repeat;
     width: 100%;
-    background-image: url(https://cdn.pixabay.com/photo/2019/03/13/14/08/building-4052951_960_720.png);
+    background-image: url(/assets/img/business.png);
     
     background-position: center center;
 
@@ -278,7 +278,7 @@ footer {
    background-size: 90%;
    background-repeat: no-repeat;
    width: 100%;
-   background-image: url(https://www.pngplay.com/wp-content/uploads/12/School-Clip-Art-PNG-Pic-Background.png);
+   background-image: url(/assets/img/school.png);
    background-position: center center;
  }
  #cube .bottom {
@@ -291,9 +291,7 @@ footer {
     background-size: 90%;
     background-repeat: no-repeat;
     width: 100%;
-    background-image: url("src/assets/img/students.png");
-
-    
+    background-image: url(/assets/img/students.png);
     background-position: center center;
     transform: rotateX(0deg) translateZ(105px);
   }
@@ -301,7 +299,7 @@ footer {
     background-size: 90%;
     background-repeat: no-repeat;
     width: 100%;
-    background-image: url(https://cdn-icons-png.flaticon.com/512/2416/2416666.png);
+    background-image: url(/assets/img/connect.png);
     
     background-position: center center;
     transform: rotateY(90deg) translateZ(105px);
