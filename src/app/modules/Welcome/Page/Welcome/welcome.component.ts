@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import Typed from 'typed.js';
 import { AuthService } from '../../../Auth/Services/Auth-service/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,17 +7,18 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.css']
-})
-export class WelcomeComponent implements OnInit {
+})                
+export class WelcomeComponent implements AfterViewInit, OnInit {
 
+  ngAfterViewInit():  void {
+      this.scroll();
+  }
 
   constructor(private auth: AuthService, private router: Router, private route: ActivatedRoute) { 
     
   }
 
   ngOnInit(): void {
-    
-
     if (this.auth.getToken() != null) {
       this.router.navigateByUrl('/');                                              // Comprobamos si el usuario tiene un token, si lo tiene lo redirigimos a la aplicación
     }
@@ -25,19 +26,20 @@ export class WelcomeComponent implements OnInit {
     /**
      * Este código nos permite cambiar el texto de bienvenida de la aplicación
      */
-    const typed = new Typed('.typed', {
-      strings: [
-                ' Practises management',
-                ' Administrador de prácticas'                                            // Texto
-      ],
-      typeSpeed: 75,                                                                     // Velocidad de tipado
-      shuffle: true,                                                                     // Aleatorio
-      backSpeed: 50,                                                                     // Velocidad de borrado
-      loop: true,                                                                        // Repetir
-      cursorChar: '<span id="color">_</span>',                                           // Cursor
-      fadeOutClass: 'typed-fade-out',                                                    // Clase al tipear
-      backDelay: 1500                                                                    // Tiempo de retorno
-  });
+  //   const typed = new Typed('.typed', {
+  //     strings: [
+  //               ' Practises management',
+  //               ' Administrador de prácticas'                                            // Texto
+  //     ],
+  //     typeSpeed: 75,                                                                     // Velocidad de tipado
+  //     shuffle: true,                                                                     // Aleatorio
+  //     backSpeed: 50,                                                                     // Velocidad de borrado
+  //     loop: true,                                                                        // Repetir
+  //     cursorChar: '<span id="color">_</span>',                                           // Cursor
+  //     fadeOutClass: 'typed-fade-out',                                                    // Clase al tipear
+  //     backDelay: 1500                                                                    // Tiempo de retorno
+  // });
+
   }
 
   toggleMenu() {
@@ -68,9 +70,11 @@ export class WelcomeComponent implements OnInit {
 
     if ((currentPosition >= divs[0].clientHeight && currentPosition <= divs[0].clientHeight + divs[1].clientHeight) || (currentPosition >= divs[0].clientHeight + divs[1].clientHeight + divs[2].clientHeight && currentPosition <= divs[0].clientHeight + divs[1].clientHeight + divs[2].clientHeight + divs[3].clientHeight)) {
         nav?.classList.add("section-white");
+        nav?.classList.add("blur");
     }
     else {
       nav?.classList.remove("section-white");
+      nav?.classList.remove("blur");
     }
   }
 }

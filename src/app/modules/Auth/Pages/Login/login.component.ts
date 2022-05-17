@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AuthService } from '../../Services/Auth-service/auth.service';
 import { UserLoginRequest } from '../../../../core/Interfaces/user-login-request/user-login-request';
 import Swal from 'sweetalert2';
@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements AfterViewInit, OnInit {
 
   model: UserLoginRequest = {                                                          // Este objeto almacenará el dni y contraseñá proporcionados por el usuario
     "dni" : "",
@@ -23,10 +23,18 @@ export class LoginComponent implements OnInit {
     
   }
 
+
   ngOnInit(): void {
     if (this.auth.getToken() != null) {
       this.router.navigateByUrl('/');                                                  // Si tiene token lo redirigimos a la aplicación
     }
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+        let transition = document.querySelector("#transition-login") as HTMLDivElement;
+        transition.style.display = "none";
+    }, 1000);
   }
 
   /**
@@ -56,5 +64,17 @@ export class LoginComponent implements OnInit {
       }
     })
     
+  }
+
+  back() {
+    this.router.navigate(['../welcome'], { relativeTo: this.route });
+  }
+
+  restorePassword() {
+    let inputDNI = document.querySelector("#dni.ng-valid");
+    
+    if (inputDNI != undefined) {
+        
+    }
   }
 }

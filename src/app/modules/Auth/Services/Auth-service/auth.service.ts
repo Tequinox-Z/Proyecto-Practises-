@@ -6,6 +6,7 @@ import { UserLoginRequest } from '../../../../core/Interfaces/user-login-request
 import { environment } from '../../../../../environments/environment';
 import * as CryptoJS from 'crypto-js';
 import { HttpOptions } from '../../../../core/Interfaces/httpOptions/http-options';
+import { PersonDto } from '../../../../core/Interfaces/personDto/person-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -105,5 +106,10 @@ export class AuthService {
     }
 
     return options;
+  }
+
+
+  restorePassword(person : PersonDto) {
+    //
   }
 }

@@ -11,7 +11,8 @@ import { Observable } from 'rxjs';
 export class UserService {
 
   private dni_user: String = '';
-
+  private config = null;
+  
   constructor(private http: HttpClient, private auth: AuthService) { 
 
   }

@@ -9,8 +9,207 @@
     align-items: center;
 }
 
+.disabled {
+    filter: opacity(0.3);
+}
+
+.disabled img {
+    animation-name: unset !important;
+}
+
+#submit:enabled:hover {
+    background-color: #EBEBEB;
+}
+
+.disabled:hover {
+    animation-name: unset !important;
+}
+
 form {
-    background-color: grey;
-    background-color: #d5d5d5;
-    height: 300px;
+    background-color: white;
+    box-shadow: 0px 7px 7px #b5b5b5;
+    height: 315px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    position: relative;
+    width: 85%;
+    max-width: 347px;
+    border-bottom: 4px solid var(--color);
+}
+
+#box-login {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.inputBox {
+    width: 78%;
+    position: relative;
+}
+
+#box-login input {
+    width: 100%;
+    padding-left: 45px;
+    height: 37px;
+    border: none;
+    background-color: #F0F0F0;   
+}
+
+#box-login input::placeholder {
+    color: rgb(53, 53, 53);
+}
+
+#box-login input:focus {
+    outline: none !important;
+}
+
+#submit {
+    position: absolute;
+    bottom: 35px;
+    border: none;
+    width: 60%;
+    height: 39px;
+    transition: 0.5s;
+}
+
+#title {
+    font-family: 'Exo 2', sans-serif;
+    position: absolute;
+    font-size: 22px;
+    font-weight: 100 !important;
+    top: 45px;
+}
+
+#transition-login {
+    background-color: #172477;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: 0.83s;
+    animation-name: intro-login;
+    z-index: 20;
+    animation-duration: 1s;
+}
+
+@keyframes intro-login {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+#page-container {
+    width: 100%;
+    height: 100vh;
+    background-color: #f1f1f1;
+}
+
+.icon-input {
+    width: 13px;
+    position: absolute;
+    top: 11px;
+    left: 17px;
+}
+
+.err {
+    width: 20px;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    transition: 1s;
+    animation-duration: 1s;
+    animation-name: errimage;
+}
+
+@keyframes errimage {
+    0% {
+        transform: rotateZ(180deg);
+        width: 0;
+    }
+    100% {
+        transform: rotateZ(0deg);
+        width: 20px;
+    }
+}
+
+#login-functions {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    height: 40px;
+    text-align: right;
+    justify-content: right;
+}
+
+@media (max-width: 600px) {
+    #login-functions {
+        text-align: center;
+        justify-content: center;
+    }
+
+    #actions {
+        right: unset !important;
+    }
+}
+
+#actions {
+    position: relative;
+    right: 30px;
+    display: flex;
+    background: white;
+    box-shadow: 0px 7px 7px #b5b5b5;
+    border-radius: 5px;
+    width: 150px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#actions div {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 33.3%;
+}
+
+#actions div:hover {
+    background-color: #F0F0F0;
+}
+
+#actions img {
+    height: 55%;
+}
+
+#actions div:hover img {
+    transition: 0.5s;
+    animation-name: clickme;
+    animation-iteration-count: infinite;
+    animation-duration: 1.5s;
+}
+
+@keyframes clickme {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
 }

@@ -1,4 +1,4 @@
-
+@import 'simple-keyboard/build/css/index.css';
 
 /* ============================================ Estilos generales ============================================  */
 
@@ -6,12 +6,95 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     user-select: none;
     box-sizing: border-box;
     outline: none;
     text-size-adjust: none;
 }
+
+
+.hg-button-numeric, .hg-button-default {
+  max-width: 20%;
+}
+
+.hg-button-close {
+  max-width: 10%;
+  font-weight: bolder;
+}
+
+.hg-button-move {
+  max-width: 10%;
+  opacity: 0;
+}
+
+.simple-keyboard {
+  max-width: 600px;
+  position: relative;
+  box-shadow: 1px 1px 10px grey;
+}
+
+.simple-keyboard::after {
+  opacity: 1;
+  bottom: 11px;
+  position: absolute;
+  content: "";
+  width: 30px;
+  cursor: move;
+  height: 30px;
+  right: 14%;
+  filter: contrast(0.1);
+  transform: rotateZ(90deg);
+  background-position: center center;
+  background-size: cover;
+  transition: 0.5s;
+  background-image: url(assets/img/drag.png);
+}
+
+@media (max-width: 500px) {
+  .simple-keyboard::after {
+    right: 13%;
+  }
+}
+
+@media (max-width: 614px) {
+  .hg-button-move {
+    display: none !important;
+  }
+  .simple-keyboard::after {
+    display: none !important;
+  }
+}
+
+.simple-keyboard {
+  animation-name: toUP;
+  animation-duration: 0.75s;
+}
+
+
+.toDOWN {
+  animation-name: toDOWN;
+}
+
+@keyframes toUP {
+  0% {
+    bottom: -185px;
+  }
+  100% {
+    bottom: 0px;
+  }
+}
+
+
+@keyframes toDOWN {
+  0% {
+    bottom: 0px;
+  }
+  100% {
+    bottom: -185px;
+  }
+}
+
 
 /* Colores */
 
@@ -19,7 +102,7 @@
     --primary: white;
     --secundary: rgb(225, 225, 225);
     --text: rgb(192, 192, 192);
-    --color: rgb(255, 75, 75);
+    --color: orange;
     --colorHover: rgb(95, 104, 185);
 }
 
@@ -31,6 +114,14 @@ html {
     animation-duration: 1s;
 }
 
+
+/* Teclado virtual */
+
+.simple-keyboard {
+  position: fixed;
+  bottom: 0;
+  z-index: 300;
+}
 
 /* Modales */
 
@@ -209,6 +300,11 @@ a {
   .toast-container * {
     box-sizing: border-box;
   }
+
+  .hidden {
+    display: none;
+  }
+
   .toast-container .ngx-toastr {
     position: relative;
     overflow: hidden;

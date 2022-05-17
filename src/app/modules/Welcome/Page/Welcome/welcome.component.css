@@ -20,7 +20,6 @@
 
 #nav {
     transition: 0.5s;
-    backdrop-filter: blur(10px) !important;
     position: fixed;
     perspective: 1000px;
     width: 100%;
@@ -45,9 +44,13 @@
     width: 50% !important;
 }
 
+#welcome *, #nav a {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS' !important;
+}
+
 #welcome {
     display: flex;
-    background-image: url("/assets/img/background-welcome.jpg");
+    background-image: url("/assets/img/background-welcome.png");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -59,6 +62,7 @@
     align-items: center;
     z-index: 1;
     box-shadow: 0px -1px 20px 0px black;
+
 }
 
 .shadow {
@@ -151,7 +155,7 @@ footer {
 }
 
 .subt {
-    color: rgba(255, 255, 255, 0.775) !important;
+    color: rgba(255, 255, 255, 0.89) !important;
 }
 
 #city {
@@ -618,3 +622,9 @@ footer {
   #cube {
       margin-left: 10px;
   }
+
+
+.blur {
+  backdrop-filter: blur(10px)  !important;
+}
+

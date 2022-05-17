@@ -20,6 +20,7 @@ import { DataTablesModule } from 'angular-datatables';
     DataTablesModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
