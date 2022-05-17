@@ -62,7 +62,10 @@
             <img src="assets/img/back.png" alt="Atrás" title="Atrás">
         </div>
         <div id="password-restore" [ngClass]="{'disabled': dni.invalid}">
-            <img src="assets/img/restart-password.png" [attr.alt]="dni.invalid ? 'Inserte su dni para recuperar contraseña': 'Recuperar contraseña'" [attr.title]="dni.invalid ? 'Inserte su dni para recuperar contraseña': 'Recuperar contraseña'" >
+          <img src="assets/img/restart-password.png" [attr.alt]="dni.invalid ? 'Inserte su dni para recuperar contraseña': 'Recuperar contraseña'" [attr.title]="dni.invalid ? 'Inserte su dni para recuperar contraseña': 'Recuperar contraseña'" >
+        </div>
+        <div id="keyboard" (click)="this.keyboardService.showKeyboard(true)">
+          <img  src="assets/img/keyboard.png" alt="Teclado en pantalla">
         </div>
         <div >
             <img src="assets/img/google.png" alt="Iniciar con Google" title="Iniciar con Google">

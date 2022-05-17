@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ToastrModule } from 'ngx-toastr';
 import { DataTablesModule } from 'angular-datatables';
+import { KeyboardService } from './shared/Services/Keyboard-service/keyboard-service';
 
 @NgModule({
   declarations: [
@@ -20,9 +21,10 @@ import { DataTablesModule } from 'angular-datatables';
     DataTablesModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()
-    
   ],
-  providers: [],
+  providers: [
+    KeyboardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

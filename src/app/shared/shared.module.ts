@@ -5,8 +5,6 @@ import { ScrollToUpComponent } from './Components/Scroll-to-up/scroll-to-up.comp
 import { SearchComponent } from './Components/Search/search.component';
 import { LoadingComponentComponent } from './Components/loading-component/loading-component.component';
 
-
-
 @NgModule({
   declarations: [
     LoadingComponent,

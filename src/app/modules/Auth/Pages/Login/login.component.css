@@ -153,6 +153,11 @@ form {
     justify-content: right;
 }
 
+#keyboard {
+    position: relative;
+    bottom: 2px;
+}
+
 @media (max-width: 600px) {
     #login-functions {
         text-align: center;

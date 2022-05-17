@@ -1,10 +1,14 @@
-<div (click)="click()">
+<div (click)="click($event)">
   <!-- Router -->
 
   <router-outlet></router-outlet>
 
-  <!-- Scroll de la paǵina -->
+<div [ngClass]="{'hidden': !this.keyboardService.isShowKeyboard()}" id="keyboard-div">
   <div class="simple-keyboard"></div>
+</div>
+
+<!-- Scroll de la paǵina -->
+
   <app-scroll-to-up></app-scroll-to-up>
 
 </div>

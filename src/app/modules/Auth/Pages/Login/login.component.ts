@@ -1,9 +1,10 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { AuthService } from '../../Services/Auth-service/auth.service';
 import { UserLoginRequest } from '../../../../core/Interfaces/user-login-request/user-login-request';
 import Swal from 'sweetalert2';
 import { LoginResponse } from '../../../../core/Interfaces/login-response/login-response';
 import { Router, ActivatedRoute } from '@angular/router';
+import { KeyboardService } from '../../../../shared/Services/Keyboard-service/keyboard-service';
 
 @Component({
   selector: 'app-login',
@@ -19,10 +20,9 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
   loading: boolean = false;                                                            // Indica si la pantalla de carga debe mostrarse u ocultarse
 
-  constructor(private auth: AuthService, private router: Router, private route: ActivatedRoute) { 
+  constructor(private auth: AuthService, private router: Router, private route: ActivatedRoute, public keyboardService: KeyboardService) { 
     
   }
-
 
   ngOnInit(): void {
     if (this.auth.getToken() != null) {
@@ -35,6 +35,10 @@ export class LoginComponent implements AfterViewInit, OnInit {
         let transition = document.querySelector("#transition-login") as HTMLDivElement;
         transition.style.display = "none";
     }, 1000);
+  }
+
+  show() {
+    this.keyboardService.showKeyboard(true);
   }
 
   /**
