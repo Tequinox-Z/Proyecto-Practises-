@@ -1,0 +1,24 @@
+input {
+    border: none;
+    background-color: rgb(240, 240, 240);
+    height: 39px;
+    width: 100%;
+    max-width: 230px;
+    border-radius: 7px;
+    padding-left: 50px;
+}
+
+#input-div {
+    position: relative;
+}
+
+#find-img {
+    width: 19px;
+    position: absolute;
+    top: 10px;
+    left: 15px;
+}
+
+input:focus {
+    outline: none !important;
+}

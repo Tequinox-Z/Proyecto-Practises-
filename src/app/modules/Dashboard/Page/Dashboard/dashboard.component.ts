@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { UserService } from '../../Services/UserService/user.service';
 import { PersonDto } from '../../../../core/Interfaces/personDto/person-dto';
 import Swal from 'sweetalert2';
@@ -7,6 +7,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CentersService } from '../../../Administrator-functions/Pages/Centers/Services/Centers-service/Centers.service';
 import { School } from '../../../../core/Interfaces/school/school';
+import { DisplayLoadingService } from '../../../../core/Services/DisplayLoading/display-loading.service';
+import { DashboardService } from '../../Services/Dashboard-service/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +16,7 @@ import { School } from '../../../../core/Interfaces/school/school';
   styleUrls: ['./dashboard.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
 
   /* Paginas por defecto, dependiendo del rol se redirigirá a una ruta u otra */
 
@@ -22,14 +24,25 @@ export class DashboardComponent implements OnInit {
   teacherDefaultPage : String = "student/";                                                         // Ruta por defecto para al estudiante
   studentDefaultPage : String = "teacher/degrees/viewDegrees";                                      // Ruta por defecto para al profesor
 
-  constructor(private toastService: ToastrService, private route: ActivatedRoute, private router: Router, private auth: AuthService, private userService: UserService, public centerService: CentersService) { }
+  constructor(
+    private toastService: ToastrService, 
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private auth: AuthService, 
+    private userService: UserService, 
+    public centerService: CentersService,
+    public displayLoadingService :DisplayLoadingService,
+    public dashboardService: DashboardService) { }
 
   person!: PersonDto;                                                                              // Persona actual
   rol!: string;                                                                                    // Rol asignado
 
-  ngOnInit(): void {
+  ngAfterViewInit() {
+    this.displayLoadingService.setShowDisplayLoading(false);
+  }
 
-    
+  ngOnInit(): void {
+    this.dashboardService.setTitle("Dashboard");
     // Obtenemos el usuario
 
     this.userService.getUser()
@@ -39,7 +52,6 @@ export class DashboardComponent implements OnInit {
         this.userService.setDni(response.dni!);                                                    // Establecemos el dni
         this.person = response;                                                                    // Establecemos la persona
         this.rol = response.rol?.toString()!;                                                      // Establecemos el rol
-
 
         // Dependiendo del tipo de usuario lo redirigimos a una subruta concreta
 
@@ -53,12 +65,14 @@ export class DashboardComponent implements OnInit {
                   this.centerService.setIdSchool(school.id!);
               },
               error: (response) => {
+                if (response.status != 404) {
+                    
                 Swal.fire({
                   icon: 'error',
                   title: 'Oops...',
                   text: ((response.error.mensaje == undefined)? 'Servidor no disponible' : response.error.mensaje),        // En caso de error mostramos el error
-                  /*footer: '<a href="">Why do I have this issue?</a>'*/
                 })
+                }
               }
             });
             this.router.navigate([this.administratorDefaultPage], { relativeTo: this.route });     // En caso de que sea administrador
@@ -87,31 +101,6 @@ export class DashboardComponent implements OnInit {
   })
   }
 
-  /**
-   * Cambia la visibilidad del menú
-   */
-  menuToggle() {
-    document.querySelector("#menu")?.classList.toggle("close");                                // Oculta el menú del usuario
-    document.querySelector("#optionsNav")?.classList.add("hidden");                            // Oculta las opciones del nav
-
-  }
-
-  /**
-   * Cambia la visibilidad del menú de usuario
-   */
-  userToggle() {
-    document.querySelector("#optionsNav")?.classList.toggle("hidden");                          // Cambia la visibilidad del nav
-    document.querySelector("#menu")?.classList.add("close");                                    // Cierra el menú
-  }
-
-
-  /**
-   * Cierra los menús
-   */
-  closeMenus() {
-    document.querySelector("#menu")?.classList.add("close");                        // Cambiamos la visibilidad del menú
-    document.querySelector("#optionsNav")?.classList.add("hidden");                 // Cambiamos la visibilidad de las opciones del nav
-  }
 
 
   /**
@@ -138,46 +127,6 @@ export class DashboardComponent implements OnInit {
 
     })
   }
-
-  /**
-   * Muestra u oculta la accesibildiad
-   */
-  changeVisiblityOfAccesibility() {
-    document.querySelector("#accesibility")!.classList.toggle("noShow");                    // Cambiamos la visibilidad
-  }
-
-  /**
-   * Muestra u oculta los ajustes
-   */
-  changeVisiblityOfSettings() {
-    document.querySelector("#settings")!.classList.toggle("noShow");                        // Cambiamos la visibilidad
-  }
-
-  /**
-   * Cambia el escalado de grises
-   */
-  changeGray() {
-    let btnGray = document.querySelector("#btn-b") as HTMLInputElement;                      // Obtenemos el botón
-    btnGray.checked = false;                                                                 // Desactivamos el botón
-    document.querySelector('html')!.classList.remove('highConstrast');                       // Deshabilitamos el alto constraste
-
-    document.querySelector('html')!.classList.toggle('gray');                                // Actualizamos la escala de grises  
-  }
-
-
-
-  /**
-   * Cambia el constraste de la aplicación
-   */
-  changeConstrast() {
-    let btnGray = document.querySelector("#btn-a") as HTMLInputElement;              // Obtenemos el botón
-    btnGray.checked = false;                                                         // Lo deseleccionamos
-    document.querySelector('html')!.classList.remove('gray');                        // Desactivamos el escalado de grises
-
-    document.querySelector('html')!.classList.toggle('highConstrast');               // Actualizamos el contraste
-  }
-
-
 
 /**
  * Muestra mensajes toast

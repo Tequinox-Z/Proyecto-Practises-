@@ -6,6 +6,7 @@ import { Administrator } from '../../../../../../core/Interfaces/administrator/a
 import { ProfessionalDegree } from '../../../../../../core/Interfaces/professionalDegree/professional-degree';
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DashboardService } from '../../../../../Dashboard/Services/Dashboard-service/dashboard.service';
 
 @Component({
   selector: 'app-my-center',
@@ -14,7 +15,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class MyCenterComponent implements OnInit {
 
-  constructor(private centerService: CentersService, private userService: UserService) { }
+  constructor(
+    private centerService: CentersService,
+    private userService: UserService,
+    private dashboardService: DashboardService
+    ) { }
+
   now!: Date;
 
   currentSchool!: School;
@@ -42,6 +48,7 @@ export class MyCenterComponent implements OnInit {
           showConfirmButton: false,
           timer: 5000
         })
+        this.dashboardService.setDisableNav(true);
       }  
     })
   }
@@ -51,6 +58,7 @@ export class MyCenterComponent implements OnInit {
     this.currentSchool = school;
     this.getAditionalInfoCenter();
     this.centerService.setIdSchool(school.id!);
+    this.dashboardService.setDisableNav(false);
   }
 
 

@@ -12,6 +12,10 @@
   text-size-adjust: none;
 }
 
+.pageOption {
+  height: calc(100vh - 50px);
+}
+
 .hg-button-numeric,
 .hg-button-default {
   max-width: 20%;
