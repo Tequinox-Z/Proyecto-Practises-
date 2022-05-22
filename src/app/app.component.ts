@@ -5,6 +5,8 @@ import * as $ from "jquery";
 import "jqueryui";
 import "jquery-ui-dist/jquery-ui";
 import { KeyboardService } from "./shared/Services/Keyboard-service/keyboard-service";
+import { SoundService } from './core/Services/SoundFx/sound.service';
+import { DisplayLoadingService } from './core/Services/DisplayLoading/display-loading.service';
 
 @Component({
   selector: "app-root",
@@ -18,7 +20,9 @@ export class AppComponent {
   private keyboardDIVHTML: HTMLDivElement | undefined = undefined;
 
   constructor (
-    public keyboardService: KeyboardService
+    public keyboardService: KeyboardService,
+    private soundService: SoundService,
+    public displayLoadingService: DisplayLoadingService
   ) {}
 
   ngAfterViewInit() {
@@ -129,16 +133,13 @@ export class AppComponent {
     if (true) {
       
       let target = event.target as HTMLElement;
-      let sound;
 
       if (!target.classList.contains("hg-button")) {
-        sound = new Audio("assets/sound/click.mp3");
+        this.soundService.click();
       }
       else {
-        sound = new Audio("assets/sound/keyboard-key.mp3");
+        this.soundService.keyboardClick();
       }
-
-      sound.play();
     }
   }
 }

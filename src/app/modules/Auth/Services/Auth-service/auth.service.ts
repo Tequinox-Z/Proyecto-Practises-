@@ -86,7 +86,6 @@ export class AuthService {
    * @returns Observable
    */
   private async sendToken(token: string) {
-
     return await this.http.get(environment.serverAddress + '/auth/checktoken', this.getHeadersToken()).toPromise()  // Lanzamos la petición
     .then(() => {
         return true;                                                                                 // Si es válido retornamos true
@@ -98,10 +97,14 @@ export class AuthService {
     })
   }
 
-  getHeadersToken(): HttpOptions {
+  getHeadersToken(token ?: string | null): HttpOptions {
+    if (token == undefined) {
+      token = this.getToken();
+    }
+
     let options: HttpOptions = {
       headers: new HttpHeaders ({
-        'Authorization': `Bearer ${this.getToken()}`
+        'Authorization': `Bearer ${token}`
       })
     }
 
@@ -109,7 +112,11 @@ export class AuthService {
   }
 
 
-  restorePassword(person : PersonDto) {
-    //
+  restorePassword(dni: String) {
+    let userData: PersonDto = {
+      "dni": dni.toString().toUpperCase()
+    };
+
+    return this.http.post<PersonDto>(environment.serverAddress + "/send-reset-password", userData);
   }
 }

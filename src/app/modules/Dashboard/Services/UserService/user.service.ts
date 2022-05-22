@@ -41,4 +41,12 @@ export class UserService {
   setDni(dni: String) {
     this.dni_user = dni;
   }
+
+  setPassword(password: string, token ?: string | null) {
+      if (token == undefined) {
+        token = this.auth.getToken();
+      }
+  
+      return this.http.post(`${environment.serverAddress}/configure-new-password`, {"password": password} , this.auth.getHeadersToken(token));  
+  }
 }

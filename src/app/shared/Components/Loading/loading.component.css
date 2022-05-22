@@ -2,7 +2,7 @@
     width: 70px;
     height: 70px;
     border: 10px solid transparent;
-    border-bottom: 10px solid rgb(255, 0, 76);
+    border-bottom: 10px solid var(--color);
     border-radius: 50%;
     animation-name: rotateElement;
     animation-duration: 1.7s;
@@ -27,7 +27,7 @@
       height: 100vh;
       top: 0;
       z-index: 10;
-      background-color: rgba(0, 0, 0, 0.261);
+      background-color: #585858e3;
       backdrop-filter: blur(20px);
       min-height: 520px;
   }
@@ -53,6 +53,7 @@
   .subtitle { 
     margin-left: 5%;
     margin-right: 5%;
-    color: rgba(255, 255, 255, 0.747);
+    color: white;
+    opacity: 0.7;
     margin-top: 1em;
   }

@@ -10,7 +10,8 @@ export interface PersonDto {
     telefone?: string,                            // Teléfono
     password?: string,                            // Contraseña
     address?: string,                             // Dirección
-    rol?: Rol                                     // Rol
+    rol?: Rol,                                     // Rol
+    email?: string
 }
 
 

@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ToastrModule } from 'ngx-toastr';
 import { DataTablesModule } from 'angular-datatables';
 import { KeyboardService } from './shared/Services/Keyboard-service/keyboard-service';
+import { SoundService } from './core/Services/SoundFx/sound.service';
 
 @NgModule({
   declarations: [
@@ -19,11 +20,16 @@ import { KeyboardService } from './shared/Services/Keyboard-service/keyboard-ser
     HttpClientModule,
     SharedModule,
     DataTablesModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    BrowserAnimationsModule,  
+    ToastrModule.forRoot({
+      progressBar: true,
+      timeOut: 5000,
+      closeButton: true,
+      progressAnimation: "decreasing"
+    })
   ],
   providers: [
-    KeyboardService
+    KeyboardService, SoundService
   ],
   bootstrap: [AppComponent]
 })

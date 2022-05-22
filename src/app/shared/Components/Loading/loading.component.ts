@@ -34,12 +34,12 @@ export class LoadingComponent implements OnInit {
   const typedSubtitle = new Typed('.subtitle', {
     strings: [
               'Puedes buscar un alumno por cualquiera de sus datos conocidos en la barra de búsqueda',
-              'El administrador del centro tiene la posiblidad de controlar los dispositivos IOT del centro',                  // Lista de textos
+              'Los administradores son informados al detectarse un movimiento inusual mediante dispositivos IoT',                  // Lista de textos
               'Accede a tu escuela sólo conociendo la contraseña de acceso'
     ],
-    typeSpeed: 10,                                                  // Velocidad
+    typeSpeed: 30,                                                  // Velocidad
     shuffle: true,                                                  // Aleatorio
-    backSpeed: 10,                                                  // Velocidad de borrado
+    backSpeed: 25,                                                   // Velocidad de borrado
     loop: true,                                                     // Repetir
     cursorChar: '<span id="color">_</span>',                        // Cursor
     fadeOutClass: 'typed-fade-out',                                 // Clase al tipear

@@ -36,7 +36,7 @@
     "material-table": "^1.69.3",
     "ng-particles": "^3.0.6",
     "ngx-notification": "^1.0.5",
-    "ngx-toastr": "^14.2.1",
+    "ngx-toastr": "^14.3.0",
     "observable": "^2.1.4",
     "rxjs": "~7.4.0",
     "secure-web-storage": "^1.0.2",
