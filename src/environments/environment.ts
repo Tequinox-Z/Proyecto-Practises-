@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  serverAddress: 'https://practises-management-gtw.herokuapp.com/api'                          // Dirección del servidor
+  serverAddress: 'http://localhost:8080',                        // Dirección del servidor
+  serverFileAddress: 'http://localhost:8080/files/',
+  mapBoxToken: "pk.eyJ1IjoidGVxdWlub3giLCJhIjoiY2wwbGtqYjdsMHdlcDNrbTlqeWZnZnY3cSJ9.YoG8c5FaerdYy7gvbLDz6w"
 };
 
 /*

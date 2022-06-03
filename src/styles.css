@@ -12,9 +12,14 @@
   text-size-adjust: none;
 }
 
-.pageOption {
-  height: calc(100vh - 50px);
+
+html, body {
+  height: 100% !important;
 }
+
+/* .pageOption {
+  height: calc(100vh - 50px);
+} */
 
 .hg-button-numeric,
 .hg-button-default {

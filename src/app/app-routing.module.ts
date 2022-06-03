@@ -8,11 +8,6 @@ import { AuthGuardGuard } from './core/Guards/auth-guard/auth-guard.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./modules/Dashboard/dashboard.module').then(m => m.DashboardModule),            // Módulo de Dashboard
-    canActivate: [AuthGuardGuard]
-  },
-  {
-    path: 'welcome',
     loadChildren: () => import('./modules/Welcome/welcome.module').then(m => m.WelcomeModule)                   // Bienvenida
   },
   {
@@ -20,8 +15,13 @@ const routes: Routes = [
     loadChildren: () => import('./modules/Auth/auth.module').then(m => m.AuthModule)                            // Módulo de autenticación
   },
   {
+    path: 'dashboard',
+    loadChildren: () => import('./modules/Dashboard/dashboard.module').then(m => m.DashboardModule),            // Módulo de Dashboard
+    canActivate: [AuthGuardGuard]
+  },
+  {
     path: '**',
-    loadChildren: () => import('./modules/Not-found/not-found.module').then(m => m.NotFoundModule)              // Módulo de no encontrado
+    redirectTo: ""
   }
 ];
 

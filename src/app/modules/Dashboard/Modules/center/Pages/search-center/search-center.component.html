@@ -1,0 +1,54 @@
+<div *ngIf="!mapMode" id="searchDivMain">
+  <div id="bienvenida">
+    <div id="text">
+      <p>¡Bienvenido!</p>
+      <p>
+        Para comenzar, selecciona tu centro, introduce tu contraseña de acceso y
+        podrás gestionar el mismo
+      </p>
+    </div>
+    <div id="searchDiv">
+      <search (query)="buscar($event)"></search>
+    </div>
+  </div>
+
+  <div>
+    <div *ngIf="centers.length != 0" id="schools">
+      <div *ngFor="let school of centers" class="school">
+        <img src="{{ school.image }}" />
+        <p>{{ school.name }}</p>
+        <p>{{ school.address }}</p>
+        <img src="assets/img/engine.png"/>
+      </div>
+    </div>
+    <div *ngIf="centers.length == 0" id="no-centers">
+      <img src="assets/img/school.png" />
+      <p>Ningún centro coincide con la búsqueda</p>
+    </div>
+  </div>
+
+  <app-map-button (mapMode)="showMap()"></app-map-button>
+</div>
+
+
+<div *ngIf="mapMode" id="searchDivMain">
+    <div id="bienvenida">
+      <div id="text">
+        <p>Seleccionar en mapa</p>
+        <p>
+            Seleccione su centro conociendo la ubicación en la que se encuentra el mismo, por defecto se mostrará la ubicación actual del dispositivo
+        </p>
+      </div>
+      <div id="searchDiv">
+        <search (query)="buscar($event)"></search>
+      </div>
+    </div>
+  
+    <div id="map">
+        <div id="mapCenters">
+      
+        </div>
+    </div>
+  
+
+</div>

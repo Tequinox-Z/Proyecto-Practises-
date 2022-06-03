@@ -37,13 +37,7 @@ export class AuthService {
    * @returns : Observable
    */
   login(user: UserLoginRequest) {
-
-    let userEncrypt: UserLoginRequest = {
-      "dni": user.dni,                                                                             // Creamos un objeto con el dni de usuario
-      "password": CryptoJS.MD5(user.password).toString()                                           // Encriptamos la contraseña
-    };
-
-    return this.http.post<LoginResponse>(environment.serverAddress + "/auth/login", userEncrypt);  // Lanzamos la petición y retornamos la respuesta
+    return this.http.post<LoginResponse>(environment.serverAddress + "/auth/login", user);  // Lanzamos la petición y retornamos la respuesta
   }
 
   /**
@@ -51,7 +45,7 @@ export class AuthService {
    */
   logout() {
     localStorage.removeItem('token');                                                        // Borra el token 
-    this.router.navigate(['welcome']);                                                       // Navega a la pantalla de bienvenida
+    this.router.navigate(['']);                                                       // Navega a la pantalla de bienvenida
   }
 
   /**
@@ -75,8 +69,7 @@ export class AuthService {
    * @param user Registra un usuario
    * @returns Observable
    */
-  register(user: UserLoginRequest) {
-    user.password = CryptoJS.MD5(user.password).toString();                                     // Encriptamos la contraseña             
+  register(user: UserLoginRequest) {                                 // Encriptamos la contraseña             
     return this.http.post(environment.serverAddress + "/auth/register", user);                  // Lanzamos la petición y devolvemos el observable
   }
 

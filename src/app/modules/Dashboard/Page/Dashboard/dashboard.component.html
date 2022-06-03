@@ -1,15 +1,15 @@
-<div id="container-main">
-    <div id="nav">
-        <img *ngIf="!this.dashboardService.getDisableNav()"  id="menu" src="assets/img/menu.png">
+<div id="container-main" *ngIf="userService.getPerson() != null">
+    <div id="navigator">
+        <img (click)="showActions = !showActions" id="menu" src="assets/img/menu.png">
         <p>{{ this.dashboardService.getTitle() }}</p>
 
         <div id="user-zone">
-            <img src="{{ (!person.image || person.image == '') ? 'assets/img/not_image.png' : person.image  }}" title="{{ (person.name) ? person.name : 'Sin nombre' }} {{ (person.lastName) ? person.lastName : 'Sin apellidos ' }}">
+            <img (click)="menu = !menu" src="{{ (userService.getPerson() && userService.getPerson()?.image) ? userService.getPerson()!.image : 'assets/img/not_image.png' }}" title="{{ (userService.getPerson()) ? userService.getPerson()!.name : '' }} {{ (userService.getPerson()) ? userService.getPerson()!.lastName : '' }}">
         </div>
     </div>
     <div id="view">
-        <div id="menu-zone" *ngIf="!this.dashboardService.getDisableNav()">
-            <div *ngIf="rol == 'ROLE_ADMIN'">
+        <div id="menu-zone" *ngIf="showActions">
+            <!-- <div *ngIf="'e' == 'ROLE_ADMIN'">
                 <div class="option" routerLink="administrator/centers/my-center" routerLinkActive="activated">
                     <img src="assets/img/">
                 </div>
@@ -22,12 +22,14 @@
             </div>
             <div *ngIf="rol == 'ROLE_LABOR_TUTOR'">
                 
-            </div>
+            </div> -->
         </div>
-        <div id="content">
+        <div id="content" (click)="menu = false; showActions = false">
             <div id="router">
                 <router-outlet (notification)="showMessage($event)"></router-outlet>
             </div>
         </div>
     </div>
 </div>
+
+<app-menu *ngIf="menu"></app-menu>

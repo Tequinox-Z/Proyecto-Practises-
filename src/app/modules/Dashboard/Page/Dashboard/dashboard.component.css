@@ -4,7 +4,7 @@
     overflow: auto;
 }
 
-#nav {
+#navigator {
     position: fixed;
     top: 0;
     background-color: rgb(211, 211, 211);
@@ -58,6 +58,7 @@
     background-color: rgb(230, 230, 230);
     width: 55px;
     height: calc(100vh - 50px);
+    z-index: 100;
     overflow: hidden;
     position: fixed;
     top: 50px;
@@ -77,10 +78,20 @@
 #user-zone > img {
     height: 70%;
     border-radius: 50%;
+    width: 37px;
 } 
 
 #menu {
     position: absolute;
     left: 17px;
     height: 25px;
+}
+
+
+app-menu {
+    position: absolute;
+    top: 50px;
+    width: 180px;
+    height: max-content;
+    right: 0;
 }

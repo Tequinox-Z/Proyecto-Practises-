@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../../Auth/Services/Auth-service/auth.service';
-import { PersonDto } from '../../../../core/Interfaces/personDto/person-dto';
+import { PersonDto, Rol } from '../../../../core/Interfaces/personDto/person-dto';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,11 +10,11 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  private dni_user: String = '';
+  private person!: PersonDto | null;
   private config = null;
   
   constructor(private http: HttpClient, private auth: AuthService) { 
-
+    
   }
 
   /**
@@ -31,15 +31,15 @@ export class UserService {
    * @returns Dni
    */
   getDni() {
-    return this.dni_user;
+    return this.person!.dni;
   }
 
   /**
    * Establece el dni 
    * @param dni Establece el dni de la persona
    */
-  setDni(dni: String) {
-    this.dni_user = dni;
+  setDni(dni: string) {
+    this.person!.dni = dni;
   }
 
   setPassword(password: string, token ?: string | null) {
@@ -48,5 +48,14 @@ export class UserService {
       }
   
       return this.http.post(`${environment.serverAddress}/configure-new-password`, {"password": password} , this.auth.getHeadersToken(token));  
+  }
+
+
+  setPerson(newPerson: PersonDto | null) {
+    this.person = newPerson;
+  }
+
+  getPerson() {
+    return this.person;
   }
 }

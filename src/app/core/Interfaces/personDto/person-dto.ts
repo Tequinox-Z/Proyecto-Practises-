@@ -10,8 +10,9 @@ export interface PersonDto {
     telefone?: string,                            // Teléfono
     password?: string,                            // Contraseña
     address?: string,                             // Dirección
-    rol?: Rol,                                     // Rol
-    email?: string
+    rol?: Rol,                                    // Rol
+    email?: string,                               // Correo
+    enabled?: boolean                             // Habilitado
 }
 
 
@@ -20,5 +21,6 @@ export interface PersonDto {
 export enum Rol {
     ROLE_STUDENT,                                // Rol de estudiante
     ROLE_TEACHER,                                // Rol de profesor
-    ROLE_ADMIN                                   // Rol de administrador
+    ROLE_ADMIN,                                  // Rol de administrador
+    ROLE_LABOR_TUTOR                             // Rol de tutor laboral
 }

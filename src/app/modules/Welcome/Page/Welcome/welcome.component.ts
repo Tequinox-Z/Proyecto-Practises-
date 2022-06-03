@@ -20,7 +20,7 @@ export class WelcomeComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     if (this.auth.getToken() != null) {
-      this.router.navigateByUrl('/');                                              // Comprobamos si el usuario tiene un token, si lo tiene lo redirigimos a la aplicación
+      this.router.navigateByUrl('/dashboard');                                              // Comprobamos si el usuario tiene un token, si lo tiene lo redirigimos a la aplicación
     }
 
     /**

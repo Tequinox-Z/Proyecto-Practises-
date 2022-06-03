@@ -10,5 +10,8 @@ export interface School {
 	image?: string,											// Imagen de la escuela
 	password?: string,										// Contraseña de la escuela
 	administrators?: Administrator[],						// Lista de administradores 
-	professionalDegrees?: ProfessionalDegree[]				// Lista de ciclos
+	professionalDegrees?: ProfessionalDegree[],				// Lista de ciclos
+	openingTime ?: Date,
+	closingTome ?: Date,
+	location ?: Location
 }

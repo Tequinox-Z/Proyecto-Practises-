@@ -1,7 +1,15 @@
+import { Practise } from '../Practise/Practise';
+import { LaborTutor } from '../LaborTutor/LaborTutor';
+import { ContactWorker } from '../ContactWorker/ContactWorker';
 // Interfaz de empresa
 
 export interface Business {
     cif?: string,                                                        // Cif 
     name?: string,                                                       // Nombre 
-    numberOfStudents?: number                                            // Número de estudiantes
+    numberOfStudents?: number,
+    image ?: string,                                        // Número de estudiantes
+    location ?: Location,
+    practises ?: Practise[],
+    tutors ?: LaborTutor[],
+    contactWorkers ?: ContactWorker[]
 }

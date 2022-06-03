@@ -73,7 +73,6 @@ export class LoginComponent implements AfterViewInit, OnInit {
           icon: 'error',
           title: 'Oops...',
           text: ((response.error.mensaje == undefined)? 'Servidor no disponible' : response.error.mensaje),
-          /*footer: '<a href="">Why do I have this issue?</a>'*/
         })
 
         this.soundService.notify();
