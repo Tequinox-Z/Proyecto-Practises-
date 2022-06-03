@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serverAddress: 'http://localhost:8080'                          // Dirección del servidor
+  serverAddress: 'https://practises-management-gtw.herokuapp.com/api'                          // Dirección del servidor
 };
 
 /*
