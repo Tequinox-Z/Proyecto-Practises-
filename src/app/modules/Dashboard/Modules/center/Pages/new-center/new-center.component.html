@@ -1,0 +1,112 @@
+<form [formGroup]="formGroup">
+    <div *ngIf="page == 1" id="page1" class="page">
+        <div class="div-center" id="text-info">
+            <p>Asistente de creación de nuevo centro</p>
+            <div id="content-text">
+                <div class="text">
+                    <p>
+                        Este asistente le guiará a lo largo de la creación de este nuevo centro
+                    </p>
+                    <p>
+                        Si algún dato no es correcto se le indicará con <img class="warning" src="assets/img/warning.png">
+                    </p>
+                    <p>
+                        En dicho caso, ponga el cursor encima para ver el error
+                    </p>
+                    <p>
+                        Puede actualizar los datos del nuevo centro una vez creado si es necesario
+                    </p>
+                </div>
+                <div id="next-button">
+                    <app-next id="next" (next)="page = page + 1"></app-next>
+                </div>
+            </div>
+        </div>
+        <div id="center-imagen" class="div-center">
+            <img src="assets/img/school.png" id="schoolImg">
+        </div>
+    </div>
+    
+    <div *ngIf="page == 2" id="page2" class="page">
+        <div class="div-center">
+           <div id="center">
+            <p class="titlepage"><span id="step">Paso 1 de 2</span>Datos del centro</p>
+            <p class="sub">Rellene los siguientes datos para el centro</p>
+
+            <div id="form">
+                <div>
+                    <input name="name" type="text" formControlName="name" placeholder="Nombre">
+                    <img class="warning2" src="assets/img/warning.png" *ngIf="this.formGroup.get('name')!.touched && this.formGroup.get('name')?.errors" title="Nombre es requerido" alt="Nombre es requerido">
+                </div>
+                <div>
+                    <input name="address" type="text" formControlName="address" placeholder="Dirección">  
+                    <img class="warning2" src="assets/img/warning.png" *ngIf="this.formGroup.get('address')!.touched && this.formGroup.get('address')?.errors" title="Dirección es requerido" alt="Dirección es requerido">                  
+                </div>
+                <div>
+                    <input name="password" type="password" formControlName="password" placeholder="Contraseña" >
+                    <img class="warning2" src="assets/img/warning.png" *ngIf="this.formGroup.get('password')!.touched && this.formGroup.get('password')?.errors" title="La contraseña debe ser superior a 8 carácteres" alt="La contraseña debe ser superior a 8 carácteres">
+                </div>
+                <div>
+                    <input name="openingTime" type="time" formControlName="openingTime" >
+                    <img class="warning2" src="assets/img/warning.png" *ngIf="this.formGroup.get('openingTime')!.touched && this.formGroup.get('openingTime')?.errors" title="La hora de apertura tiene que ser antes a la de cierre" alt="La hora de apertura tiene que ser antes a la de cierre">
+                </div>
+                <div>
+                    <input name="closingTime" type="time" formControlName="closingTime">
+                    <img class="warning2" src="assets/img/warning.png" *ngIf="this.formGroup.get('closingTime')!.touched && this.formGroup.get('closingTime')?.errors" title="La hora de cierre tiene que ser despés a la de apertura" alt="La hora de cierre tiene que ser despés a la de apertura">
+                </div>
+            </div>
+           </div>
+        </div>
+        <div id="" class="div-center">
+            <app-file-upload (fileName)="setFileName($event)" id="fileUpload" [textToShow]="'Seleccione imagen para el centro'"></app-file-upload>
+        </div>
+            <app-next class="buttonfloat nextForm" id="next" *ngIf="!this.formGroup.invalid && newSchool.image" (next)="showMap()"></app-next>
+    </div>
+    
+    <div *ngIf="page == 3" id="page3" class="page">
+        <div>
+            <p class="titlepage"><span id="step">Paso 2 de 2</span>Ubicación del centro</p>
+            <p class="sub">Seleccione dónde se encuentra su centro</p>
+            <img id="ubication-img" src="assets/img/ubication.png">
+        </div>
+        <div id="map-c">
+            <div id="mapa">
+
+            </div>
+        </div>
+        <app-next class="buttonfloat nextForm" id="next" *ngIf="location.latitude && location.longitude" (next)="sendData()"></app-next>
+    </div>
+    
+    <div *ngIf="page == 4" id="page4" class="page">
+        <div class="div-center" id="text-info">
+            <p id="creating-text">Creando centro ...</p>
+            <div id="content-text">
+                <div class="text" id="steps">
+                    <p>
+                        <img class="ok" src="assets/img/tick.png" *ngIf="serverStep > 0">
+                        Creando centro ...
+                    </p>
+                    <p>
+                        <img class="ok" src="assets/img/tick.png" *ngIf="serverStep > 1">
+                        Asignando ubicación ...
+                    </p>
+                    <p>
+                        <img class="ok" src="assets/img/tick.png" *ngIf="serverStep > 2">
+                        Asignando administrador al centro ...
+                    </p>
+                    <p class="neg">
+                        Centro creado con éxito
+                    </p>
+                </div>
+                <div id="next-button" *ngIf="finish">
+                    <app-next id="next" routerLink="../my-center"></app-next>
+                </div>
+            </div>
+        </div>
+        <div id="center-imagen" class="div-center">
+            <img src="assets/img/school.png" id="schoolImg">
+        </div>
+    </div>
+    
+    <app-back class="buttonfloat" id="back" *ngIf="page != 1 && page != 4" (back)="page = page - 1"></app-back>
+</form>

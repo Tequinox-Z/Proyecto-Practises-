@@ -1,5 +1,6 @@
 import { Administrator } from '../administrator/administrator';
 import { ProfessionalDegree } from '../professionalDegree/professional-degree';
+import { Location } from '../Location/Location';
 
 // Interfaz de escuela
 
@@ -11,7 +12,7 @@ export interface School {
 	password?: string,										// Contraseña de la escuela
 	administrators?: Administrator[],						// Lista de administradores 
 	professionalDegrees?: ProfessionalDegree[],				// Lista de ciclos
-	openingTime ?: Date,
-	closingTome ?: Date,
+	openingTime ?: string,
+	closingTime ?: string,
 	location ?: Location
 }

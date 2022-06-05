@@ -15,6 +15,11 @@ const routes: Routes = [
           path: "center",
           loadChildren: () => import("./Modules/center/center.module").then( m => m.CenterModule),
           canActivate: [AuthGuardGuard]
+        },
+        {
+          path: "business",
+          loadChildren: () => import("./Modules/business/business.module").then( m => m.BusinessModule),
+          canActivate: [AuthGuardGuard]
         }
     ]
   }

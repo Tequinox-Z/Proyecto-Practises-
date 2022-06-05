@@ -141,7 +141,7 @@ html, body {
   --primary: white;
   --secundary: rgb(225, 225, 225);
   --text: rgb(192, 192, 192);
-  --color: orange;
+  --color: rgb(255, 94, 0);
   --colorHover: rgb(95, 104, 185);
 }
 
@@ -502,3 +502,137 @@ button.toast-close-button {
   opacity: 0;
   z-index: -2;
 }
+
+
+.mapboxgl-ctrl-geocoder {
+  position: fixed !important;
+  width: 225px;
+  margin-right: 5% !important;
+  height: 39px;
+  top: 99px;
+  right: 0;
+}
+
+.mapboxgl-ctrl-geocoder input {
+  border: none;
+  background-color: rgb(240, 240, 240);
+  height: 39px;
+  width: 100%;
+  max-width: 230px;
+  border-radius: 7px;
+  padding-left: 50px;
+}
+
+.mapboxgl-ctrl-geocoder--icon {
+  position: absolute;
+  transform: scale(1.5);
+  top: 10px;
+  opacity: 0.5;
+  left: 15px;
+}
+
+.mapboxgl-ctrl-geocoder--pin-right {
+  display: none;
+}
+
+
+.suggestions {
+  list-style: none;
+  background-color: white;
+  box-shadow: 0px 2px 5px #b3b3b3;
+}
+
+.mapboxgl-ctrl-geocoder--powered-by {
+  display: none !important;
+}
+
+.suggestions li {
+  padding-left: 20px;
+  border-bottom: 1px solid #e4e4e4;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.mapboxgl-ctrl-geocoder--suggestion-title {
+  font-weight: 600;
+}
+
+
+.mapboxgl-popup-close-button { 
+  right: 5px !important;
+}
+
+.mapboxgl-popup-close-button:hover {
+  background-color: transparent !important;
+}
+
+
+.enginemap {
+  width: 17px;
+  display: block;
+  margin-top: 5px;
+  justify-content: center;
+}
+
+
+@media (max-width: 600px) {
+  .mapboxgl-ctrl-geocoder {
+    top: 220px;
+    left: 30px !important;
+  }
+}
+
+.bold {
+  font-weight: 600;
+  color: var(--color);
+}
+
+.bold:hover {
+  text-decoration-line: underline;
+}
+
+.background-color {
+  background-color: var(--color);
+}
+
+.mapboxgl-ctrl-attrib-inner {
+  display: none;
+}
+
+.mapboxgl-ctrl-logo {
+  display: none !important;
+}
+
+
+.mapboxgl-popup-content {
+  padding: 20px;
+}
+
+.neg {
+  font-weight: 600;
+}
+
+#steps {
+  margin-bottom: 3px;
+}
+
+#creating-text {
+  margin-left: -30px;
+}
+
+.enginepop {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.swal2-cancel {
+  background-color: rgb(255, 43, 43) !important;
+}
+
+
+app-menu {
+  z-index: 20;
+}
+

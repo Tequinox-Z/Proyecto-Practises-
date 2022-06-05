@@ -55,6 +55,7 @@
 }
 
 #menu-zone {
+    padding-top: 10px;
     background-color: rgb(230, 230, 230);
     width: 55px;
     height: calc(100vh - 50px);
@@ -63,6 +64,12 @@
     position: fixed;
     top: 50px;
     left: 0;
+    display: flex;
+    justify-content: center;
+}
+
+#menu-zone img {
+    width: 30px;
 }
 
 #user-zone {
@@ -95,3 +102,5 @@ app-menu {
     height: max-content;
     right: 0;
 }
+
+

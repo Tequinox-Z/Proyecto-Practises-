@@ -1,5 +1,277 @@
+#mainDashboard {
+    overflow: auto;
+}
+
 div {
-    background-color: grey;
     height: 100%;
     width: 100%;
+}
+
+
+app-loading-component {
+    width: 50px;
+    height: 50px;
+}
+
+
+#app-my-center {
+    width: 100%;
+    height: 100%;
+}
+
+#portada {
+    width: 100%;
+    position: relative;
+    height: 140px;
+    overflow: hidden;
+}
+
+#portada > img {
+    width: 100%;
+    min-width: 500px;
+    z-index: 1;
+    position: relative;
+    top: -100%;
+}
+
+#portada > p {
+    position: absolute;
+    top: 50px;
+    z-index: 3;
+    left: 5%;
+    color: white;
+    font-size: 25px;
+}
+
+#portada > div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.296);
+}
+
+
+#nameSchool {
+    width: 100%;
+    height: 20px;
+    position: relative;
+}
+
+#nameSchool p:nth-child(1) {
+    margin-top: 20px;
+}
+
+#nameSchool p:nth-child(1) {
+    margin-left: 4%;
+}
+
+#nameSchool p:nth-child(2) {
+    position: absolute;
+    right: 4%;
+    top: 0px;
+}
+
+#resume-zone {
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: max-content;
+    gap: 3%;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+#resume-zone > div {
+    box-shadow: 0px 5px 5px rgb(201, 201, 201);
+    max-width: 200px;
+    height: 70px;
+    border-radius: 5px;
+    position: relative;
+    color: white;
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+}
+
+#resume-zone > div:nth-child(1) {
+    background-color: rgb(255, 100, 43);
+}
+
+#resume-zone > div:nth-child(2) {
+    background-color: rgb(103, 103, 255);
+}
+
+
+#resume-zone > div:nth-child(3) {
+    background-color: rgb(75, 117, 255);
+}
+
+
+#resume-zone > div:nth-child(4) {
+    background-color: rgb(255, 51, 51);
+}
+
+#resume-zone > div p:nth-child(1) {
+    position: absolute;
+    top: 7px;
+    font-size: 12px;
+    left: 15px;
+}
+
+#resume-zone > div p:nth-child(2) {
+    font-size: 25px;
+    margin-top: 10px;
+} 
+
+
+#map-container {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+  }
+  
+  #map-container > p {
+    position: absolute;
+    top: 0;
+    left: 4%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+
+  #map {
+      margin-top: 20px;
+      width: 90%;
+      height: 500px;
+  }
+
+
+  #saveLocation {
+      background-color: var(--color);
+      height: 35px;
+    color: white;
+    border: none;
+    width: 150px;
+    position: absolute;
+    left: 4%;
+    bottom: 0;
+  }
+
+#centerData {
+    width: 100%;
+    margin-top: 20px !important;
+    padding-top: 40px;
+    height: max-content;
+    position: relative;
+    padding-bottom: 70px !important;
+}
+
+#centerData > p {
+    position: absolute;
+    top: 0;
+    left: 4%;
+}
+
+form > div {
+    width: 90%;
+    max-width: 300px;
+    display: inline-block;
+}
+
+form > div > img {
+    width: 20px;
+}
+
+
+form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form > div input {
+    border: none;
+    height: 30px;
+    border-radius: 5px;
+    width: 100%;
+    padding-left: 20px;
+    margin: 10px;
+    padding-right: 10px;
+    background-color: rgb(220, 220, 220);
+}
+
+#imageUp {
+    width: 50%;
+    height: 200px;
+}
+
+#dataa {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: max-content !important;
+}
+#dataa > * {
+    width: 50%
+}
+
+
+#form > div {
+    position: relative;
+}
+
+#imageUp {
+    margin-right: 30px;
+}
+
+@media (max-width: 600px) {
+    #dataa {
+        flex-direction: column !important;
+
+    }
+
+    #form {
+        width: 100% !important;
+    }
+
+    #form input {
+        margin: unset;
+        margin-bottom: 10px !important;
+    }
+
+    #imageUp {
+        width: 90% !important;
+        margin-right: unset !important;
+    }
+
+    .warning2 {
+        top: 4px !important;
+        right: -29px !important;
+    }
+}
+
+.warning2 {
+    position: absolute;
+    top: 15px;
+    right: -40px;
+}
+
+.dataButton {
+    margin-bottom: 20px;
 }

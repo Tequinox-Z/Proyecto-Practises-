@@ -1,3 +1,93 @@
-<div>
-    My center
+<div id="mainDashboard">
+    <app-loading *ngIf="!school"></app-loading>
+    <div id="app-my-center" *ngIf="school">
+        <div id="portada">
+            <p>Bienvenido de nuevo</p>
+            <div></div>
+            <img src="{{ school.image }}">
+        </div>
+        <div id="nameSchool">
+            <p>Tu centro, de un vistazo</p>
+            <p>{{ school.name }}</p>
+        </div>
+
+        <div id="resume-zone">
+            <div>
+                <p>
+                    Estudiantes
+                </p>
+                <p>
+                    {{ briefing.students }}
+                </p>
+            </div>
+            <div>
+                <p>
+                    Profesores
+                </p>
+                <p>
+                    {{ briefing.teachers }}
+                </p>
+            </div>
+            <div>
+                <p>
+                    Administradores
+                </p>
+                <p>
+                    {{ briefing.administrators }}
+                </p>
+            </div>
+            <div>
+                <p>
+                    Empresas
+                </p>
+                <p>
+                    {{ briefing.business }}
+                </p>
+            </div>
+        </div>
+
+        <div id="map-container">
+
+            <p>Ubicación del centro</p>
+
+            <div id="map">
+
+            </div>
+            <button id="saveLocation" (click)="updateLocation()" *ngIf="showSaveUbication">Guardar localización</button>
+        </div>
+
+        <div id="centerData">
+            <p>Datos del centro</p>
+            <div id="dataa">
+                <form [formGroup]="this.formGroup" id="form">
+                    <div>
+                        <input name="name" type="text" formControlName="name" placeholder="Nombre">
+                        <img class="warning2" src="assets/img/warning.png" *ngIf="this.formGroup.get('name')!.touched && this.formGroup.get('name')?.errors" title="Nombre es requerido" alt="Nombre es requerido">
+                    </div>
+                    <div>
+                        <input name="address" type="text" formControlName="address" placeholder="Dirección">  
+                        <img class="warning2" src="assets/img/warning.png" *ngIf="this.formGroup.get('address')!.touched && this.formGroup.get('address')?.errors" title="Dirección es requerido" alt="Dirección es requerido">                  
+                    </div>
+                    <div>
+                        <input name="password" type="password" formControlName="password" placeholder="Contraseña" >
+                        <img class="warning2" src="assets/img/warning.png" *ngIf="this.formGroup.get('password')!.touched && this.formGroup.get('password')?.errors" title="La contraseña debe ser superior a 8 carácteres" alt="La contraseña debe ser superior a 8 carácteres">
+                    </div>
+                    <div>
+                        <input name="openingTime" type="time" formControlName="openingTime" >
+                        <img class="warning2" src="assets/img/warning.png" *ngIf="this.formGroup.get('openingTime')!.touched && this.formGroup.get('openingTime')?.errors" title="La hora de apertura tiene que ser antes a la de cierre" alt="La hora de apertura tiene que ser antes a la de cierre">
+                    </div>
+                    <div>
+                        <input name="closingTime" type="time" formControlName="closingTime">
+                        <img class="warning2" src="assets/img/warning.png" *ngIf="this.formGroup.get('closingTime')!.touched && this.formGroup.get('closingTime')?.errors" title="La hora de cierre tiene que ser despés a la de apertura" alt="La hora de cierre tiene que ser despés a la de apertura">
+                    </div>
+                    <button id="saveLocation" class="dataButton" (click)="updateSchool()" *ngIf="!this.formGroup.invalid">Guardar datos</button>
+                </form>
+
+                <div id="imageUp">
+                    <app-file-upload (fileName)="setFileName($event)" id="fileUpload" [textToShow]="'Seleccione nueva imagen para el centro'"></app-file-upload>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>

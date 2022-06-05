@@ -9,12 +9,16 @@
     </div>
     <div id="view">
         <div id="menu-zone" *ngIf="showActions">
-            <!-- <div *ngIf="'e' == 'ROLE_ADMIN'">
-                <div class="option" routerLink="administrator/centers/my-center" routerLinkActive="activated">
-                    <img src="assets/img/">
+            <div *ngIf="this.userService.getPerson()!.rol + '' == 'ROLE_ADMIN'">
+                <div class="option" routerLink="/dashboard/center/my-center" routerLinkActive="activated">
+                    <img src="assets/img/school-icon.png">
+                </div>
+                <div class="option" routerLink="/dashboard/center/centers" routerLinkActive="activated">
+                    <img src="assets/img/find-icon.svg">
                 </div>
             </div>
-            <div *ngIf="rol == 'ROLE_STUDENT'">
+
+            <!-- <div *ngIf="rol == 'ROLE_STUDENT'">
                 
             </div>
             <div *ngIf="rol == 'ROLE_TEACHER'">
