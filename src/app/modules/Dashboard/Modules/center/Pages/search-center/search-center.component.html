@@ -24,7 +24,7 @@
         <img src="{{ school.image }}" />
         <p>{{ school.name }}</p>
         <p>{{ school.address }}</p>
-        <img *ngIf="!setMode" src="assets/img/location.png">
+        <img *ngIf="!setMode" (click)="viewUbication(school.id!)" src="assets/img/location.png">
         <img *ngIf="!setMode" class="leftIcon" src="assets/img/call.png">
         <img *ngIf="!setMode" class="rightIcon" src="assets/img/curso.png">
 

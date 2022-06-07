@@ -1,0 +1,33 @@
+<div id="mainDiv" *ngIf="this.currentDegree">
+    <div id="title">
+        <p><span class="degreesText" routerLink="../../degrees">Ciclos del centro > </span><span class="degreesText" routerLink="../">{{ this.currentDegree.name }}</span> > Empresas</p>
+        <img src="assets/img/edit.png" id="canDeleteBusiness" (click)="editMode = !editMode">
+    </div>
+
+    <p id="businessTitle">Empresas</p>
+
+    <div id="centerZoneView">
+        <div id="businessZone">
+
+            <div class="businessOption">
+                <div id="addOptionBusiness" class="imageOption" (click)="this.selectBusiness = true">
+                    <img src="assets/img/add.png" id="addImage">
+                </div>
+                <p>Añadir</p>
+            </div>
+
+            <div class="businessOption" [ngClass]="{'animatedTx' : editMode}" *ngFor="let business of currentDegree.businesses">
+                <div id="addOptionBusiness" class="imageOption">
+                    <img src="{{ business.image }}" class="imgOption">
+                </div>
+                <p>{{ business.name }}</p>
+                <img *ngIf="editMode" src="assets/img/delete.png" (click)="quitBusiness(business.cif!)" class="idDeleteBusiness">
+            </div>
+
+        </div>
+    </div>
+
+    <div id="modal-zone" *ngIf="selectBusiness">
+        <app-select-business *ngIf="selectBusiness" (cif)="addBusiness($event)" class="selectModal"></app-select-business>
+    </div>
+</div>

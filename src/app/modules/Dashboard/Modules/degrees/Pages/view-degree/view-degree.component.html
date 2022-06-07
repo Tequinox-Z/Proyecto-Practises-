@@ -1,0 +1,71 @@
+<div id="mainDiv" *ngIf="this.currentDegree">
+    <div id="title">
+        <p><span id="degreesText" routerLink="../../degrees">Ciclos del centro > </span> {{ this.currentDegree.name }}</p>
+    </div>
+
+    <p id="businessTitle">Empresas</p>
+
+    <div id="centerZoneView">
+        <div id="businessZone">
+            <div class="businessOption" (click)="this.selectBusiness = true">
+                <div id="addOptionBusiness" class="imageOption">
+                    <img src="assets/img/add.png" id="addImage">
+                </div>
+                <p>+ Añadir</p>
+            </div>
+
+            <div class="businessOption" *ngFor="let business of currentDegree.businesses!.slice(0,5)">
+                <div id="addOptionBusiness" class="imageOption">
+                    <img src="{{ business.image }}" class="imgOption">
+                </div>
+                <p>{{ business.name }}</p>
+            </div>
+
+            <div class="businessOption" *ngIf="currentDegree && currentDegree.businesses?.length != 0" >
+                <div class="imageOption" >
+                    <p id="numberBusiness">{{ currentDegree && currentDegree.businesses?.length }}</p>
+                    <p routerLink="./business" id="gestAll">Gestionar todas</p>
+                </div>
+                <p> </p>
+            </div>
+        </div>
+
+
+        <div id="peopleZone">
+            <div class="peopleZoneDiv">
+                <p>Alumnos</p>
+
+                <div (click)="viewPractise(currentEnrollment.id!)" class="teacherOption" *ngFor="let currentEnrollment of currentDegree.enrollments!.slice(0,4)">
+                    <img src="{{ currentEnrollment.student?.image }}">
+                    <p title="{{ currentEnrollment.student!.name }} {{ currentEnrollment.student!.lastName }}">{{ currentEnrollment.student!.name }}</p>
+                    <img src="assets/img/delete.png" (click)="quitStudent(currentEnrollment.id!)" title="Quitar" alt="Quitar">
+                </div>
+                
+                <img src="assets/img/view.png" class="viewOption" routerLink="./student" alt="Ver todos" title="Ver todos">
+
+                <p class="textNot" *ngIf="currentDegree.enrollments && currentDegree.enrollments?.length == 0">No hay matriculaciones</p>
+
+                <p class="addButton" (click)="selectStudent = true">+ Añadir</p>
+            </div>
+            <div class="peopleZoneDiv">
+                <p>Profesores</p>
+                <div class="teacherOption" *ngFor="let currentTeacher of currentDegree.teachers!.slice(0,4)">
+                    <img src="{{ currentTeacher.image }}">
+                    <p title="{{ currentTeacher.name }} {{ currentTeacher.lastName }}">{{ currentTeacher.name }}</p>
+                    <img src="assets/img/delete.png" (click)="quitTeacher(currentTeacher.dni!)" title="Quitar" alt="Quitar">
+                </div>
+
+                <img src="assets/img/view.png" class="viewOption" routerLink="./teacher" alt="Ver todos" title="Ver todos">
+                
+                <p class="textNot" *ngIf="currentDegree.teachers && currentDegree.teachers?.length == 0">No hay profesores</p>
+                <p class="addButton" (click)="selectTeacher = true">Añadir</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-zone" *ngIf="selectBusiness || selectStudent || selectTeacher"  (click)="closeAll()">
+        <app-select-business *ngIf="selectBusiness" (cif)="addBusiness($event)" class="selectModal"></app-select-business>
+        <app-select-teacher *ngIf="selectTeacher" (dni)="addTeacher($event)" class="selectModal"></app-select-teacher>
+        <app-select-student *ngIf="selectStudent" (dni)="addStudent($event)" class="selectModal"></app-select-student>
+    </div>
+</div>

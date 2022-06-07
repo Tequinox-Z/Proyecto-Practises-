@@ -6,12 +6,14 @@ import { SearchCenterComponent } from './Pages/search-center/search-center.compo
 import { SharedModule } from '../../../../shared/shared.module';
 import { NewCenterComponent } from './Pages/new-center/new-center.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UnusualMovementsComponent } from './Pages/unusual-movements/unusual-movements.component';
 
 @NgModule({
   declarations: [
     SearchCenterComponent,
     MyCenterComponent,
-    NewCenterComponent
+    NewCenterComponent,
+    UnusualMovementsComponent
   ],
   imports: [
     CommonModule,

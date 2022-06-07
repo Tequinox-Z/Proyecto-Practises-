@@ -1,0 +1,22 @@
+<div id="mainDivMovements">
+    <div id="titleMovement">
+        <p>Movimientos inusuales</p>
+        <p>Movimientos detectados en el centro</p>
+        <button (click)="deleteAll()">Borrar todo</button>
+    </div>
+
+    <div id="container">
+        <div id="tableMovements" *ngIf="movements.length != 0">
+            <div *ngFor="let movement of movements" class="movementDetect">
+                <p>Movimiento detectado</p>
+                <p>{{ movement.date | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+                <img src="assets/img/movement-icon.png">
+            </div>
+        </div>
+
+        <div id="noMovements" *ngIf="movements.length == 0">
+            <img src="assets/img/movements.png">
+            <p>No se han detectado movimientos</p>
+        </div>
+    </div>
+</div>

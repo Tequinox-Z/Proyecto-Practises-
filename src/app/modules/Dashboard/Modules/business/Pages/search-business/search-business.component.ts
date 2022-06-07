@@ -10,6 +10,8 @@ import { LocationAndSchool } from "../../../../../../core/Interfaces/LocationAnd
 import { DashboardService } from "../../../../Services/Dashboard-service/dashboard.service";
 import { Router, ActivatedRoute } from '@angular/router';
 import { BusinessService } from '../../Service/business.service';
+import { Business } from '../../../../../../core/Interfaces/business/Business';
+import { LocationAndBusiness } from '../../../../../../core/Interfaces/LocationAndBusiness/LocationAndBusiness';
 
 @Component({
   selector: "app-search-business",
@@ -18,7 +20,7 @@ import { BusinessService } from '../../Service/business.service';
 })
 export class SearchBusinessComponent implements OnInit {
   constructor(
-    private centerSvr: BusinessService,
+    private businessSvr: BusinessService,
     private dashboardSvr: DashboardService,
     private router: Router,
     private route: ActivatedRoute
@@ -27,33 +29,19 @@ export class SearchBusinessComponent implements OnInit {
   mapbox = mapboxgl as typeof mapboxgl;
   map: mapboxgl.Map | null = null;
 
-  centers: School[] = [];
-  locations: LocationAndSchool[] = [];
 
-
-  setMode: boolean = true;
+  locations: LocationAndBusiness[] = [];
 
   mapMode: boolean = false;
 
   ngOnInit(): void {
-
-    this.centerSvr.getCenterOfAdministrator()
-    .subscribe(
-      {
-        next: () => {
-          this.setMode = false;
-        }
-      }
-    );
-
-
-    this.dashboardSvr.setTitle("Centros");
+    this.dashboardSvr.setTitle("Empresas");
 
     this.mapbox.accessToken = environment.mapBoxToken;
 
-    this.centerSvr.getAllCenters().subscribe({
-      next: (schools: any) => {
-        this.centers = schools;
+    this.businessSvr.getAllLocations().subscribe({
+      next: (business: any) => {
+        this.locations = business;
       },
       error: (response) => {
         Swal.fire({
@@ -69,9 +57,9 @@ export class SearchBusinessComponent implements OnInit {
   }
 
   buscar(name: String) {
-    this.centerSvr.getCentersByName(name).subscribe({
-      next: (schools: any) => {
-        this.centers = schools;
+    this.businessSvr.getBusinessByName(name).subscribe({
+      next: (business: any) => {
+        this.locations = business;
       },
       error: (response) => {
         Swal.fire({
@@ -93,7 +81,7 @@ export class SearchBusinessComponent implements OnInit {
   showMap() {
     this.mapMode = true;
 
-    this.centerSvr.getAllLocations().subscribe({
+    this.businessSvr.getAllLocations().subscribe({
       next: (locations: any) => {
         this.locations = locations;
 
@@ -118,19 +106,12 @@ export class SearchBusinessComponent implements OnInit {
           ) as HTMLInputElement;
           searchBox.placeholder = "Buscar";
 
-          locations.forEach((currentLocation: LocationAndSchool) => {
-
-            let result;
-
-            if (this.setMode) {
-              result = "<span>" + currentLocation.name + "</span>" + "<div class='enginepop'>" + "<img id='" + currentLocation.id + "' class='enginemap' src='assets/img/engine.png'>" + "</div>"
-            }
-            else {
-              result = "<span>" + currentLocation.name + "</span>" + "<div class='enginepop'>" + "</div>"
-            }
-
+          locations.forEach((currentLocation: LocationAndBusiness) => {
+          
+            console.log(currentLocation);
+            
             const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-              result
+              "<span>" + currentLocation.name + "</span>" + "<div class='enginepop'>" + "</div>"
             );
 
             new mapboxgl.Marker({
@@ -144,16 +125,6 @@ export class SearchBusinessComponent implements OnInit {
               ])
               .addTo(this.map!);
           });
-
-          document
-            .querySelector("#mapCenters")
-            ?.addEventListener("click", (event) => {
-              let element = event.target as HTMLElement;
-
-              if (element.classList.contains("enginemap")) {
-                this.configureSchool(parseInt(element.id));
-              }
-            });
         });
       },
       error: (response) => {
@@ -167,37 +138,5 @@ export class SearchBusinessComponent implements OnInit {
         });
       },
     });
-  }
-
-  configureSchool(idSchool: number) {
-    Swal.fire({
-      title: "Indique contraseña",
-      input: "password",
-      inputAttributes: {
-        autocapitalize: "off",
-      },
-      preConfirm: (login) => {
-        let school: School = {};
-        school.id = idSchool;
-        school.password = login;
-
-        return this.centerSvr.setCurrentAdministrator(school)
-        .toPromise()
-        .then(() => {
-          this.router.navigate(["../my-center"], { relativeTo: this.route });
-        })
-        .catch((response) => {
-          Swal.showValidationMessage(response.error.mensaje);
-        });
-      },
-      showCancelButton: true,
-      cancelButtonText: "Cancelar",
-      confirmButtonText: "Administrar",
-      showLoaderOnConfirm: true,
-      allowOutsideClick: () => !Swal.isLoading(),
-    });
-
-
-
   }
 }

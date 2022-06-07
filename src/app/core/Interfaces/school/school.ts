@@ -1,6 +1,6 @@
 import { Administrator } from '../administrator/administrator';
-import { ProfessionalDegree } from '../professionalDegree/professional-degree';
 import { Location } from '../Location/Location';
+import { ProfessionalDegree } from '../ProfessionalDegree/ProfessionalDegree';
 
 // Interfaz de escuela
 

@@ -1,15 +1,9 @@
 <div *ngIf="!mapMode" id="searchDivMain">
   <div id="bienvenida">
     <div id="text">
-      <p *ngIf="setMode">¡Bienvenido!</p>
-      <p *ngIf="setMode">
-        Para comenzar, selecciona tu centro, introduce tu contraseña de acceso y
-        podrás gestionar el mismo. También puedes <span routerLink="../new-center" class="bold">Añadir un nuevo centro</span>
-      </p>
-
-      <p *ngIf="!setMode" >Centros</p>
-      <p *ngIf="!setMode">
-        Vea los centros registrados en la plataforma e obtenga información sobre su localización, trabajadores de contacto y ciclos
+      <p>Empresas</p>
+      <p>
+        Vea las empresas registradas en la plataforma e obtenga información sobre su localización, trabajadores de contacto y más
       </p>
 
     </div>
@@ -19,21 +13,20 @@
   </div>
 
   <div>
-    <div *ngIf="centers.length != 0" id="schools">
-      <div *ngFor="let school of centers" class="school">
-        <img src="{{ school.image }}" />
-        <p>{{ school.name }}</p>
-        <p>{{ school.address }}</p>
-        <img *ngIf="!setMode" src="assets/img/location.png">
-        <img *ngIf="!setMode" class="leftIcon" src="assets/img/call.png">
-        <img *ngIf="!setMode" class="rightIcon" src="assets/img/curso.png">
+    <div *ngIf="locations.length != 0" id="schools">
+      <div *ngFor="let currentBusiness of locations" class="school">
+        <img src="{{ currentBusiness.image }}" />
+        <p>{{ currentBusiness.name }}</p>
+        <p>{{ currentBusiness.cif }}</p>
+        <img  src="assets/img/location.png" routerLink="../ubication/{{ currentBusiness.latitude }}/{{ currentBusiness.longitude }}">
+        <img  class="leftIcon" src="assets/img/call.png">
+        <img class="rightIcon" src="assets/img/curso.png">
 
-        <img *ngIf="setMode"  (click)="configureSchool(school.id!)" src="assets/img/engine.png"/>
       </div>
     </div>
-    <div *ngIf="centers.length == 0" id="no-centers">
-      <img src="assets/img/school.png" />
-      <p>Ningún centro coincide con la búsqueda</p>
+    <div *ngIf="locations.length == 0" id="no-centers">
+      <img src="assets/img/business.png" />
+      <p>Ninguna empresa coincide con la búsqueda</p>
     </div>
   </div>
 

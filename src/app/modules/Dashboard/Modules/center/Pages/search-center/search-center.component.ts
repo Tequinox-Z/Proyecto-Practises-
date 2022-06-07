@@ -3,13 +3,14 @@ import { CenterService } from "../../Service/center.service";
 import { School } from "../../../../../../core/Interfaces/school/school";
 import Swal from "sweetalert2";
 import { environment } from "../../../../../../../environments/environment";
-import { Location } from "../../../../../../core/Interfaces/Location/Location";
+import { Location } from '../../../../../../core/Interfaces/Location/Location';
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import * as mapboxgl from "mapbox-gl";
 import * as MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import { LocationAndSchool } from "../../../../../../core/Interfaces/LocationAndSchool/LocationAndSchool";
 import { DashboardService } from "../../../../Services/Dashboard-service/dashboard.service";
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../../../../Services/UserService/user.service';
 
 @Component({
   selector: "app-search-center",
@@ -21,6 +22,7 @@ export class SearchCenterComponent implements OnInit {
     private centerSvr: CenterService,
     private dashboardSvr: DashboardService,
     private router: Router,
+    private userService: UserService,
     private route: ActivatedRoute
   ) {}
 
@@ -37,14 +39,22 @@ export class SearchCenterComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.centerSvr.getCenterOfAdministrator()
-    .subscribe(
-      {
-        next: () => {
-          this.setMode = false;
+    if (this.userService.getPerson()?.rol + "" == "ROLE_ADMIN") {
+      this.centerSvr.getCenterOfAdministrator()
+      .subscribe(
+        {
+          next: () => {
+            this.setMode = false;
+          },
+          error: () => {
+            this.setMode = true;
+          }
         }
-      }
-    );
+      );
+    }
+    else {
+      this.setMode = false;
+    }
 
 
     this.dashboardSvr.setTitle("Centros");
@@ -196,8 +206,26 @@ export class SearchCenterComponent implements OnInit {
       showLoaderOnConfirm: true,
       allowOutsideClick: () => !Swal.isLoading(),
     });
+  }
 
+  viewUbication(idSchool: number) {
+    let school: School = {};
+    school.id = idSchool;
 
-
+    this.centerSvr.getUbication(school).subscribe({
+      next: (location: Location) => {
+        this.router.navigate(["../ubication/", location.latitude, location.longitude], {relativeTo: this.route});
+      },
+      error: (response) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text:
+            response.error.mensaje == undefined
+              ? "Servidor no disponible"
+              : response.error.mensaje,
+        });
+      }
+    })
   }
 }

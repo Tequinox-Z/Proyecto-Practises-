@@ -55,7 +55,7 @@ export class NewCenterComponent implements OnInit {
 
 
   setFileName(event: Event) {
-    this.newSchool.image = environment.serverFileAddress + event;
+    this.newSchool.image = environment.serverFileAddress + "/files/" + event;
   }
 
   showMap() {

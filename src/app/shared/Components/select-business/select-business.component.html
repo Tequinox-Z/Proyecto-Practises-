@@ -1,0 +1,12 @@
+<div id="businessDiv">
+    <p>Seleccione empresa</p>
+    <div id="search">
+
+    </div>
+    <div id="businessDivs">
+        <div *ngFor="let business of business" class="business" (click)="select(business.cif!)">
+            <img src="{{ business.image }}">
+            <p>{{ business.name }}</p>
+        </div>
+    </div>
+</div>

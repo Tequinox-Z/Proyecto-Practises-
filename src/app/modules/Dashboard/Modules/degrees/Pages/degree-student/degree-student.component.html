@@ -1,0 +1,32 @@
+<div id="mainDiv" *ngIf="this.currentDegree">
+    <div id="title">
+        <p><span class="degreesText" routerLink="../../degrees">Ciclos del centro > </span><span class="degreesText" routerLink="../">{{ this.currentDegree.name }}</span> > Estudiantes</p>
+        <img src="assets/img/edit.png" id="canDeleteBusiness" (click)="editMode = !editMode" title="Modo edición" alt="Modo edición">
+        
+        <img (click)="selectStudent = true" src="assets/img/add-icon.png" id="addButton" alt="Añadir nuevo profesor" title="Añadir nuevo profesor">
+
+    </div>
+
+    <p id="businessTitle">Estudiantes</p>
+
+    <div id="maxWidthDiv">
+        <div id="zone" *ngIf="this.currentDegree.enrollments && this.currentDegree.enrollments.length != 0">
+            <div class="listOption" *ngFor="let enrollment of this.currentDegree.enrollments">
+                <img src="{{ enrollment.student?.image }}">
+                <p>{{ enrollment.student!.name }}</p>
+                <p>{{ enrollment.student!.lastName }}</p>
+                <img class="deleteOption" src="assets/img/delete.png" *ngIf="editMode" alt="Quitar" title="Quitar" (click)="quitStudent(enrollment.id!)">
+            </div>
+        </div>
+
+        <div *ngIf="this.currentDegree.enrollments && this.currentDegree.enrollments.length == 0" id="noStudentsDiv">
+            <img src="assets/img/students.png">
+            <p>No hay alumnos matriculados</p>
+            <p>Comienze por matricular alguno ahora</p>
+        </div>
+    </div>
+
+    <div id="modal-zone" *ngIf="selectStudent"  (click)="this.selectStudent = false">
+        <app-select-student *ngIf="selectStudent" (dni)="addStudent($event)" class="selectModal"></app-select-student>
+    </div>
+</div>

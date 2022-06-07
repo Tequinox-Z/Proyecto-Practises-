@@ -1,0 +1,117 @@
+#mainDivMovements {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+#titleMovement {
+    margin-top: 40px;
+    height: 93px;
+    width: 100%;
+}
+
+#titleMovement > p {
+    padding-left: 4%;
+}
+
+#titleMovement > p:nth-child(1) {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#titleMovement > p:nth-child(2) {
+    opacity: 0.7;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+}
+
+#tableMovements {
+    border: 1px solid rgb(186, 186, 186);
+    width: 90%;
+
+}
+
+#noMovements {
+    height: 70%;
+    margin-top: 50px;
+    width: 100%;
+}
+
+#noMovements > img {
+    max-width: 200px;
+    width: 90%;
+}
+
+#noMovements {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#noMovements > p {
+    margin-top: 20px;
+}
+
+.movementDetect {
+    height: 60px;
+    background-color: rgb(233 233 233);
+    position: relative;
+    transition: 0.5s;
+}
+
+.movementDetect:hover {
+    background-color: rgb(204, 204, 204);
+}
+
+.movementDetect p:nth-child(2) {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.movementDetect p:nth-child(1) {
+    position: absolute;
+    left: 60px;
+    top: 20px;
+}
+
+.movementDetect img {
+    width: 27px;
+    position: absolute;
+    left: 18px;
+    top: 15px;
+}
+
+
+@media (max-width: 450px) {
+    .movementDetect p:nth-child(1) {
+        display: none;
+    }
+}
+
+
+button {
+    height: 40px;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: rgb(255, 43, 43);
+    border: none;
+    position: absolute;
+    right: 0px;
+    margin-right: 4%;
+    top: 50px;
+}
+
+
+@media (max-width: 420px) {
+    button {
+        top: unset !important;
+        bottom: 30px;
+        margin-right: 10%;
+    }
+}

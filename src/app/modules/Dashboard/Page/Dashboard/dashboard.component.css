@@ -16,6 +16,24 @@
     justify-content: center;
 }
 
+
+#menu-zone > div {
+    width: 100%;
+    transition: 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#menu-zone > div > div {
+    display: flex;
+    transition: 0.2s;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
 #router {
     overflow: hidden;
     height: calc(100vh - 50px);
@@ -40,7 +58,7 @@
 }
 
 .activated {
-
+    border-right: 3px solid var(--color);
 }
 
 .option-menu {

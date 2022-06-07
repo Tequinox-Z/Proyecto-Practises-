@@ -1,0 +1,31 @@
+<div id="mainDiv">
+    <div id="title">
+        <p>Ciclos del centro</p>
+        <p>Mostrando ciclos del año {{ yearSelected }}</p>
+        <div id="actions">
+            <img src="assets/img/edit.png" id="edit" (click)="editMode = !editMode" class="icon-action" title="Modo Edición" alt="Modo Edición">
+            <img src="assets/img/add-icon.png" class="icon-action" title="Nuevo ciclo" alt="Nuevo ciclo" (click)="addDegree()">
+            <select id="yearInput" name="select" (change)="changeYear($event)" *ngIf="years && years.years.length != 0">
+                <option *ngFor="let year of this.years.years">{{ year }}</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="degrees" *ngIf="degrees && degrees.length != 0" [ngClass]="{'animatedTx' : editMode}">
+        <div *ngFor="let currentDegree of degrees" class="degree" id="{{ currentDegree.id }}" (click)="goTo(currentDegree.id)">
+            <img src="{{currentDegree.image }}">
+            <app-file-upload (fileName)="changeImage($event, currentDegree.id!)" *ngIf="this.editMode" class="fileUp"></app-file-upload>
+            
+            <p (click)="changeName(currentDegree.id)">{{ currentDegree.name }}</p>
+
+            <img *ngIf="this.editMode" (click)="deleteDegree(currentDegree.id!)" src="assets/img/delete.png" class="deleteIconDegree">
+        </div>
+    </div>
+
+
+    <div id="no-degrees" *ngIf="!degrees || degrees.length == 0">
+        <img src="assets/img/no-degrees.png">
+        <p>Sin ciclos</p>
+        <p>Aquí se mostrarán los ciclos de los que dispone su centro</p>
+    </div>
+</div>

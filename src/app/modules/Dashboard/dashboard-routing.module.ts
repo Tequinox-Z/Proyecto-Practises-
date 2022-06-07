@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { DashboardComponent } from './Page/Dashboard/dashboard.component';
 import { AuthGuardGuard } from '../../core/Guards/auth-guard/auth-guard.guard';
+import { PractiseModule } from './Modules/practise/practise.module';
 
 
 // Rutas del DashBoard
@@ -19,6 +20,16 @@ const routes: Routes = [
         {
           path: "business",
           loadChildren: () => import("./Modules/business/business.module").then( m => m.BusinessModule),
+          canActivate: [AuthGuardGuard]
+        },
+        {
+          path: "degrees",
+          loadChildren: () => import("./Modules/degrees/degrees.module").then( m => m.DegreesModule),
+          canActivate: [AuthGuardGuard]
+        },
+        {
+          path: "practise",
+          loadChildren: () => import("./Modules/practise/practise.module").then( m => PractiseModule),
           canActivate: [AuthGuardGuard]
         }
     ]

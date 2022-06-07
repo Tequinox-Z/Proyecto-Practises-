@@ -16,7 +16,7 @@ export class FileUploadService {
   upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    const req = new HttpRequest('POST', `${environment.serverAddress}/upload`, formData, {
+    const req = new HttpRequest('POST', `${environment.serverFileAddress}/upload`, formData, {
       reportProgress: true,
       responseType: 'json'
     });

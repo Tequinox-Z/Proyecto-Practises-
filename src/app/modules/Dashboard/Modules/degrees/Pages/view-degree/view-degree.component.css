@@ -1,0 +1,239 @@
+#mainDiv {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+#title {
+    margin-top: 40px;
+    height: 60px;
+    width: 100%;
+}
+
+#title > p {
+    padding-left: 4%;
+}
+
+#title > p:nth-child(1) {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#title > p:nth-child(2) {
+    opacity: 0.7;
+}
+
+#degreesText {
+    opacity: 0.7;
+}
+
+
+#businessTitle {
+    font-size: 20px;
+    margin-left: 4%;
+}
+
+#centerZoneView {
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    width: 100%;
+}
+
+.businessOption {
+    width: 144px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.imageOption {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+    width: 100%;
+}
+
+#addOptionBusiness {
+    box-shadow: 0px 5px 5px #e0e0e0;
+    background-color: #eeeeee;
+}
+
+.businessOption > p {
+    margin-top: 10px;
+}
+
+#addImage {
+    width: 40px;
+}
+
+#businessZone {
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 30px;
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-content: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#peopleZone {
+    width: 100%;
+    display: flex;
+    gap: 50px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+
+.peopleZoneDiv {
+    box-shadow: 0px 5px 5px #c7c7c7;
+    background-color: rgb(238, 238, 238);
+    width: 90%;
+    max-width: 295px;
+    height: 300px;
+    position: relative;
+}
+
+
+.peopleZoneDiv > p:nth-child(1) {
+    margin-top: 23px;
+    margin-left: 30px;
+    margin-bottom: 10px;
+}
+
+
+.peopleZoneDiv > p:nth-child(2) {
+    width: 100%;
+    text-align: center;
+}
+
+#gestAll {
+    text-align: center;
+    width: 70px;
+    font-weight: 600;
+}
+
+
+#numberBusiness {
+    margin-bottom: 16px;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.imgOption {
+    width: 150%;
+}
+
+.textNot {
+    position: absolute;
+    top: 45%;
+    width: 100%;
+    text-align: center;
+}
+
+.viewOption {
+    width: 18px;
+    position: absolute;
+    top: 25px;
+    right: 26px;
+}
+
+
+#gestAll {
+    transition: 0.1s;
+}
+
+
+#gestAll:hover {
+    color: rgb(89, 89, 89);
+}
+
+
+.teacherOption {
+    border-bottom: 1px solid #d6d6d6;
+    width: 90%;
+    height: 50px;
+    margin-left: 5%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+}
+
+.teacherOption img:nth-child(1) {
+    height: 30px;
+    border-radius: 50%;
+    width: 30px;
+    margin-left: 14px;
+}
+
+
+.teacherOption img:nth-child(3) {
+    width: 18px;
+    position: absolute;
+    right: 26px;
+    height: 18px;
+}
+
+.teacherOption p:nth-child(2) {
+    margin-left: 12px;
+}
+
+
+.selectModal {
+    width: 90%;
+    background-color: #f2f2f2;
+    height: 500px;
+    box-shadow: 0px 5px 5px grey;
+    max-width: 400px;
+}
+
+#modal-zone {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.446);
+    justify-content: center;
+    align-items: center;
+    top: 0;
+}
+
+
+#modal-zone > * {
+    transition: 1s;
+    animation-name: introSlow;
+    animation-duration: 0.2s;
+}
+
+
+@keyframes introSlow {
+    0% {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+.addButton {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+}

@@ -1,0 +1,9 @@
+<div id="businessDiv">
+    <p>Seleccione profesor</p>
+    <div id="businessDivs">
+        <div *ngFor="let teacher of teachers" class="business" (click)="select(teacher.dni!)">
+            <img src="{{ teacher.image }}">
+            <p>{{ teacher.name }}</p>
+        </div>
+    </div>
+</div>

@@ -65,4 +65,13 @@ export class CenterService {
   updateCenter(school : School) {
     return this.http.put(environment.serverAddress + "/school/" + school.id, school, this.authService.getHeadersToken());
   }
+
+
+  getMovementsBySchool(school: School) {
+    return this.http.get(environment.serverAddress + "/school/" + school.id + "/movement", this.authService.getHeadersToken());
+  }
+
+  deleteAllMovement(school: School) {
+    return this.http.delete(environment.serverAddress + "/school/" + school.id + "/movement", this.authService.getHeadersToken());
+  }
 }

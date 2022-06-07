@@ -9,7 +9,9 @@ import { MapButtonComponent } from './Components/map-button/map-button.component
 import { NextComponent } from './Components/next/next.component';
 import { BackComponent } from './Components/back/back.component';
 import { FileUploadComponent } from './Components/file-upload/file-upload.component';
-import { FileUploadService } from './Services/FileUpload/file-upload.service';
+import { SelectBusinessComponent } from './Components/select-business/select-business.component';
+import { SelectTeacherComponent } from './Components/select-teacher/select-teacher.component';
+import { SelectStudentComponent } from './Components/select-student/select-student.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,10 @@ import { FileUploadService } from './Services/FileUpload/file-upload.service';
     MapButtonComponent,
     NextComponent,
     BackComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    SelectBusinessComponent,
+    SelectTeacherComponent,
+    SelectStudentComponent
   ],
   imports: [
     CommonModule
@@ -35,7 +40,10 @@ import { FileUploadService } from './Services/FileUpload/file-upload.service';
     MapButtonComponent,
     NextComponent,
     BackComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    SelectBusinessComponent,
+    SelectTeacherComponent,
+    SelectStudentComponent
   ]
 })
 export class SharedModule { }

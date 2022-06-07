@@ -353,11 +353,11 @@ button.toast-close-button {
   z-index: 20;
 }
 
-.ng-star-inserted {
+/* .ng-star-inserted {
   animation-name: downNotify;
   animation-duration: 1s;
   transition: 1s;
-}
+} */
 
 @keyframes downNotify {
   0% {
