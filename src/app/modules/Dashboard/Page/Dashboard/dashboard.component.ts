@@ -23,8 +23,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   teacherDefaultPage : String = "student/";                                                         // Ruta por defecto para al estudiante
   studentDefaultPage : String = "teacher/degrees/viewDegrees";                                      // Ruta por defecto para al profesor
 
-  showActions: boolean = false;
+  showActions: boolean = true;
   menu: boolean = false;
+
+  roleAssign = "";
   
   constructor(
     private toastService: ToastrService, 
@@ -53,20 +55,26 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
         switch(response.rol + "") {
           case "ROLE_ADMIN": {
+            this.roleAssign = "Administrador";
             this.router.navigate([this.administratorDefaultPage], { relativeTo: this.route });           // En caso de que sea estudiante
 
             //  this.router.navigate([this.administratorDefaultPage]);     // En caso de que sea administrador
             break;
           }
           case "ROLE_STUDENT": {
+            this.roleAssign = "Estudiante";
             this.router.navigate([this.studentDefaultPage], { relativeTo: this.route });           // En caso de que sea estudiante
             break;
           }          
           case "ROLE_TEACHER": {
+            this.roleAssign = "Profesor";
+
             this.router.navigate([this.teacherDefaultPage], { relativeTo: this.route });           // En caso de que sea profesor
             break;
           }
           case "ROLE_LABOR_TUTOR": {
+            this.roleAssign = "Tutor laboral";
+
             this.router.navigate([this.teacherDefaultPage], { relativeTo: this.route });           // En caso de que sea profesor
             break;
           }

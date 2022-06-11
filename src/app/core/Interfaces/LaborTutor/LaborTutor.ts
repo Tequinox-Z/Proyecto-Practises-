@@ -11,5 +11,7 @@ export interface LaborTutor {
     telefone?: string,                               // Teléfono
     address?: string,
     practises ?: Practise[],
-    business ?: Business
+    business ?: Business,
+    enabled ?: boolean,
+    email ?: string
 }

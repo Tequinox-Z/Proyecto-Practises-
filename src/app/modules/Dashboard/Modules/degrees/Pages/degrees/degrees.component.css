@@ -62,10 +62,11 @@
 
 #actions {
     position: absolute;
-    top: 51px;
+    top: 15px;
     right: 0;
     margin-right: 4%;
 }
+
 
 
 .deleteIconDegree {
@@ -160,4 +161,12 @@
 
 #yearInput {
     width: 100px;
+    border: none;
+    height: 30px;
+    background-color: #ececec;
+}
+
+
+#title {
+    position: relative;
 }

@@ -7,19 +7,24 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { NewCenterComponent } from './Pages/new-center/new-center.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UnusualMovementsComponent } from './Pages/unusual-movements/unusual-movements.component';
+import { TemperatureHumidityComponent } from './Pages/temperature-humidity/temperature-humidity.component';
+import { NgChartsModule } from 'ng2-charts';
+
 
 @NgModule({
   declarations: [
     SearchCenterComponent,
     MyCenterComponent,
     NewCenterComponent,
-    UnusualMovementsComponent
+    UnusualMovementsComponent,
+    TemperatureHumidityComponent
   ],
   imports: [
     CommonModule,
     CenterRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgChartsModule
   ]
 })
 export class CenterModule { }

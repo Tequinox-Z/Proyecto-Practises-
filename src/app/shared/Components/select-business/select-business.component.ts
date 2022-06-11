@@ -15,7 +15,6 @@ export class SelectBusinessComponent implements OnInit {
 
   business : Business[] = [];
 
-
   @Output() cif = new EventEmitter();
 
   ngOnInit(): void {

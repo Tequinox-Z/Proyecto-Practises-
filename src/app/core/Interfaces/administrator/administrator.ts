@@ -10,5 +10,7 @@ export interface Administrator {
     image?: string,                                  // Imagen
     telefone?: string,                               // Teléfono
     address?: string,                                // Dirección
-    school?: School                                  // Escuela que administra
+    school?: School,                                  // Escuela que administra
+    enabled ?: boolean,
+    email ?: string
 }

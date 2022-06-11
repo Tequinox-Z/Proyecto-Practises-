@@ -5,6 +5,7 @@ import { SearchCenterComponent } from './Pages/search-center/search-center.compo
 import { NewCenterComponent } from './Pages/new-center/new-center.component';
 import { ViewUbicationComponent } from '../../../../shared/Components/view-ubication/view-ubication.component';
 import { UnusualMovementsComponent } from './Pages/unusual-movements/unusual-movements.component';
+import { TemperatureHumidityComponent } from './Pages/temperature-humidity/temperature-humidity.component';
 
 const routes: Routes = [
     {
@@ -26,6 +27,10 @@ const routes: Routes = [
     {
       path: "movements",
       component: UnusualMovementsComponent
+    },
+    {
+      path: "temperature-humidity",
+      component: TemperatureHumidityComponent
     }
 ];
 

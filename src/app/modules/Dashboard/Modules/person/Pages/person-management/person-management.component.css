@@ -1,0 +1,173 @@
+#searchDivMain {
+    height: 100%;
+    overflow: auto;
+}
+
+#bienvenida {
+    height: 160px;
+    position: relative;
+    display: flex;
+}
+
+#bienvenida div {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#bienvenida div:nth-child(2) {
+    align-items: flex-end;
+}
+
+
+#text p:nth-child(1) {
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 20px;
+}
+
+#text > p:nth-child(2) {
+    opacity: 0.7;
+}
+
+#text {
+    padding-left: 5%;
+}
+
+#containerTable {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
+table {
+    width: 80%;
+}
+
+#containerElement {
+    width: 100%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    gap: 42px;
+    flex-wrap: wrap;
+}
+
+.person {
+    overflow: hidden;
+    position: relative;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    max-width: 168px;
+    background-color: rgb(239 239 239);
+    height: 229px;
+    width: 90%;
+    border-radius: 5px;
+    box-shadow: 0px 5px 5px rgb(190 190 190);
+}
+
+
+.person div:nth-child(1) {
+    border-radius: 50%;
+    width: 110px;
+    height: 110px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.person p:nth-child(2) {
+    font-size: 20px;
+}
+
+.person p:nth-child(3) {
+    opacity: 0.7;
+    font-size: 12px;
+}
+
+.person p:nth-child(4) {
+    position: relative;
+    top: 10px;
+    font-size: 13px;
+}
+
+
+.person div:nth-child(1) img {
+    height: 100%;
+}
+
+
+select {
+    position: absolute;
+    top: 104px;
+    right: 48px;
+    border: none;
+    background-color: #ececec;
+    width: 128px;
+    height: 30px;
+}
+
+#addPerson {
+    position: absolute;
+    top: 109px;
+    right: 193px;
+    width: 20px;
+}
+
+.options {
+    width: 14px;
+    position: absolute;
+    top: 11px;
+    right: 7px;
+}
+
+.more-option {
+    border-radius: 5px;
+    overflow: hidden;
+    position: absolute;
+    top: 5px;
+    right: 0;
+    width: 100px;
+    box-shadow: 0px 5px 5px #46464621;
+    height: max-content;
+    display: none;
+}
+
+.viewMenu .more-option {
+    display: initial !important;
+}
+
+.more-option p {
+    padding-top: 5px;
+    font-size: initial !important;
+    opacity: initial !important;
+    width: 100%;
+    height: 30px;
+    padding-left: 15px;
+    transition: 0.2s;
+    background-color: white;
+}
+
+.more-option p:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+.danger:hover {
+    background-color: rgb(255, 96, 96) !important;
+    color: white;
+}
+
+
+#searchElement {
+    position: absolute;
+    right: 20px;
+    top: 53px;
+}

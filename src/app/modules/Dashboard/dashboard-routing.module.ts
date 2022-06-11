@@ -3,6 +3,7 @@ import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { DashboardComponent } from './Page/Dashboard/dashboard.component';
 import { AuthGuardGuard } from '../../core/Guards/auth-guard/auth-guard.guard';
 import { PractiseModule } from './Modules/practise/practise.module';
+import { PersonModule } from './Modules/person/person.module';
 
 
 // Rutas del DashBoard
@@ -29,7 +30,12 @@ const routes: Routes = [
         },
         {
           path: "practise",
-          loadChildren: () => import("./Modules/practise/practise.module").then( m => PractiseModule),
+          loadChildren: () => import("./Modules/practise/practise.module").then( m => m.PractiseModule),
+          canActivate: [AuthGuardGuard]
+        },
+        {
+          path: "person",
+          loadChildren: () => import("./Modules/person/person.module").then( m => m.PersonModule),
           canActivate: [AuthGuardGuard]
         }
     ]

@@ -1,6 +1,6 @@
-<div id="mainDiv" *ngIf="this.currentDegree">
+<div id="mainDiv" *ngIf="this.currentDegree && this.currentDegree.enrollments">
     <div id="title">
-        <p><span id="degreesText" routerLink="../../degrees">Ciclos del centro > </span> {{ this.currentDegree.name }}</p>
+        <p><span id="degreesText" routerLink="../../">Ciclos del centro > </span> {{ this.currentDegree.name }}</p>
     </div>
 
     <p id="businessTitle">Empresas</p>
@@ -35,9 +35,9 @@
             <div class="peopleZoneDiv">
                 <p>Alumnos</p>
 
-                <div (click)="viewPractise(currentEnrollment.id!)" class="teacherOption" *ngFor="let currentEnrollment of currentDegree.enrollments!.slice(0,4)">
+                <div  class="teacherOption" *ngFor="let currentEnrollment of currentDegree.enrollments!.slice(0,4)">
                     <img src="{{ currentEnrollment.student?.image }}">
-                    <p title="{{ currentEnrollment.student!.name }} {{ currentEnrollment.student!.lastName }}">{{ currentEnrollment.student!.name }}</p>
+                    <p (click)="viewPractise(currentEnrollment.id!)" title="{{ currentEnrollment.student!.name }} {{ currentEnrollment.student!.lastName }}">{{ currentEnrollment.student!.name }}</p>
                     <img src="assets/img/delete.png" (click)="quitStudent(currentEnrollment.id!)" title="Quitar" alt="Quitar">
                 </div>
                 
@@ -58,7 +58,7 @@
                 <img src="assets/img/view.png" class="viewOption" routerLink="./teacher" alt="Ver todos" title="Ver todos">
                 
                 <p class="textNot" *ngIf="currentDegree.teachers && currentDegree.teachers?.length == 0">No hay profesores</p>
-                <p class="addButton" (click)="selectTeacher = true">Añadir</p>
+                <p class="addButton" (click)="selectTeacher = true">+ Añadir</p>
             </div>
         </div>
     </div>

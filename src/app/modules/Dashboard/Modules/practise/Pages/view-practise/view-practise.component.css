@@ -1,0 +1,222 @@
+#mainDiv {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+#title {
+    margin-top: 40px;
+    height: 10%;
+    width: 100%;
+}
+
+#title > p {
+    padding-left: 4%;
+}
+
+#title > p:nth-child(1) {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#title > p:nth-child(2) {
+    opacity: 0.7;
+}
+
+#degreesText {
+    opacity: 0.7;
+}
+
+
+
+
+#noPractise {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 70%;
+}
+
+
+#noPractise > p:nth-child(2) {
+    font-size: 20px;
+}
+
+#noPractise > p:nth-child(3) {
+    opacity: 0.7;
+    max-width: 315px;
+    text-align: center;
+    padding-top: 5px;
+}
+
+#businessImg {
+    width: 90%;
+    max-width: 186px;
+}
+
+#noPractise > button {
+    border: none;
+    height: 40px;
+    margin-top: 10px;
+    width: 120px;
+}
+
+#practiseDiv {
+    height: 80%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#text-practise {
+    position: absolute;
+    top: 0px;
+    font-size: 20px;
+    left: 4%;
+}
+
+
+#startDate {
+    position: absolute;
+    font-size: 20px;
+    bottom: 2%;
+    left: 4%;
+}
+
+#endDate {
+    position: absolute;
+    font-size: 20px;
+    bottom: 2%;
+    right: 4%;
+}
+
+.dateZone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.dateZone > img {
+    width: 15px;
+} 
+
+
+.dateZone > p:nth-child(2) {
+    font-size: initial;
+    opacity: 0.7;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.element {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    position: relative;
+    top: -50px;
+    justify-content: center;
+    width: 33.3%;
+    align-items: center;
+}
+
+.element > img {
+    height: 159px;
+}
+
+.element p:nth-child(2) {
+    position: relative;
+    top: 20px;
+}
+
+.element p:nth-child(3){
+    position: relative;
+    top: 25px;
+    opacity: 0.7;
+}
+
+#restantes {
+    position: absolute;
+    right: 4%;
+}
+
+
+@media (max-width: 600px) {
+    #practiseDiv {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: center !important;
+        align-items: center !important;
+    }
+
+    .dateZone {
+        padding-bottom: 15px;
+    }
+
+    .element p:nth-child(2) {
+        text-align: center;
+    }
+
+    .element {
+        margin-bottom: 70px;
+    }
+
+    #topElement {
+        margin-top: 569px;
+    }
+
+    #startDate, #endDate {
+        position: initial;
+    }
+}
+
+#rest {
+    position: absolute;
+    top: 61px;
+    display: flex;
+    right: 4%;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+#rest > p:nth-child(1) {
+    font-size: 25px;
+}
+
+#rest > p:nth-child(2) {
+    opacity: 0.7;
+}
+
+.editOption {
+    width: 15px;
+    margin-left: 5px;
+}
+
+
+#modal-zone {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.446);
+    justify-content: center;
+    align-items: center;
+    top: 0;
+}
+
+
+#modal-zone > * {
+    height: 461px;
+    background-color: white;
+    max-width: 400px;
+    width: 90%;
+    transition: 1s;
+    animation-name: introSlow;
+    animation-duration: 0.2s;
+}

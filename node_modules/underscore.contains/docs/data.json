@@ -1,0 +1,35 @@
+{
+    "project": {
+        "name": "generator-package",
+        "description": "Generates requirejs and cjs packages. Also provides a package that suits both.",
+        "version": "0.1.1",
+        "url": "https://github.com/simonfan/generator-package"
+    },
+    "files": {
+        "src/underscore.contains.js": {
+            "name": "src/underscore.contains.js",
+            "modules": {
+                "UnderscoreContains": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "UnderscoreContains": {
+            "name": "UnderscoreContains",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/underscore.contains.js",
+            "line": 5,
+            "description": "AMD and CJS module."
+        }
+    },
+    "classes": {},
+    "classitems": [],
+    "warnings": []
+}

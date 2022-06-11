@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  serverAddress: 'http://192.168.1.134:8080',                        // Dirección del servidor
-  serverFileAddress: 'http://192.168.1.134:8080',
+  serverAddress: 'http://localhost:8080',                        // Dirección del servidor
+  serverFileAddress: 'http://localhost:8080',
   mapBoxToken: "pk.eyJ1IjoidGVxdWlub3giLCJhIjoiY2wwbGtqYjdsMHdlcDNrbTlqeWZnZnY3cSJ9.YoG8c5FaerdYy7gvbLDz6w"
 };
 

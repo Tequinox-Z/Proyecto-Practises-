@@ -116,6 +116,13 @@ export class DegreesComponent implements OnInit {
         this.degreeSvr.updateDegree(this.school, degree).subscribe({
           next: () => {
             this.loadDegrees(new Date().getFullYear());
+          },
+          error: (response) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text:  response.error.mensaje
+            })
           }
         });
       }
@@ -125,7 +132,7 @@ export class DegreesComponent implements OnInit {
 
   goTo(idDegree: any) {
     if (!this.editMode) {
-      this.router.navigate(["../view/" + idDegree], {relativeTo: this.route});
+      this.router.navigate(["view/" + idDegree], {relativeTo: this.route});
     }
   }
 
@@ -156,8 +163,12 @@ export class DegreesComponent implements OnInit {
                   next: () => {
                     this.loadDegrees(new Date().getFullYear());
                   },
-                  error: (error) => {
-                    console.log(error);
+                  error: (response) => {
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text:  response.error.mensaje
+                    })
                   }
                 });
               }

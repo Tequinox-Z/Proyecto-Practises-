@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment';
 import { School } from '../../../../../core/Interfaces/school/school';
 import { Location } from '../../../../../core/Interfaces/Location/Location';
+import { datepicker } from 'jquery';
+import { RegTemp } from '../../../../../core/Interfaces/RegTemp/RegTemp';
 
 @Injectable({
   providedIn: 'root'
@@ -73,5 +75,9 @@ export class CenterService {
 
   deleteAllMovement(school: School) {
     return this.http.delete(environment.serverAddress + "/school/" + school.id + "/movement", this.authService.getHeadersToken());
+  }
+
+  getTemperature(school: School) {
+    return this.http.get(environment.serverAddress + "/school/" + school.id + "/reg-temp", this.authService.getHeadersToken());
   }
 }

@@ -9,6 +9,37 @@
     align-items: center;
 }
 
+#logoDiv {
+    color: black;
+}
+
+#logoDiv {
+    position: absolute;
+    top: 30px;
+    display: flex;
+    position: fixed;
+    left: 35px;
+}
+
+#logoDiv > p {
+    position: relative;
+    top: 5px;
+    left: 16px;
+}
+
+#logo {
+    filter: invert();
+    width: 35px;
+}
+
+/* #logo {
+    position: absolute;
+    top: 25px;
+    filter: invert();
+    width: 35px;
+    left: 25px;
+} */
+
 .disabled {
     filter: opacity(0.3);
 }

@@ -13,4 +13,6 @@ constructor(private http: HttpClient, private authService: AuthService) { }
   getAllTeachers() {
     return this.http.get(environment.serverAddress + "/teacher/", this.authService.getHeadersToken());
   }
+
+  
 }

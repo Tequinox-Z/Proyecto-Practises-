@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ToastrModule } from 'ngx-toastr';
-import { DataTablesModule } from 'angular-datatables';
 import { KeyboardService } from './shared/Services/Keyboard-service/keyboard-service';
 import { SoundService } from './core/Services/SoundFx/sound.service';
 
@@ -19,14 +18,14 @@ import { SoundService } from './core/Services/SoundFx/sound.service';
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    DataTablesModule,
     BrowserAnimationsModule,  
     ToastrModule.forRoot({
       progressBar: true,
       timeOut: 5000,
       closeButton: true,
       progressAnimation: "decreasing"
-    })
+    }),
+    BrowserAnimationsModule
   ],
   providers: [
     KeyboardService, SoundService

@@ -34,7 +34,8 @@
             "styles": [
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/styles.css",
-              "./src/assets/css/style-tables.css"            ],
+              "node_modules/datatables.net-dt/css/jquery.dataTables.css"
+            ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/datatables.net/js/jquery.dataTables.min.js"

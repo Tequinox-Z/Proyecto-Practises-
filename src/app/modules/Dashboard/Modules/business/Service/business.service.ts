@@ -4,6 +4,7 @@ import { AuthService } from '../../../../Auth/Services/Auth-service/auth.service
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,5 +28,8 @@ export class BusinessService {
   getAllLocations() {
     return this.http.get(environment.serverAddress + "/location/business/", this.authService.getHeadersToken());
   }
+
+
+  
 
 }

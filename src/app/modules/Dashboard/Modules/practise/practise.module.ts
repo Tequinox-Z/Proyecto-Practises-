@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PractiseRoutingModule } from './practise-routing.module';
 import { ViewPractiseComponent } from './Pages/view-practise/view-practise.component';
+import { SharedModule } from '../../../../shared/shared.module';
 
 
 
@@ -11,7 +12,8 @@ import { ViewPractiseComponent } from './Pages/view-practise/view-practise.compo
   ],
   imports: [
     CommonModule,
-    PractiseRoutingModule
+    PractiseRoutingModule,
+    SharedModule
   ]
 })
 export class PractiseModule { }

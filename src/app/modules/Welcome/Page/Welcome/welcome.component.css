@@ -18,6 +18,25 @@
   filter: invert(0) !important;
 }
 
+.section-white #titleT {
+  color: black !important;
+}
+
+#titleT {
+  
+  color: white;
+    top: 32px;
+    position: fixed;
+    left: 7%;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS' !important;
+}
+
+@media (max-width: 800px) {
+  #titleT {
+    left: 9%;
+  }
+}
+
 #nav {
     transition: 0.5s;
     position: fixed;
@@ -328,6 +347,11 @@ footer {
   }
 
   @media (max-width: 650px) {
+
+      #titleT {
+        top: 25px;
+        left: 72px;
+      }
 
       #dashboard-img {
         width: 90% !important;

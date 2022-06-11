@@ -5,5 +5,5 @@ export interface RegTemp {
 	fahrenheit ?: number,										
 	heatIndexc ?: number,									
 	heatIndexf ?: number,								
-	date ?: number
+	date ?: Date
 }

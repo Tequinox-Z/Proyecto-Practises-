@@ -1,10 +1,10 @@
 <div id="container-main" *ngIf="userService.getPerson() != null">
     <div id="navigator">
-        <img (click)="showActions = !showActions" id="menu" src="assets/img/menu.png">
+        <img  id="menu" src="assets/img/menu.png" (click)="this.showActions = !showActions">
         <p>{{ this.dashboardService.getTitle() }}</p>
 
         <div id="user-zone">
-            <img (click)="menu = !menu" src="{{ (userService.getPerson() && userService.getPerson()?.image) ? userService.getPerson()!.image : 'assets/img/not_image.png' }}" title="{{ (userService.getPerson()) ? userService.getPerson()!.name : '' }} {{ (userService.getPerson()) ? userService.getPerson()!.lastName : '' }}">
+            <img (click)="menu = !menu" src="{{ (userService.getPerson() && userService.getPerson()?.image) ? userService.getPerson()!.image : 'assets/img/not_image.png' }}" title="{{ (userService.getPerson()) ? userService.getPerson()!.name : '' }} {{ (userService.getPerson()) ? userService.getPerson()!.lastName : '' }} ({{ this.roleAssign }})">
         </div>
     </div>
     <div id="view">
@@ -16,15 +16,29 @@
                 <div class="option" routerLink="/dashboard/center/centers" routerLinkActive="activated">
                     <img src="assets/img/find-icon.svg">
                 </div>
-                <div class="option" routerLink="/dashboard/business/search-business" routerLinkActive="activated">
-                    <img src="assets/img/business-icon.png">
-                </div>
                 <div class="option" routerLink="/dashboard/center/movements" routerLinkActive="activated">
                     <img src="assets/img/movement-icon.png">
                 </div>
-                <div class="option" routerLink="/dashboard/degrees/degrees" routerLinkActive="activated">
-                    <img src="assets/img/degrees-icon.png">
+                <div class="option" routerLink="/dashboard/center/temperature-humidity" routerLinkActive="activated">
+                    <img src="assets/img/temperature.png" alt="Registros de temperatura" title="Registros de temperatura">
                 </div>
+                <div routerLink="/dashboard/degrees/" routerLinkActive="activated" id="double">
+                    <div id="practise" routerLink="/dashboard/practise/" routerLinkActive="activated">
+                        <img src="assets/img/degrees-icon.png">
+                    </div>
+                </div>
+                <div class="option" routerLink="/dashboard/person/management" routerLinkActive="activated">
+                    <img src="assets/img/persons.png">
+                </div>
+                <div class="option" routerLink="/dashboard/business/search-business" routerLinkActive="activated">
+                    <img src="assets/img/business-icon.png">
+                </div>
+                <div class="option" id="logoInApp">
+                    <img src="assets/img/logo.png" alt="Practises Management" title="Practises Management">
+                </div>
+
+
+                
             </div>
 
             <!-- <div *ngIf="rol == 'ROLE_STUDENT'">
@@ -37,7 +51,7 @@
                 
             </div> -->
         </div>
-        <div id="content" (click)="menu = false; showActions = false">
+        <div id="content" [ngClass]="{'widthMax': !showActions}">
             <div id="router">
                 <router-outlet (notification)="showMessage($event)"></router-outlet>
             </div>

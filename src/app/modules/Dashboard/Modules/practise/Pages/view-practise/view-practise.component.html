@@ -1,1 +1,53 @@
-<p>view-practise works!</p>
+<div id="mainDiv" *ngIf="currentEnrollment">
+    <div id="title">
+        <p><span id="degreesText" (click)="back()">Prácticas > </span>{{ currentEnrollment.student?.name }} {{  currentEnrollment.student?.lastName }}</p>
+    </div>
+
+    <div *ngIf="this.currentEnrollment.practise" id="rest">
+        <p id="restant"></p>
+        <p>Días restantes</p>
+    </div>    
+
+    <div *ngIf="!this.currentEnrollment.practise" id="noPractise">
+        <img src="assets/img/business.png" id="businessImg">
+        <p>Prácticas no comenzadas</p>
+        <p>Pulse en comenzar para iniciar las prácticas del alumno</p>
+        <button (click)="startPractise()">Comenzar</button>
+    </div>
+
+    <div *ngIf="this.currentEnrollment.practise" id="practiseDiv">
+
+        <p id="text-practise">Prácticas del alumno</p>
+
+        <div class="element" id="topElement">
+            <img src="assets/img/business.png">
+            <p>Empresa</p>
+            <p (click)="selectBusiness = true">{{ (this.currentEnrollment.practise.business) ? this.currentEnrollment.practise.business.name : "No establecido" }}  <img class="editOption" src="assets/img/edit.png"></p>
+        </div>
+        <div class="element">
+            <img src="assets/img/teacherImg.png">
+            <p>Tutor laboral</p>
+            <p (click)="selectNewTutor()">{{ (this.currentEnrollment.practise.laborTutor) ? this.currentEnrollment.practise.laborTutor.name : "No establecido" }}<img class="editOption" src="assets/img/edit.png"></p>
+        </div>
+        <div class="element" (click)="this.selectTeacher = true">
+            <img src="assets/img/teacherImg.png">
+            <p>Profesor de prácticas</p>
+            <p>{{ (this.currentEnrollment.practise.teacher) ? this.currentEnrollment.practise.teacher.name : "No establecido" }}<img class="editOption" src="assets/img/edit.png"></p>
+        </div>
+        <div id="startDate" class="dateZone">
+            <p>Fecha inicio</p>
+            <p>{{ (this.currentEnrollment.practise.start) ? this.currentEnrollment.practise.start.toString().slice(0,10) : " No establecido " }}</p>
+            <img (click)="setDateStart()" src="assets/img/edit.png">
+        </div>
+        <div id="endDate" class="dateZone">
+            <p>Fecha fin</p>
+            <p>{{ (this.currentEnrollment.practise.finish) ? this.currentEnrollment.practise.finish.toString().slice(0,10) : " No establecido " }}</p>
+            <img (click)="setDateEnd()" src="assets/img/edit.png">
+        </div>
+    </div>
+    <div id="modal-zone" *ngIf="selectBusiness || selectTutor || selectTeacher"  (click)="closeAll()">
+        <app-select-business *ngIf="selectBusiness" (cif)="setBusiness($event)" class="selectModal"></app-select-business>
+        <app-select-teacher *ngIf="selectTeacher" (dni)="setTeacher($event)" class="selectModal"></app-select-teacher>
+        <app-select-tutor *ngIf="selectTutor" (dni)="setTutor($event)" [cif]="this.currentEnrollment.practise!.business!.cif!" (dni)="setTutor($event)" class="selectModal"></app-select-tutor>
+    </div>
+</div>

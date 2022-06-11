@@ -5,6 +5,7 @@
 }
 
 #titleMovement {
+    position: relative;
     margin-top: 40px;
     height: 93px;
     width: 100%;
@@ -104,7 +105,7 @@ button {
     position: absolute;
     right: 0px;
     margin-right: 4%;
-    top: 50px;
+    top: 5px;
 }
 
 

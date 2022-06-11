@@ -24,6 +24,7 @@ export class MyCenterComponent implements OnInit {
   showSaveUbication = false;
   
 
+
   formGroup!: FormGroup;
 
 
@@ -37,9 +38,6 @@ export class MyCenterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-
-
 
     this.mapbox.accessToken = environment.mapBoxToken;
 
@@ -62,6 +60,7 @@ export class MyCenterComponent implements OnInit {
           this.centerSrv.briefing(response).subscribe({
             next: (newBriefing : Briefing) => {
               this.briefing = newBriefing;
+              this.loadMap(response);
             },
             error: (responseError) => {
               Swal.fire({                                                         
@@ -71,8 +70,6 @@ export class MyCenterComponent implements OnInit {
               })
             }
           });
-
-          this.loadMap(response);
 
           this.school = response;
         },
@@ -85,7 +82,7 @@ export class MyCenterComponent implements OnInit {
 
 
   setFileName(event: Event) {
-    this.school.image = environment.serverFileAddress + event;
+    this.school.image = environment.serverFileAddress + "/files/" + event;
     this.centerSrv.updateCenter(this.school).subscribe({
       error: (responseError) => {
         Swal.fire({                                                         
@@ -122,7 +119,6 @@ export class MyCenterComponent implements OnInit {
             .addTo(this.map!);
 
           marker.on("drag", (event: any) => {
-            console.log(event);
 
             event!.target._lngLat.lat;
             event!.target._lngLat.lng;

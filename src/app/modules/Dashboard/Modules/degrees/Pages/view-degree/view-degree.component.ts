@@ -93,8 +93,8 @@ export class ViewDegreeComponent implements OnInit {
         });
 
         this.degreeSrv.getStudentsFromDegree(degree).subscribe({
-          next: (teachers: any) => {
-            this.currentDegree.enrollments = teachers;
+          next: (enrollments: any) => {
+            this.currentDegree.enrollments = enrollments;
           },
           error: (response) => {
             Swal.fire({

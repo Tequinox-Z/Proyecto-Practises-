@@ -9,7 +9,7 @@ import { DegreeStudentComponent } from './Pages/degree-student/degree-student.co
 
 const routes: Routes = [
     {
-      path: "degrees",
+      path: "",
       component: DegreesComponent
     },
     {

@@ -12,6 +12,7 @@ import { FileUploadComponent } from './Components/file-upload/file-upload.compon
 import { SelectBusinessComponent } from './Components/select-business/select-business.component';
 import { SelectTeacherComponent } from './Components/select-teacher/select-teacher.component';
 import { SelectStudentComponent } from './Components/select-student/select-student.component';
+import { SelectTutorComponent } from './Components/select-laborTutor/select-tutor.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SelectStudentComponent } from './Components/select-student/select-stude
     FileUploadComponent,
     SelectBusinessComponent,
     SelectTeacherComponent,
-    SelectStudentComponent
+    SelectStudentComponent,
+    SelectTutorComponent
   ],
   imports: [
     CommonModule
@@ -43,7 +45,8 @@ import { SelectStudentComponent } from './Components/select-student/select-stude
     FileUploadComponent,
     SelectBusinessComponent,
     SelectTeacherComponent,
-    SelectStudentComponent
+    SelectStudentComponent,
+    SelectTutorComponent
   ]
 })
 export class SharedModule { }
