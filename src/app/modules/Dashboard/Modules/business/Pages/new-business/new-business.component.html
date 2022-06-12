@@ -1,0 +1,101 @@
+<form [formGroup]="formGroup">
+    <div *ngIf="page == 1" id="page1" class="page">
+        <div class="div-center" id="text-info">
+            <p>Asistente de creación de nueva empresa</p>
+            <div id="content-text">
+                <div class="text">
+                    <p>
+                        Este asistente le guiará a lo largo de la creación de esta nueva empresa
+                    </p>
+                    <p>
+                        Si algún dato no es correcto se le indicará con <img class="warning" src="assets/img/warning.png">
+                    </p>
+                    <p>
+                        En dicho caso, ponga el cursor encima para ver el error
+                    </p>
+                    <p>
+                        Puede actualizar los datos de la empresa una vez creada si es necesario
+                    </p>
+                </div>
+                <div id="next-button">
+                    <app-next id="next" (next)="page = page + 1"></app-next>
+                </div>
+            </div>
+        </div>
+        <div id="center-imagen" class="div-center">
+            <img src="assets/img/business.png" id="schoolImg">
+        </div>
+    </div>
+    
+    <div *ngIf="page == 2" id="page2" class="page">
+        <div class="div-center">
+           <div id="center">
+            <p class="titlepage"><span id="step">Paso 1 de 2</span>Datos de la empresa</p>
+            <p class="sub">Rellene los siguientes datos para la empresa</p>
+
+            <div id="form">
+                <div>
+                    <input name="name" type="text" formControlName="name" placeholder="Nombre">
+                    <img class="warning2" src="assets/img/warning.png" *ngIf="this.formGroup.get('name')!.touched && this.formGroup.get('name')?.errors" title="Nombre es requerido" alt="Nombre es requerido">
+                </div>
+                <div>
+                    <input name="numberOfStudents" type="number" min="0" formControlName="numberOfStudents" placeholder="Número de estudiantes">
+                    <img class="warning2" src="assets/img/warning.png" *ngIf="this.formGroup.get('numberOfStudents')!.touched && this.formGroup.get('numberOfStudents')?.errors" title="Indique un número máximo de estudiantes que en el que pueden hacer las prácticas los alumnos" alt="Indique número de estudiantes">
+                </div>
+                <div>
+                    <input name="cif" type="text" formControlName="cif" placeholder="Cif">
+                    <img class="warning2" src="assets/img/warning.png" *ngIf="this.formGroup.get('cif')!.touched && this.formGroup.get('cif')?.errors" title="{{ existBusiness }}" alt="{{ existBusiness }}">
+                </div>
+                
+            </div>
+           </div>
+        </div>
+        <div id="" class="div-center">
+            <app-file-upload (fileName)="setFileName($event)" id="fileUpload" [textToShow]="'Seleccione imagen para la empresa'"></app-file-upload>
+        </div>
+            <app-next class="buttonfloat nextForm" id="next" *ngIf="!this.formGroup.invalid && newBusiness.image" (next)="showMap()"></app-next>
+    </div>
+    
+    <div *ngIf="page == 3" id="page3" class="page">
+        <div>
+            <p class="titlepage"><span id="step">Paso 2 de 2</span>Ubicación de la empresa</p>
+            <p class="sub">Seleccione dónde se encuentra esta empresa</p>
+            <img id="ubication-img" src="assets/img/ubication.png">
+        </div>
+        <div id="map-c">
+            <div id="mapa">
+
+            </div>
+        </div>
+        <app-next class="buttonfloat nextForm" id="next" *ngIf="location.latitude && location.longitude" (next)="sendData()"></app-next>
+    </div>
+    
+    <div *ngIf="page == 4" id="page4" class="page">
+        <div class="div-center" id="text-info">
+            <p id="creating-text">Creando empresa ...</p>
+            <div id="content-text">
+                <div class="text" id="steps">
+                    <p>
+                        <img class="ok" src="assets/img/tick.png" *ngIf="serverStep > 0">
+                        Creando empresa ...
+                    </p>
+                    <p>
+                        <img class="ok" src="assets/img/tick.png" *ngIf="serverStep > 1">
+                        Asignando ubicación ...
+                    </p>
+                    <p class="neg">
+                        Empresa creada con éxito
+                    </p>
+                </div>
+                <div id="next-button" *ngIf="finish">
+                    <app-next id="next" routerLink="../my-center"></app-next>
+                </div>
+            </div>
+        </div>
+        <div id="center-imagen" class="div-center">
+            <img src="assets/img/business.png" id="schoolImg">
+        </div>
+    </div>
+    
+    <app-back class="buttonfloat" id="back" *ngIf="page != 1 && page != 4" (back)="page = page - 1"></app-back>
+</form>

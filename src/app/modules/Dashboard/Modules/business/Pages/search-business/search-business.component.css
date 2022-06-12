@@ -15,6 +15,15 @@
     justify-content: center;
 }
 
+.bold {
+    font-weight: 600;
+    color: var(--color);
+}
+
+.bold:hover {
+    text-decoration-line: underline;
+}
+
 #bienvenida div:nth-child(2) {
     align-items: flex-end;
 }

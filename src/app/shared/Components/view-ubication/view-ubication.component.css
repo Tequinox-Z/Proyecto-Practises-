@@ -11,9 +11,9 @@
 
 #back {
     position: absolute;
-    top: 42px;
+    top: 53px;
     width: 25px;
-    left: 1.5%;
+    margin-left: 16px;
 }
 
 #bienvenida div {
