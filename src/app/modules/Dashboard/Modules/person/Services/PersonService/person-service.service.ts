@@ -34,7 +34,6 @@ export class PersonServiceService implements AsyncValidator {
         }
       }),
       catchError(error => {
-        
         return EMPTY;
       })
     );
@@ -79,12 +78,9 @@ export class PersonServiceService implements AsyncValidator {
     return this.http.get(environment.serverAddress + "/teacher?name=" + query, this.authService.getHeadersToken());
   }
 
-
-
   getStudents() {
     return this.http.get(environment.serverAddress + "/student/", this.authService.getHeadersToken());
   }
-
 
   removeStudent(dni: string) {
     return this.http.delete(environment.serverAddress + "/student/" + dni, this.authService.getHeadersToken());
@@ -98,10 +94,20 @@ export class PersonServiceService implements AsyncValidator {
     return this.http.delete(environment.serverAddress + "/labor-tutor/" + dni, this.authService.getHeadersToken());
   }
 
-
   getPersonByDni(dni: string) {
     return this.http.get(environment.serverAddress + "/person/" + dni, this.authService.getHeadersToken());
   }
 
-
+  editTeacher(person: PersonDto) {
+    return this.http.put(environment.serverAddress + "/teacher/" + person.dni, person, this.authService.getHeadersToken());
+  }
+  editAdmin(person: PersonDto) {
+    return this.http.put(environment.serverAddress + "/administrator/" + person.dni, person, this.authService.getHeadersToken());
+  }
+  editStudent(person: PersonDto) {
+    return this.http.put(environment.serverAddress + "/student/" + person.dni, person, this.authService.getHeadersToken());
+  }
+  editTutor(person: PersonDto) {
+    return this.http.put(environment.serverAddress + "/labor-tutor/" + person.dni, person, this.authService.getHeadersToken());
+  }
 }

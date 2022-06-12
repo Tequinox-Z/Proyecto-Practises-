@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../modules/Dashboard/Services/UserService/user.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../../modules/Auth/Services/Auth-service/auth.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -12,7 +13,9 @@ export class MenuComponent implements OnInit {
 
   constructor (
     private userService: UserService,
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router,
+    private rutaActiva: ActivatedRoute
   ) 
   { 
     
@@ -47,6 +50,11 @@ export class MenuComponent implements OnInit {
       }
 
     })
+  }
+
+
+  myUser() {
+    this.router.navigateByUrl("dashboard/person/management/" +  this.userService.getDni() + "/edit");
   }
 
 }

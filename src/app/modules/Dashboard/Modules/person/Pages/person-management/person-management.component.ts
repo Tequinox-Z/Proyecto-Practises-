@@ -1,7 +1,6 @@
 import { PersonDto } from './../../../../../../core/Interfaces/personDto/person-dto';
-import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Rol } from '../../../../../../core/Interfaces/personDto/person-dto';
-import { Administrator } from '../../../../../../core/Interfaces/administrator/administrator';
 import { Teacher } from '../../../../../../core/Interfaces/teacher/teacher';
 import { Student } from '../../../../../../core/Interfaces/student/student';
 import { LaborTutor } from '../../../../../../core/Interfaces/LaborTutor/LaborTutor';
@@ -9,8 +8,6 @@ import { PersonServiceService } from '../../Services/PersonService/person-servic
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../../../Auth/Services/Auth-service/auth.service';
 import { UserService } from '../../../../Services/UserService/user.service';
-import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from '../../../../../../../environments/environment';
