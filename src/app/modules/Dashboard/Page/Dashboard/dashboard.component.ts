@@ -42,6 +42,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.initUser();
+  }
+
+  initUser() {
     this.dashboardService.setTitle("Dashboard");
     // Obtenemos el usuario
 
@@ -97,9 +101,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         })
       }
   })
-
-
-
 
   }
 

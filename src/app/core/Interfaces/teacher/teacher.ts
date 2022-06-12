@@ -1,3 +1,4 @@
+import { Rol } from '../personDto/person-dto';
 
 // Interfaz de profesor
 
@@ -9,7 +10,8 @@ export interface Teacher {
     image?: string,                                              // Imagen
     telefone?: string,                                           // Teléfono
     address?: string,                                            // Dirección
-    password?: string,                                            // Contraseña
+    password?: string,                                           // Contraseña
     enabled ?: boolean,
-    email ?: string
+    email ?: string,
+    rol?: Rol,                                                   // Rol
 }

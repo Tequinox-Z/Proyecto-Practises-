@@ -19,8 +19,8 @@ export interface PersonDto {
 // Enumerado de roles 
 
 export enum Rol {
+    ROLE_ADMIN,                                  // Rol de administrador
     ROLE_STUDENT,                                // Rol de estudiante
     ROLE_TEACHER,                                // Rol de profesor
-    ROLE_ADMIN,                                  // Rol de administrador
     ROLE_LABOR_TUTOR                             // Rol de tutor laboral
 }

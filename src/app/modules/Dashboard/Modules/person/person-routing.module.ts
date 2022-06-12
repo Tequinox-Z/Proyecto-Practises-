@@ -17,7 +17,6 @@ const routes: Routes = [
       path: "management/:dni/edit",
       component: EditPersonComponent
     }
-
 ];
 
 @NgModule({

@@ -6,6 +6,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { PersonManagementComponent } from './Pages/person-management/person-management.component';
 import { ViewPersonComponent } from './Pages/view-person/view-person.component';
 import { SharedModule } from '../../../../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SharedModule } from '../../../../shared/shared.module';
     CommonModule,
     DataTablesModule,
     PersonRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class PersonModule { }

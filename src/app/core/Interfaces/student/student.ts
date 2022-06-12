@@ -1,3 +1,4 @@
+import { Rol } from '../personDto/person-dto';
 
 // Interfaz de estudiantes
 
@@ -11,5 +12,6 @@ export interface Student {
     address?: string,                                                        // Dirección
     password?: string,                                                        // Contraseña
     enabled ?: boolean,
-    email ?: string
+    email ?: string,
+    rol?: Rol                                    // Rol
 }

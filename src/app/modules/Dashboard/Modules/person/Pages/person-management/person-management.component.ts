@@ -1,3 +1,4 @@
+import { PersonDto } from './../../../../../../core/Interfaces/personDto/person-dto';
 import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Rol } from '../../../../../../core/Interfaces/personDto/person-dto';
 import { Administrator } from '../../../../../../core/Interfaces/administrator/administrator';
@@ -11,6 +12,10 @@ import { UserService } from '../../../../Services/UserService/user.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { environment } from '../../../../../../../environments/environment';
+import { DashboardService } from '../../../../Services/Dashboard-service/dashboard.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -24,23 +29,99 @@ export class PersonManagementComponent implements OnInit {
     private personSvr: PersonServiceService,
     private userService: UserService,
     private authService: AuthService,
-    private http: HttpClient
+    private http: HttpClient,
+    private formBuilder: FormBuilder,
+    public dashboardService: DashboardService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   rolSelected : Rol = Rol.ROLE_TEACHER;
   rolSelectedString :string = "";
+  rolToCreate !: Rol;
+  rolAdmin: Rol = Rol.ROLE_ADMIN;
+  
+  imageSelected = '';
+  date : Date = new Date();
 
+  public formGroup!: FormGroup;
   persons : Teacher[] | Student[] | LaborTutor[] = [];
 
   ngOnInit(): void {
+    this.buildForm();
     this.getPersons();
   }
 
+  setImage(event: string) {
+    this.imageSelected = environment.serverFileAddress + "/files/" + event;
+  }
+
+  showFileInput() {
+    let container = document.querySelector("#newPersonContainer") as HTMLElement;
+    
+    if (container.classList.contains("noShow")) {
+      return false;
+    }
+    else { 
+      return true;
+    }
+  }
+
+  closeModal() {
+    this.getPersons();
+    this.formGroup.reset();
+    this.imageSelected = "";
+    let container = document.querySelector("#newPersonContainer") as HTMLElement;
+    container.classList.add("noShow");
+  }
+
+  private buildForm(){
+    this.formGroup = this.formBuilder.group({
+      name: ['', [
+        Validators.required
+      ]],
+      lastName: ['', [
+        Validators.required
+      ]],
+      birthDate: ['', [
+        Validators.required
+      ]],
+      dni: ['', [
+        Validators.required, Validators.pattern('[0-9]{8}[A-Za-z]{1}')
+      ], [this.personSvr] ],
+      address: ['', [
+        Validators.required
+      ]],
+      telefone: ['', [
+        Validators.required, Validators.pattern('^[0-9]{9}$')
+      ]],
+      email: ['', [
+        Validators.required, Validators.email
+      ]],
+      password: ['', [
+        Validators.required, Validators.minLength(8)
+      ]]
+    });
+  }
+
+  get existPerson() {
+
+    let errors = this.formGroup.get('dni')?.errors!;
+      
+    if (errors['exist']) {
+      return "Dni registrado";
+    }
+    else {
+      return "Indique un dni válido";
+    }
+
+  }
 
   getPersons() {
     if (this.rolSelected == Rol.ROLE_TEACHER) {
       
       this.rolSelectedString = "Profesores";
+      this.dashboardService.setTitle("Profesores");
 
       this.personSvr.getTeachers().subscribe({
         next: (persons: any) => {
@@ -50,6 +131,7 @@ export class PersonManagementComponent implements OnInit {
     }
     else if (this.rolSelected == Rol.ROLE_STUDENT) {
       this.rolSelectedString = "Estudiantes";
+      this.dashboardService.setTitle("Estudiantes");
 
       this.personSvr.getStudents().subscribe({
         next: (persons: any) => {
@@ -59,6 +141,7 @@ export class PersonManagementComponent implements OnInit {
     }
     else if (this.rolSelected == Rol.ROLE_LABOR_TUTOR) {
       this.rolSelectedString = "Tutores";
+      this.dashboardService.setTitle("Tutores laborales");
 
       this.personSvr.getLaborTutor().subscribe({
         next: (persons: any) => {
@@ -69,7 +152,34 @@ export class PersonManagementComponent implements OnInit {
   }
 
   find (event: String) {
+    if (this.rolSelected == Rol.ROLE_TEACHER) {
+      
+      this.rolSelectedString = "Profesores";
 
+      this.personSvr.getTeachersFind(event).subscribe({
+        next: (persons: any) => {
+          this.persons = persons;
+        }
+      });
+    }
+    else if (this.rolSelected == Rol.ROLE_STUDENT) {
+      this.rolSelectedString = "Estudiantes";
+
+      this.personSvr.getStudentsFind(event).subscribe({
+        next: (persons: any) => {
+          this.persons = persons;
+        }
+      });
+    }
+    else if (this.rolSelected == Rol.ROLE_LABOR_TUTOR) {
+      this.rolSelectedString = "Tutores";
+
+      this.personSvr.getLaborTutorFind(event).subscribe({
+        next: (persons: any) => {
+          this.persons = persons;
+        }
+      });
+    }
   }
 
   setPerson(event: any) {
@@ -95,20 +205,63 @@ export class PersonManagementComponent implements OnInit {
   }
 
   noShowMenu(event: Event) {
-    let currentElement = event.target as HTMLElement;
-    currentElement.parentElement?.parentElement?.classList.remove("viewMenu");
+    let element = event.target as HTMLElement;
+
+    if (!element.classList.contains("options")) {
+      let persons = document.querySelectorAll(".person");
+
+      persons.forEach((person) => {
+        person.classList.remove("viewMenu")
+      });
+    }
+
   }
 
-  view(event: Event, dni: string) {
-    this.noShowMenu(event);
+  toggleDisable (dni: string, enabled : boolean) {
+    if (enabled) {
+      this.personSvr.disable(dni).subscribe({
+        next: () => {
+          Swal.fire({
+            icon: 'success',
+            title: '¡Hecho!',
+            text:  "El usuario con dni " + dni + " se ha deshabilitado"
+          });
+          this.getPersons();
+        },
+        error: (response) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text:  response.error.mensaje
+          });
+          this.getPersons();
+        }
+      })
+    }
+    else {
+      this.personSvr.enable(dni).subscribe({
+        next: () => {
+          Swal.fire({
+            icon: 'success',
+            title: '¡Hecho!',
+            text: "El usuario con dni " + dni + " se ha habilitado"
+          });
+          this.getPersons();
+        },
+        error: (response) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text:  response.error.mensaje
+          });
+          this.getPersons();
+        }
+      })
+    }
   }
 
-  edit(event: Event, dni: string) {
-    this.noShowMenu(event);
-  }
 
   remove(event: Event, dni: string) {
-    this.noShowMenu(event);
 
     Swal.fire({
       title: 'Borrar usuario',
@@ -126,7 +279,7 @@ export class PersonManagementComponent implements OnInit {
             this.personSvr.removeTeacher(dni).subscribe({
               next: () => {
                 Swal.fire({
-                  icon: 'error',
+                  icon: 'success',
                   title: '¡Hecho!',
                   text:  "Borrado"
                 });
@@ -147,7 +300,7 @@ export class PersonManagementComponent implements OnInit {
             this.personSvr.removeLaborTutor(dni).subscribe({
               next: () => {
                 Swal.fire({
-                  icon: 'error',
+                  icon: 'success',
                   title: '¡Hecho!',
                   text:  "Borrado"
                 })
@@ -156,7 +309,7 @@ export class PersonManagementComponent implements OnInit {
               },
               error: (response) => {
                 Swal.fire({
-                  icon: 'error',
+                  
                   title: 'Oops...',
                   text:  response.error.mensaje
                 })
@@ -168,7 +321,7 @@ export class PersonManagementComponent implements OnInit {
             this.personSvr.removeStudent(dni).subscribe({
               next: () => {
                 Swal.fire({
-                  icon: 'error',
+                  icon: 'success',
                   title: '¡Hecho!',
                   text:  "Borrado"
                 })
@@ -186,11 +339,65 @@ export class PersonManagementComponent implements OnInit {
             break;
           }
         }
-
-       
-
       }
     })
+  }
+
+  addPerson (rol : Rol) {
+    this.rolToCreate = rol;
+
+    console.log(this.rolToCreate);
+
+    let container = document.querySelector("#newPersonContainer") as HTMLElement;
+    container.classList.remove("noShow");
+  }
+
+  createUser () {
+
+    if (!this.formGroup.valid) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Ooops...',
+        text:  "Rellene el formulario correctamente"
+      });
+    }
+    else if (this.imageSelected == "") {
+      Swal.fire({
+        icon: 'error',
+        title: 'Ooops...',
+        text:  "Seleccione una imagen de perfil"
+      });
+    }
+    else {
+      let newPerson : PersonDto = this.formGroup.value;
+
+      newPerson.image = this.imageSelected;
+      newPerson.rol = this.rolToCreate;
+
+      this.personSvr.createPerson(newPerson).subscribe({
+        next: () => {
+          this.getPersons();
+
+        },
+        error: (response) => {
+          this.getPersons();
+          Swal.fire({
+            icon: 'error',
+            title: 'Ooops...',
+            text:  response.error.mensaje
+          });
+        }
+      })
+
+      this.formGroup.reset();
+      this.imageSelected = "";
+      let container = document.querySelector("#newPersonContainer") as HTMLElement;
+      container.classList.add("noShow");
+    }
+  }
+
+  edit (event: Event, dni: string) {
+    this.router.navigate([dni + "/edit"], {relativeTo: this.route});
   }
 
 }

@@ -11,8 +11,10 @@
 
 .buttonfloat {
     position: absolute;
-    bottom: 20px;
+    bottom: 72px;
 }
+
+
 
 #next, #back {
     width: 130px;
@@ -21,7 +23,7 @@
 
 
 #back {
-    left: 20px;
+    left: 40px;
 }
 
 .nextForm {

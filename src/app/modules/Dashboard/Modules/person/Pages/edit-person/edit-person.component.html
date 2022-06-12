@@ -1,1 +1,20 @@
-<p>edit-person works!</p>
+<div id="mainDiv">
+    <div id="title">
+        <p><span class="degreesText" routerLink="../">Personas > </span>{{ this.currentPerson.name }} {{ this.currentPerson.lastName}}</p>
+        <!-- <img src="assets/img/edit.png" id="canDeleteBusiness" (click)="editMode = !editMode" title="Modo edición" alt="Modo edición"> -->
+        
+        
+        <!-- <img (click)="selectTeacher = true" src="assets/img/add-icon.png" id="addButton" alt="Añadir nuevo profesor" title="Añadir nuevo profesor"> -->
+    </div>
+    <div id="content">
+        <div>
+            <div id="image">
+                <img src="{{ this.currentPerson.image }}">
+            </div>
+        </div>
+        <div>
+            <p>{{ this.currentPerson.name }}</p>
+        </div>
+        
+    </div>
+</div>
