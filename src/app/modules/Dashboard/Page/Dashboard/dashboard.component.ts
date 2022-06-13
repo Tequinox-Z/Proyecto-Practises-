@@ -20,8 +20,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   /* Paginas por defecto, dependiendo del rol se redirigirá a una ruta u otra */
 
   administratorDefaultPage : String = "center/my-center";                            // Ruta por defecto para el administrador
-  teacherDefaultPage : String = "student/";                                                         // Ruta por defecto para al estudiante
-  studentDefaultPage : String = "teacher/degrees/viewDegrees";                                      // Ruta por defecto para al profesor
+  teacherDefaultPage : String = "center/centers";                                                         // Ruta por defecto para al estudiante
 
   showActions: boolean = true;
   menu: boolean = false;
@@ -65,23 +64,23 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             //  this.router.navigate([this.administratorDefaultPage]);     // En caso de que sea administrador
             break;
           }
-          case "ROLE_STUDENT": {
-            this.roleAssign = "Estudiante";
-            this.router.navigate([this.studentDefaultPage], { relativeTo: this.route });           // En caso de que sea estudiante
-            break;
-          }          
+          // case "ROLE_STUDENT": {
+          //   this.roleAssign = "Estudiante";
+          //   this.router.navigate([this.studentDefaultPage], { relativeTo: this.route });           // En caso de que sea estudiante
+          //   break;
+          // }          
           case "ROLE_TEACHER": {
             this.roleAssign = "Profesor";
 
             this.router.navigate([this.teacherDefaultPage], { relativeTo: this.route });           // En caso de que sea profesor
             break;
           }
-          case "ROLE_LABOR_TUTOR": {
-            this.roleAssign = "Tutor laboral";
+          // case "ROLE_LABOR_TUTOR": {
+          //   this.roleAssign = "Tutor laboral";
 
-            this.router.navigate([this.teacherDefaultPage], { relativeTo: this.route });           // En caso de que sea profesor
-            break;
-          }
+          //   this.router.navigate([this.teacherDefaultPage], { relativeTo: this.route });           // En caso de que sea profesor
+          //   break;
+          // }
           default: {
             Swal.fire({
               icon: 'error',

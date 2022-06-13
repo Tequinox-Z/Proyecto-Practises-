@@ -12,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BusinessService } from '../../Service/business.service';
 import { Business } from '../../../../../../core/Interfaces/business/Business';
 import { LocationAndBusiness } from '../../../../../../core/Interfaces/LocationAndBusiness/LocationAndBusiness';
+import { UserService } from '../../../../Services/UserService/user.service';
 
 @Component({
   selector: "app-search-business",
@@ -23,9 +24,11 @@ export class SearchBusinessComponent implements OnInit {
     private businessSvr: BusinessService,
     private dashboardSvr: DashboardService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userSrv: UserService
   ) {}
 
+  isAdmin: boolean = false;
   mapbox = mapboxgl as typeof mapboxgl;
   map: mapboxgl.Map | null = null;
 
@@ -35,6 +38,10 @@ export class SearchBusinessComponent implements OnInit {
   mapMode: boolean = false;
 
   ngOnInit(): void {
+
+    if(this.userSrv.getPerson()!.rol!.toString() == "ROLE_ADMIN") {
+      this.isAdmin = true;
+    }
     this.dashboardSvr.setTitle("Empresas");
 
     this.mapbox.accessToken = environment.mapBoxToken;
