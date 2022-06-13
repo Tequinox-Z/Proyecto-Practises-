@@ -37,7 +37,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     if (this.auth.getToken() != null) {
-      this.router.navigateByUrl('/');                                                  // Si tiene token lo redirigimos a la aplicación
+      this.router.navigateByUrl('/dashboard');                                                  // Si tiene token lo redirigimos a la aplicación
     }
   }
 
