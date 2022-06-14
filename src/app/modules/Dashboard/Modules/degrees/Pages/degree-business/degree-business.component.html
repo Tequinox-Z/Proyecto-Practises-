@@ -1,7 +1,7 @@
 <div id="mainDiv" *ngIf="this.currentDegree">
     <div id="title">
-        <p><span class="degreesText" routerLink="../../../../degrees">Ciclos del centro > </span><span class="degreesText" routerLink="../">{{ this.currentDegree.name }}</span> > Empresas</p>
-        <img src="assets/img/edit.png" id="canDeleteBusiness" (click)="editMode = !editMode">
+        <p><span class="degreesText" routerLink="../../../">Ciclos > </span><span class="degreesText" routerLink="../">{{ this.currentDegree.name }}</span> > Empresas</p>
+        <img src="assets/img/edit.png" id="canDeleteBusiness" (click)="editMode = !editMode" *ngIf="isAdmin">
     </div>
 
     <p id="businessTitle">Empresas</p>
@@ -9,7 +9,7 @@
     <div id="centerZoneView">
         <div id="businessZone">
 
-            <div class="businessOption">
+            <div class="businessOption" *ngIf="isAdmin">
                 <div id="addOptionBusiness" class="imageOption" (click)="this.selectBusiness = true">
                     <img src="assets/img/add.png" id="addImage">
                 </div>

@@ -3,6 +3,7 @@ import { PracticeService } from '../../Service/practice.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Enrollment } from 'src/app/core/Interfaces/Enrollment/Enrollment';
+import { UserService } from '../../../../Services/UserService/user.service';
 
 @Component({
   selector: 'app-view-practise',
@@ -13,7 +14,8 @@ export class ViewPractiseComponent implements OnInit, AfterViewInit {
 
   constructor(
     private practiseSrv: PracticeService,
-    private rutaActiva: ActivatedRoute
+    private rutaActiva: ActivatedRoute,
+    private userSrv: UserService
   ) { }
 
   currentEnrollment !: Enrollment;
@@ -21,6 +23,8 @@ export class ViewPractiseComponent implements OnInit, AfterViewInit {
   selectBusiness: boolean = false;
   selectTutor: boolean = false;
   selectTeacher: boolean = false;
+
+  isAdmin: boolean = false;
 
 
   setBusiness (cif :string) {
@@ -124,6 +128,9 @@ export class ViewPractiseComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    if (this.userSrv.getPerson()?.rol?.toString() == "ROLE_ADMIN") {
+      this.isAdmin = true;
+     }
     this.loadEnrollment();
   }
 

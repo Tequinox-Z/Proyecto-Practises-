@@ -1,0 +1,20 @@
+<div id="mainDiv">
+    <div id="title">
+        <p>Mis ciclos</p>
+        <p>Mostrando ciclos de este año</p>
+    </div>
+
+    <div id="degrees" *ngIf="degrees && degrees.length != 0">
+        <div *ngFor="let currentDegree of degrees" class="degree" id="{{ currentDegree.id }}" (click)="goTo(currentDegree.id)">
+            <img src="{{currentDegree.image }}">
+            <p>{{ currentDegree.name }}</p>
+        </div>
+    </div>
+
+
+    <div id="no-degrees" *ngIf="!degrees || degrees.length == 0">
+        <img src="assets/img/no-degrees.png">
+        <p>Sin ciclos</p>
+        <p>Aquí se mostrarán los ciclos en los que imparte clase</p>
+    </div>
+</div>

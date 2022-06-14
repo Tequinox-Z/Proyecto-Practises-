@@ -11,8 +11,8 @@
     <div *ngIf="!this.currentEnrollment.practise" id="noPractise">
         <img src="assets/img/business.png" id="businessImg">
         <p>Prácticas no comenzadas</p>
-        <p>Pulse en comenzar para iniciar las prácticas del alumno</p>
-        <button (click)="startPractise()">Comenzar</button>
+        <p *ngIf="isAdmin">Pulse en comenzar para iniciar las prácticas del alumno</p>
+        <button *ngIf="isAdmin" (click)="startPractise()">Comenzar</button>
     </div>
 
     <div *ngIf="this.currentEnrollment.practise" id="practiseDiv">
@@ -22,27 +22,27 @@
         <div class="element" id="topElement">
             <img src="assets/img/business.png">
             <p>Empresa</p>
-            <p (click)="selectBusiness = true">{{ (this.currentEnrollment.practise.business) ? this.currentEnrollment.practise.business.name : "No establecido" }}  <img class="editOption" src="assets/img/edit.png"></p>
+            <p (click)=" (isAdmin) ? selectBusiness = true : false">{{ (this.currentEnrollment.practise.business) ? this.currentEnrollment.practise.business.name : "No establecido" }}  <img *ngIf="isAdmin" class="editOption" src="assets/img/edit.png"></p>
         </div>
         <div class="element">
             <img src="assets/img/teacherImg.png">
             <p>Tutor laboral</p>
-            <p (click)="selectNewTutor()">{{ (this.currentEnrollment.practise.laborTutor) ? this.currentEnrollment.practise.laborTutor.name : "No establecido" }}<img class="editOption" src="assets/img/edit.png"></p>
+            <p (click)="(isAdmin) ? selectNewTutor(): false">{{ (this.currentEnrollment.practise.laborTutor) ? this.currentEnrollment.practise.laborTutor.name : "No establecido" }}<img *ngIf="isAdmin" class="editOption" src="assets/img/edit.png"></p>
         </div>
-        <div class="element" (click)="this.selectTeacher = true">
+        <div class="element" (click)="(isAdmin) ? this.selectTeacher = true: false">
             <img src="assets/img/teacherImg.png">
             <p>Profesor de prácticas</p>
-            <p>{{ (this.currentEnrollment.practise.teacher) ? this.currentEnrollment.practise.teacher.name : "No establecido" }}<img class="editOption" src="assets/img/edit.png"></p>
+            <p>{{ (this.currentEnrollment.practise.teacher) ? this.currentEnrollment.practise.teacher.name : "No establecido" }}<img class="editOption" *ngIf="isAdmin" src="assets/img/edit.png"></p>
         </div>
         <div id="startDate" class="dateZone">
             <p>Fecha inicio</p>
             <p>{{ (this.currentEnrollment.practise.start) ? this.currentEnrollment.practise.start.toString().slice(0,10) : " No establecido " }}</p>
-            <img (click)="setDateStart()" src="assets/img/edit.png">
+            <img (click)="setDateStart()" src="assets/img/edit.png" *ngIf="isAdmin">
         </div>
         <div id="endDate" class="dateZone">
             <p>Fecha fin</p>
             <p>{{ (this.currentEnrollment.practise.finish) ? this.currentEnrollment.practise.finish.toString().slice(0,10) : " No establecido " }}</p>
-            <img (click)="setDateEnd()" src="assets/img/edit.png">
+            <img (click)="setDateEnd()" src="assets/img/edit.png" *ngIf="isAdmin">
         </div>
     </div>
     <div id="modal-zone" *ngIf="selectBusiness || selectTutor || selectTeacher"  (click)="closeAll()">

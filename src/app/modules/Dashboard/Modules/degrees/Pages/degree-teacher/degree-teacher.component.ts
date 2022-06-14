@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProfessionalDegree } from '../../../../../../core/Interfaces/ProfessionalDegree/ProfessionalDegree';
 import Swal from 'sweetalert2';
 import { Teacher } from '../../../../../../core/Interfaces/teacher/teacher';
+import { UserService } from '../../../../Services/UserService/user.service';
 
 @Component({
   selector: 'app-degree-teacher',
@@ -16,13 +17,17 @@ export class DegreeTeacherComponent implements OnInit {
   constructor (private centerSvr: CenterService, 
     private degreeSrv: DegreeService, 
     private rutaActiva: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private userSrv: UserService
    ) { }
 
    selectTeacher: boolean = false;
-
+   isAdmin : boolean = false;
 
    ngOnInit(): void {
+    if (this.userSrv.getPerson()?.rol?.toString() == "ROLE_ADMIN") {
+      this.isAdmin = true;
+    }
      this.loadDegree();
    }
     

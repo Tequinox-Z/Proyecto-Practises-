@@ -7,6 +7,7 @@ import { ViewDegreeComponent } from './Pages/view-degree/view-degree.component';
 import { DegreeBusinessComponent } from './Pages/degree-business/degree-business.component';
 import { DegreeStudentComponent } from './Pages/degree-student/degree-student.component';
 import { DegreeTeacherComponent } from './Pages/degree-teacher/degree-teacher.component';
+import { MyDegrees } from './Pages/myDegrees/my-degrees.component';
 
 
 
@@ -16,7 +17,8 @@ import { DegreeTeacherComponent } from './Pages/degree-teacher/degree-teacher.co
     ViewDegreeComponent,
     DegreeBusinessComponent,
     DegreeStudentComponent,
-    DegreeTeacherComponent
+    DegreeTeacherComponent,
+    MyDegrees
   ],
   imports: [
     CommonModule,

@@ -11,6 +11,8 @@ import { LocationAndSchool } from "../../../../../../core/Interfaces/LocationAnd
 import { DashboardService } from "../../../../Services/Dashboard-service/dashboard.service";
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../../Services/UserService/user.service';
+import { Administrator } from '../../../../../../core/Interfaces/administrator/administrator';
+import { ProfessionalDegree } from '../../../../../../core/Interfaces/ProfessionalDegree/ProfessionalDegree';
 
 @Component({
   selector: "app-search-center",
@@ -32,6 +34,8 @@ export class SearchCenterComponent implements OnInit {
   centers: School[] = [];
   locations: LocationAndSchool[] = [];
 
+  administrators : Administrator[] = [];
+  degrees : ProfessionalDegree[] = [];
 
   setMode: boolean = true;
 
@@ -76,6 +80,62 @@ export class SearchCenterComponent implements OnInit {
         });
       },
     });
+  }
+
+
+  getTelefoneTutors(idSchool: number) {
+    this.centerSvr.getAdministrators(idSchool).subscribe({
+      next: (administrators: any) => {
+        this.administrators = administrators;
+
+        let telefones = "";
+
+      if (administrators.length == 0) {
+        telefones = "Sin teléfonos";
+      }
+      else {
+        this.administrators.forEach((administrator: Administrator) => {
+          telefones += "<p>" + administrator.telefone! + "</p>" 
+        });
+      }
+
+        Swal.fire({
+          title: 'Teléfonos',
+          icon: 'info',
+          html: telefones,
+          showCloseButton: true,
+          focusConfirm: false
+        })
+      }
+    })
+  }
+
+
+  getDegrees(idSchool: number) {
+    this.centerSvr.getDegreesFromSchoolId(idSchool).subscribe({
+      next: (degrees: any) => {
+        this.degrees = degrees;
+
+        let names = "";
+
+      if (degrees.length == 0) {
+        names = "Sin ciclos";
+      }
+      else {
+        this.degrees.forEach((degree: ProfessionalDegree) => {
+          names += "<p>" + degree.name! + "</p>" 
+        });
+      }
+
+        Swal.fire({
+          title: 'Ciclos',
+          icon: 'info',
+          html: names,
+          showCloseButton: true,
+          focusConfirm: false
+        })
+      }
+    })
   }
 
   buscar(name: String) {

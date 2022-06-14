@@ -33,9 +33,13 @@ export class TemperatureHumidityComponent implements OnInit {
             this.data = this.data.reverse();
 
             this.data.forEach((current: RegTemp) => {
-              labels.push(current.date!.toString().substring(14,16) + ":00h");
+              let hour: Date = new Date(current.date!);
+
+              console.log(hour);
+
+              labels.push(hour.getHours() + "h")
               grados.push(current.celcius);
-              indexC.push(current.heatIndexc);
+              indexC.push(current.heatIndexf);
               humedad.push(current.humidity);
             });
       

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DegreeService } from '../../Service/degree.service';
 import { ProfessionalDegree } from '../../../../../../core/Interfaces/ProfessionalDegree/ProfessionalDegree';
 import Swal from 'sweetalert2';
+import { UserService } from '../../../../Services/UserService/user.service';
 
 @Component({
   selector: 'app-degree-business',
@@ -13,9 +14,12 @@ export class DegreeBusinessComponent implements OnInit {
 
   constructor(
     private rutaActiva: ActivatedRoute,
-    private degreeSrv: DegreeService
+    private degreeSrv: DegreeService,
+    public userSrv: UserService
   ) { }
 
+
+  isAdmin : boolean = false;
 
   selectBusiness:boolean = false;
 
@@ -23,6 +27,9 @@ export class DegreeBusinessComponent implements OnInit {
   editMode: boolean = false;
 
   ngOnInit(): void {
+    if (this.userSrv.getPerson()?.rol?.toString() == "ROLE_ADMIN") {
+      this.isAdmin = true;
+   }
     this.loadDegree();
   }
 

@@ -11,28 +11,35 @@
         <div id="menu-zone" *ngIf="showActions">
             <div *ngIf="this.userService.getPerson()!.rol + '' == 'ROLE_ADMIN'">
                 <div class="option" routerLink="/dashboard/center/my-center" routerLinkActive="activated">
-                    <img src="assets/img/school-icon.png">
+                    <img src="assets/img/school-icon.png" title="Mi centro" alt="Mi centro">
                 </div>
                 <div class="option" routerLink="/dashboard/center/centers" routerLinkActive="activated">
-                    <img src="assets/img/find-icon.svg">
+                    <img src="assets/img/find-icon.svg" title="Centros educativos" alt="Centros educativos">
                 </div>
                 <div class="option" routerLink="/dashboard/center/movements" routerLinkActive="activated">
-                    <img src="assets/img/movement-icon.png">
+                    <img src="assets/img/movement-icon.png" title="Movimientos inusuales" alt="Movimientos inusuales">
                 </div>
                 <div class="option" routerLink="/dashboard/center/temperature-humidity" routerLinkActive="activated">
                     <img src="assets/img/temperature.png" alt="Registros de temperatura" title="Registros de temperatura">
                 </div>
-                <div routerLink="/dashboard/degrees/" routerLinkActive="activated" id="double">
+                
+                <div class="option" routerLink="/dashboard/degrees/my-degrees" routerLinkActive="activated">
+                    <img src="assets/img/my-degrees.png" title="Mis ciclos" alt="Mis ciclos">
+                </div>
+
+                <div routerLink="/dashboard/degrees/all" routerLinkActive="activated" id="double">
                     <div id="practise" routerLink="/dashboard/practise/" routerLinkActive="activated">
-                        <img src="assets/img/degrees-icon.png">
+                        <img src="assets/img/degrees-icon.png" title="Ver todos los ciclos del centro" alt="Ver todos los ciclos del centro">
                     </div>
                 </div>
+                
                 <div class="option" routerLink="/dashboard/person/management" routerLinkActive="activated">
-                    <img src="assets/img/persons.png">
+                    <img src="assets/img/persons.png" title="Administrar usuarios" alt="Administrar usuarios">
                 </div>
                 <div class="option" routerLink="/dashboard/business/search-business" routerLinkActive="activated">
-                    <img src="assets/img/business-icon.png">
+                    <img src="assets/img/business-icon.png" title="Empresas" alt="Empresas">
                 </div>
+
                 <div class="option" id="logoInApp" (click)="initUser()">
                     <img src="assets/img/logo.png" alt="Practises Management" title="Practises Management">
                 </div>
@@ -40,11 +47,15 @@
 
             <div *ngIf="this.userService.getPerson()!.rol + '' == 'ROLE_TEACHER'">
                 <div class="option" routerLink="/dashboard/center/centers" routerLinkActive="activated">
-                    <img src="assets/img/find-icon.svg">
+                    <img src="assets/img/find-icon.svg" title="Centros educativos" alt="Centros educativos">
+                </div>
+
+                <div class="option" routerLink="/dashboard/degrees/my-degrees" routerLinkActive="activated">
+                    <img src="assets/img/my-degrees.png" title="Mis ciclos" alt="Mis ciclos">
                 </div>
 
                 <div class="option" routerLink="/dashboard/business/search-business" routerLinkActive="activated">
-                    <img src="assets/img/business-icon.png">
+                    <img src="assets/img/business-icon.png" title="Empresas" alt="Empresas">
                 </div>
 
                 <div class="option" id="logoInApp" (click)="initUser()">

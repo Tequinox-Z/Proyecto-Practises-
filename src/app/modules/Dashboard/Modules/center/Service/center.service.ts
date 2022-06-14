@@ -80,4 +80,21 @@ export class CenterService {
   getTemperature(school: School) {
     return this.http.get(environment.serverAddress + "/school/" + school.id + "/reg-temp", this.authService.getHeadersToken());
   }
+
+
+  getAdministrators(schoolId: number) {
+    return this.http.get(environment.serverAddress + "/school/" + schoolId + "/administrator", this.authService.getHeadersToken());
+  }
+
+  getDegreesFromSchoolId(schoolId: number) {
+    let year = new Date().getFullYear();
+
+    return this.http.get(environment.serverAddress + "/school/" + schoolId + "/degree?year=" + year, this.authService.getHeadersToken());
+  }
+
+
+  getDegreesFromDni(dni: string) {
+    return this.http.get(environment.serverAddress + "/teacher/" + dni + "/degree", this.authService.getHeadersToken());
+  }
+
 }

@@ -87,6 +87,7 @@
 .listOption > img {
     margin-left: 10px;
     height: 75%;
+    width: 50px;
 }
 
 .listOption > p:nth-child(2) {

@@ -4,6 +4,7 @@ import { DegreeService } from '../../Service/degree.service';
 import { ProfessionalDegree } from '../../../../../../core/Interfaces/ProfessionalDegree/ProfessionalDegree';
 import Swal from 'sweetalert2';
 import { StudentService } from '../../../../../../shared/Services/studentService/student.service';
+import { UserService } from '../../../../Services/UserService/user.service';
 
 @Component({
   selector: 'app-view-degree',
@@ -16,7 +17,8 @@ export class ViewDegreeComponent implements OnInit {
     private rutaActiva: ActivatedRoute,
     private degreeSrv: DegreeService,
     private router: Router,
-    private studentService: StudentService) { }
+    private studentService: StudentService,
+    public userSrv: UserService) { }
 
     public currentDegree!: ProfessionalDegree;
 
@@ -24,7 +26,13 @@ export class ViewDegreeComponent implements OnInit {
     public selectTeacher :boolean = false;
     public selectStudent :boolean = false;
 
+    public isAdmin: boolean = false;
+
   ngOnInit(): void {
+     if (this.userSrv.getPerson()?.rol?.toString() == "ROLE_ADMIN") {
+        this.isAdmin = true;
+     }
+     
      this.loadDegree();
   }
 
@@ -200,6 +208,7 @@ export class ViewDegreeComponent implements OnInit {
   viewPractise(idEnrollment: number) {
     this.router.navigateByUrl("/dashboard/practise/view/" + idEnrollment);
   }
+
 
 
 }

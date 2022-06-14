@@ -24,11 +24,11 @@
         <img src="{{ school.image }}" />
         <p>{{ school.name }}</p>
         <p>{{ school.address }}</p>
-        <img *ngIf="!setMode" (click)="viewUbication(school.id!)" src="assets/img/location.png">
-        <img *ngIf="!setMode" class="leftIcon" src="assets/img/call.png">
-        <img *ngIf="!setMode" class="rightIcon" src="assets/img/curso.png">
+        <img *ngIf="!setMode" title="Ver ubicación" alt="Ver ubicación" (click)="viewUbication(school.id!)" src="assets/img/location.png">
+        <img *ngIf="!setMode" title="Teléfonos de contacto" alt="Teléfonos de contacto" class="leftIcon" (click)="getTelefoneTutors(school.id!)"  src="assets/img/call.png">
+        <img *ngIf="!setMode" title="Ver ciclos de este año" alt="Ver ciclos de este año" (click)="getDegrees(school.id!)" class="rightIcon" src="assets/img/curso.png">
 
-        <img *ngIf="setMode"  (click)="configureSchool(school.id!)" src="assets/img/engine.png"/>
+        <img *ngIf="setMode" (click)="configureSchool(school.id!)" src="assets/img/engine.png"/>
       </div>
     </div>
     <div *ngIf="centers.length == 0" id="no-centers">
