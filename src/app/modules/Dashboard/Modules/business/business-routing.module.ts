@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SearchBusinessComponent } from './Pages/search-business/search-business.component';
 import { ViewUbicationComponent } from '../../../../shared/Components/view-ubication/view-ubication.component';
 import { NewBusinessComponent } from './Pages/new-business/new-business.component';
+import { EditBusinessComponent } from './Pages/edit-business/edit-business.component';
 
 const routes: Routes = [
     {
@@ -16,6 +17,10 @@ const routes: Routes = [
     {
       path: "ubication/:latitude/:longitude",
       component: ViewUbicationComponent
+    },
+    {
+      path: "search-business/edit/:cif",
+      component: EditBusinessComponent
     }
 ];
 

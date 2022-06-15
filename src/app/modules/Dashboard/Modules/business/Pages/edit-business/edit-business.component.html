@@ -1,1 +1,10 @@
-<p>edit-business works!</p>
+<div id="mainContainerEditBusiness" *ngIf="this.business">
+    <div id="image">
+        <img src="{{ this.business.image }}">
+        <app-file-upload (fileName)="changeImage($event)" id="fileUpload"></app-file-upload>
+    </div>
+    <div id="contentEditBusiness">
+        <p>{{ this.business.name }} <img class="editIcon" (click)="editName()" src="assets/img/edit.png"> </p>
+        <p>Pueden matricularse este año {{ this.business.numberOfStudents }} estudiantes <img class="editIcon" (click)="editNumberOfStudents()" src="assets/img/edit.png"></p>
+    </div>
+</div>

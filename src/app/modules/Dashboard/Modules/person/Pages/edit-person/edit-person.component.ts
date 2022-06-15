@@ -220,6 +220,7 @@ export class EditPersonComponent implements OnInit {
       showCancelButton: true,
       
       confirmButtonText: 'Cambiar',
+      cancelButtonText: "Cancelar",
       showLoaderOnConfirm: true,
       allowOutsideClick: () => !Swal.isLoading()
     }).then((result) => {

@@ -64,4 +64,12 @@ export class BusinessService implements AsyncValidator {
     return this.http.post(environment.serverAddress + "/business/" + business.cif + "/ubication/", ubication, this.authService.getHeadersToken());
   }
 
+  getBusiness(cif: string) {
+    return this.http.get(environment.serverAddress + "/business/" + cif, this.authService.getHeadersToken());
+  }
+
+  editBusiness(business : Business) {
+    return this.http.put(environment.serverAddress + "/business/" + business.cif, business, this.authService.getHeadersToken());
+  }
+
 }

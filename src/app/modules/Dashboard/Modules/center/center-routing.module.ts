@@ -6,11 +6,13 @@ import { NewCenterComponent } from './Pages/new-center/new-center.component';
 import { ViewUbicationComponent } from '../../../../shared/Components/view-ubication/view-ubication.component';
 import { UnusualMovementsComponent } from './Pages/unusual-movements/unusual-movements.component';
 import { TemperatureHumidityComponent } from './Pages/temperature-humidity/temperature-humidity.component';
+import { NoCenterSettedAdminGuard } from '../../../../core/Guards/noCenterGuard/no-center-setted-admin.guard';
 
 const routes: Routes = [
     {
       path: "centers",
-      component: SearchCenterComponent
+      component: SearchCenterComponent,
+      canDeactivate: [NoCenterSettedAdminGuard]
     },
     {
       path: "my-center",
@@ -18,7 +20,8 @@ const routes: Routes = [
     },
     {
       path: "new-center",
-      component: NewCenterComponent
+      component: NewCenterComponent,
+      canDeactivate: [NoCenterSettedAdminGuard]
     },
     {
       path: "ubication/:latitude/:longitude",

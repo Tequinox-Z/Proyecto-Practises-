@@ -15,12 +15,12 @@
   <div>
     <div *ngIf="locations.length != 0" id="schools">
       <div *ngFor="let currentBusiness of locations" class="school">
-        <img src="{{ currentBusiness.image }}" />
+        <img src="{{ currentBusiness.image }}"/>
         <p>{{ currentBusiness.name }}</p>
         <p>{{ currentBusiness.cif }}</p>
-        <img  src="assets/img/location.png" routerLink="../ubication/{{ currentBusiness.latitude }}/{{ currentBusiness.longitude }}">
-        <img  class="leftIcon" src="assets/img/call.png">
-        <img class="rightIcon" src="assets/img/edit.png">
+        <img  src="assets/img/location.png" routerLink="../ubication/{{ currentBusiness.latitude }}/{{ currentBusiness.longitude }}" title="Ver ubicación" alt="Ver ubicación">
+        <img  class="leftIcon" src="assets/img/call.png" title="Obtener números de contacto" alt="Obtener números de contacto">
+        <img class="rightIcon" src="assets/img/edit.png" routerLink="edit/{{ currentBusiness.cif }}">
 
       </div>
     </div>

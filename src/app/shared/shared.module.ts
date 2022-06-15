@@ -13,6 +13,7 @@ import { SelectBusinessComponent } from './Components/select-business/select-bus
 import { SelectTeacherComponent } from './Components/select-teacher/select-teacher.component';
 import { SelectStudentComponent } from './Components/select-student/select-student.component';
 import { SelectTutorComponent } from './Components/select-laborTutor/select-tutor.component';
+import { AccesibilityComponent } from './Components/accesibility/accesibility.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SelectTutorComponent } from './Components/select-laborTutor/select-tuto
     SelectBusinessComponent,
     SelectTeacherComponent,
     SelectStudentComponent,
-    SelectTutorComponent
+    SelectTutorComponent,
+    AccesibilityComponent
   ],
   imports: [
     CommonModule
@@ -46,7 +48,8 @@ import { SelectTutorComponent } from './Components/select-laborTutor/select-tuto
     SelectBusinessComponent,
     SelectTeacherComponent,
     SelectStudentComponent,
-    SelectTutorComponent
+    SelectTutorComponent,
+    AccesibilityComponent
   ]
 })
 export class SharedModule { }

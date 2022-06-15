@@ -10,10 +10,6 @@ const routes: Routes = [
       component: PersonManagementComponent
     },
     {
-      path: "management/:dni/view",
-      component: ViewPersonComponent
-    },
-    {
       path: "management/:dni/edit",
       component: EditPersonComponent
     }

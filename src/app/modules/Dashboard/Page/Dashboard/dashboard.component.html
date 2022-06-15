@@ -62,18 +62,8 @@
                     <img src="assets/img/logo.png" alt="Practises Management" title="Practises Management">
                 </div>
             </div>
-
-            <!-- <div *ngIf="rol == 'ROLE_STUDENT'">
-                
-            </div>
-            <div *ngIf="rol == 'ROLE_TEACHER'">
-                
-            </div>
-            <div *ngIf="rol == 'ROLE_LABOR_TUTOR'">
-                
-            </div> -->
         </div>
-        <div id="content" [ngClass]="{'widthMax': !showActions}">
+        <div id="content" (click)="this.menu = false" [ngClass]="{'widthMax': !showActions}">
             <div id="router">
                 <router-outlet (notification)="showMessage($event)"></router-outlet>
             </div>
@@ -82,3 +72,7 @@
 </div>
 
 <app-menu *ngIf="menu"></app-menu>
+
+<!-- <div id="acccesibility">
+    <app-accesibility></app-accesibility>
+</div> -->

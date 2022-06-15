@@ -30,12 +30,9 @@ export class TemperatureHumidityComponent implements OnInit {
             let labels: any = [];
 
             this.data = response;
-            this.data = this.data.reverse();
 
             this.data.forEach((current: RegTemp) => {
               let hour: Date = new Date(current.date!);
-
-              console.log(hour);
 
               labels.push(hour.getHours() + "h")
               grados.push(current.celcius);
@@ -99,8 +96,4 @@ export class TemperatureHumidityComponent implements OnInit {
 
 
   @ViewChild("graphic", { static: true}) elemento!: ElementRef;
-
-
-
-
 }
