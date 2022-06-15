@@ -6,5 +6,16 @@
     <div id="contentEditBusiness">
         <p>{{ this.business.name }} <img class="editIcon" (click)="editName()" src="assets/img/edit.png"> </p>
         <p>Pueden matricularse este año {{ this.business.numberOfStudents }} estudiantes <img class="editIcon" (click)="editNumberOfStudents()" src="assets/img/edit.png"></p>
+
+        <div id="mapContainerBusiness">
+            <div id="map">
+
+            </div>
+        </div>
+        <button id="saveLocation" (click)="updateLocation()" *ngIf="showSaveUbication">Guardar localización</button>
+        <button id="addTutor" (click)="this.selectTutor = true">Añadir tutor</button>
+    </div>
+    <div id="modal-zone" *ngIf="selectTutor" (click)="closeAll()">
+        <app-select-tutor-whitoutBusiness *ngIf="selectTutor" (cif)="addTutor($event)" class="selectModal"></app-select-tutor-whitoutBusiness>
     </div>
 </div>

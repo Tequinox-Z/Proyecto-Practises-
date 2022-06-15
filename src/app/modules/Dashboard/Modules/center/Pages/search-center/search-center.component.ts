@@ -205,7 +205,7 @@ export class SearchCenterComponent implements OnInit {
 
             new mapboxgl.Marker({
               draggable: false,
-              color: "#ff8000",
+              color: "#ff8000"
             })
               .setPopup(popup)
               .setLngLat([

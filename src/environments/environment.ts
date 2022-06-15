@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   serverAddress: 'http://localhost:8080',                        // Dirección del servidor
   serverFileAddress: 'http://localhost:8080',
-  mapBoxToken: "pk.eyJ1IjoidGVxdWlub3giLCJhIjoiY2wwbGtqYjdsMHdlcDNrbTlqeWZnZnY3cSJ9.YoG8c5FaerdYy7gvbLDz6w"
+  mapBoxToken: "pk.eyJ1IjoidGVxdWlub3giLCJhIjoiY2wwbGtqYjdsMHdlcDNrbTlqeWZnZnY3cSJ9.YoG8c5FaerdYy7gvbLDz6w",
+  routeMap: "https://api.mapbox.com/directions/v5/mapbox/cycling/"
 };
 
 /*

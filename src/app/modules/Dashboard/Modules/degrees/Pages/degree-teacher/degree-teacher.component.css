@@ -174,3 +174,7 @@
         opacity: 1;
     }
 }
+
+.listOption img:nth-child(4) {
+    width: 25px;
+}

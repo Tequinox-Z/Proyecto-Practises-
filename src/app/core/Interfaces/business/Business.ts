@@ -1,6 +1,7 @@
 import { Practise } from '../Practise/Practise';
 import { LaborTutor } from '../LaborTutor/LaborTutor';
 import { ContactWorker } from '../ContactWorker/ContactWorker';
+import { Location } from '../Location/Location';
 // Interfaz de empresa
 
 export interface Business {

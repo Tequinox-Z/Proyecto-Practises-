@@ -8,7 +8,10 @@ import { environment } from '../../../../environments/environment';
 })
 export class StudentService {
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor (
+    private http: HttpClient, 
+    private authService: AuthService
+  ) { }
 
   getAllStudents() {
     return this.http.get(environment.serverAddress + "/student/", this.authService.getHeadersToken());

@@ -16,6 +16,8 @@ export class TutorServiceService {
   }
 
 
-
+  getTutorsFree() {
+    return this.http.get(environment.serverAddress + "/labor-tutor/free", this.authService.getHeadersToken());
+  }
   
 }

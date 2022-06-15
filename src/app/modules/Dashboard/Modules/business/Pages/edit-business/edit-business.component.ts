@@ -4,6 +4,8 @@ import { BusinessService } from '../../Service/business.service';
 import { Business } from '../../../../../../core/Interfaces/business/Business';
 import { environment } from '../../../../../../../environments/environment';
 import Swal from 'sweetalert2';
+import * as mapboxgl from "mapbox-gl";
+
 
 @Component({
   selector: 'app-edit-business',
@@ -18,13 +20,35 @@ export class EditBusinessComponent implements OnInit {
     private router: Router
   ) { }
 
+  selectTutor: boolean = false;
+
+  mapbox = mapboxgl as typeof mapboxgl;
+  map: mapboxgl.Map | null = null;
+  showSaveUbication = false;
 
   business!: Business;
 
   ngOnInit(): void {
+    this.mapbox.accessToken = environment.mapBoxToken;
+
     this.loadBusiness();
   }
 
+
+  loadUbication() {
+    this.businessService.getUbication(this.business).subscribe({
+      next: (ubication) => {
+        this.business.location = ubication;
+      },
+      error: (response) => {
+        Swal.fire({                                                                     
+          icon: 'error',
+          title: 'Oops...',
+          text: ((response.error.mensaje == undefined)? 'Servidor no disponible' : response.error.mensaje),
+        });
+      }
+    })
+  }
 
   loadBusiness() {
     let cif = this.rutaActiva.snapshot.params['cif'];
@@ -32,6 +56,7 @@ export class EditBusinessComponent implements OnInit {
     this.businessService.getBusiness(cif).subscribe({
       next: (business) => {
         this.business = business;
+        this.loadMap(business);
       },
       error: () => {
         history.back();
@@ -45,6 +70,7 @@ export class EditBusinessComponent implements OnInit {
     this.businessService.editBusiness(this.business).subscribe({
       next: (business) => {
         this.business = business;
+        this.loadUbication();
       },
       error: (response) => {
         Swal.fire({                                                                     
@@ -62,6 +88,7 @@ export class EditBusinessComponent implements OnInit {
     Swal.fire({
       title: 'Indique número de estudiantes que se pueden matricular este año',
       input: 'number',
+      inputValue: this.business.numberOfStudents, 
       inputAttributes: {
         autocapitalize: 'on',
         min: "0"
@@ -80,6 +107,7 @@ export class EditBusinessComponent implements OnInit {
         this.businessService.editBusiness(this.business).subscribe({
           next: (business) => {
             this.business = business;
+            this.loadUbication();
           },
           error: (response) => {
             Swal.fire({                                                                     
@@ -122,6 +150,7 @@ export class EditBusinessComponent implements OnInit {
       this.businessService.editBusiness(this.business).subscribe({
         next: (business) => {
           this.business = business;
+          this.loadUbication();
         },
         error: (response) => {
           Swal.fire({                                                                     
@@ -136,4 +165,79 @@ export class EditBusinessComponent implements OnInit {
 
   }
 
+
+
+  loadMap(business: Business) {
+    this.businessService.getUbication(business).subscribe({
+        next: (location :any) => {
+          this.business.location = location;
+
+          this.map = new mapboxgl.Map({
+            container: "map",
+            style: "mapbox://styles/mapbox/light-v10",
+            zoom: 15,
+            center: [location.longitude!, location.latitude!],
+          });
+
+
+          let marker = new mapboxgl.Marker({
+            draggable: true,
+            color: "#ff8000",
+          })
+            .setLngLat([
+              location.longitude!,
+              location.latitude!,
+            ])
+            .addTo(this.map!);
+
+          marker.on("drag", (event: any) => {
+
+            event!.target._lngLat.lat;
+            event!.target._lngLat.lng;
+
+            this.business.location!.latitude = event!.target._lngLat.lat;
+            this.business.location!.longitude = event!.target._lngLat.lng;
+
+            this.showSaveUbication = true;
+          });
+        },
+        error: (responseError: any) => {
+          Swal.fire({                                                         
+            icon: 'error',
+            title: 'Oops...',
+            text: ((responseError.error.mensaje == undefined)? 'Servidor no disponible' : responseError.error.mensaje),
+          })
+        }
+    });
+  }
+
+
+  updateLocation() {
+    this.businessService.editUbication(this.business).subscribe({
+      next: () => {
+        this.showSaveUbication = false;
+        Swal.fire({                                                         
+          icon: 'success',
+          title: '¡Guardado!'
+        })
+      },
+      error: (responseError) => {
+        Swal.fire({                                                         
+          icon: 'error',
+          title: 'Oops...',
+          text: ((responseError.error.mensaje == undefined)? 'Servidor no disponible' : responseError.error.mensaje),
+        })
+      }
+    })
+  }
+
+
+  addTutor(dni: any) {
+    console.log(dni);
+  }
+
+
+  closeAll() {
+    this.selectTutor = false;
+  }
 }
