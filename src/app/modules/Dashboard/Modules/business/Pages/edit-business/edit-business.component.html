@@ -1,5 +1,7 @@
-<div id="mainContainerEditBusiness" *ngIf="this.business">
+<div id="mainContainerEditBusiness" *ngIf="this.business" class="inNewIntro">
     <div id="image">
+        <div id="ddarkZone"></div>
+        <p id="titleBusiness">{{ this.business.name }}</p>
         <img src="{{ this.business.image }}">
         <app-file-upload (fileName)="changeImage($event)" id="fileUpload"></app-file-upload>
     </div>

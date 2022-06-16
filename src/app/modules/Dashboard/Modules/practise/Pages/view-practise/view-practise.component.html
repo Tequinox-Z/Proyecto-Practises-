@@ -1,4 +1,4 @@
-<div id="mainDiv" *ngIf="currentEnrollment">
+<div id="mainDiv" *ngIf="currentEnrollment" class="inNewIntro">
     <div id="title">
         <p><span id="degreesText" (click)="back()">Prácticas > </span>{{ currentEnrollment.student?.name }} {{  currentEnrollment.student?.lastName }}</p>
     </div>

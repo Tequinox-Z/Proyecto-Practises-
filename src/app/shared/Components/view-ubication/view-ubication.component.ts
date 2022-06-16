@@ -97,7 +97,7 @@ export class ViewUbicationComponent implements OnInit {
               'line-cap': 'round'
             },
             paint: {
-              'line-color': '#3887be',
+              'line-color': '#ff8000',
               'line-width': 5,
               'line-opacity': 0.75
             }
@@ -125,7 +125,7 @@ export class ViewUbicationComponent implements OnInit {
           },
           paint: {
             'circle-radius': 10,
-            'circle-color': '#3887be'
+            'circle-color': '#ff8000'
           }
         });
       })

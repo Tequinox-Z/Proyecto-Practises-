@@ -1,4 +1,4 @@
-<div id="searchDivMain">
+<div id="searchDivMain" class="inNewIntro">
     <div id="bienvenida">
       <div id="text">
         <p>Administración de personas</p>
@@ -7,7 +7,7 @@
         </p>
       </div>
       <img (click)="addPerson(this.rolSelected)" id="addPerson" src="assets/img/add-icon.png" alt="Añadir" title="Añadir">
-      <img (click)="addPerson(this.rolAdmin)" id="addPerson" class="adminIcon" src="assets/img/add-icon.png" alt="Añadir" title="Añadir administrador">
+      <img (click)="addPerson(this.rolAdmin)" id="addPerson" class="adminIcon" src="assets/img/admin.png" alt="Añadir administrador" title="Añadir administrador">
 
       <select (change)="setPerson($event)">
         <option value="teacher">Profesores</option>

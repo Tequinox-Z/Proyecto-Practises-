@@ -4,15 +4,13 @@ import { PersonRoutingModule } from './person-routing.module';
 import { EditPersonComponent } from './Pages/edit-person/edit-person.component';
 import { DataTablesModule } from 'angular-datatables';
 import { PersonManagementComponent } from './Pages/person-management/person-management.component';
-import { ViewPersonComponent } from './Pages/view-person/view-person.component';
 import { SharedModule } from '../../../../shared/shared.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     EditPersonComponent,
-    PersonManagementComponent,
-    ViewPersonComponent
+    PersonManagementComponent
   ],
   imports: [
     CommonModule,

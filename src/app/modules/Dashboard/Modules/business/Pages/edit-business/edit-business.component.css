@@ -92,8 +92,21 @@
     margin-top: 40px;
 }
 
+#ddarkZone {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.371);
+}
 
 
+#titleBusiness {
+    position: absolute;
+    left: 60px;
+    color: white;
+    font-size: 25px;
+}
 
 #modal-zone {
     position: absolute;

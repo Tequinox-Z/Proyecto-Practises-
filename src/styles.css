@@ -659,3 +659,46 @@ app-menu {
   height: 300px;
   overflow: auto;
 }
+
+
+.inNewIntro {
+  animation-name: inNewIntro;
+  animation-duration: 0.5s;
+}
+
+
+@keyframes inNewIntro {
+  0% {
+    transform: translateY(54px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+
+
+.inNewIntroMap {
+  animation-name: inNewIntroMapani;
+  animation-duration: 0.37s;
+}
+
+
+@keyframes inNewIntroMapani {
+  0% {
+    transform: translateX(54px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+
+.noAnimations * {
+  animation-name: unset !important;
+  animation-duration: 0s !important;
+}

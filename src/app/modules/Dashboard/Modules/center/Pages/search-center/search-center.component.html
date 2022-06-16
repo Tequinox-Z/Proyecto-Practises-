@@ -1,4 +1,4 @@
-<div *ngIf="!mapMode" id="searchDivMain">
+<div *ngIf="!mapMode" id="searchDivMain" class="inNewIntro">
   <div id="bienvenida">
     <div id="text">
       <p *ngIf="setMode">¡Bienvenido!</p>
@@ -41,7 +41,7 @@
 </div>
 
 
-<div *ngIf="mapMode" id="searchDivMain" class="mapView">
+<div *ngIf="mapMode" id="searchDivMain" class="mapView inNewIntroMap">
     <img id="back" (click)="showListOfSchool()" src="assets/img/back-map.png">
     <div id="bienvenida">
       <div id="text">

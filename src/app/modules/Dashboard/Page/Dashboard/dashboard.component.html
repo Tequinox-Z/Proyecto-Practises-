@@ -1,4 +1,4 @@
-<div id="container-main" *ngIf="userService.getPerson() != null">
+<div id="container-main" *ngIf="userService.getPerson() != null" class="inNewIntro">
     <div id="navigator">
         <img  id="menu" src="assets/img/menu.png" (click)="this.showActions = !showActions">
         <p>{{ this.dashboardService.getTitle() }}</p>

@@ -48,6 +48,8 @@
 
 
 #no-centers {
+    animation-name: inSchool;
+    animation-duration: 0.5s;
     display: flex;
     height: 350px;
     width: 100%;
@@ -74,6 +76,8 @@ app-map-button {
 
 .school {
     background-color: rgb(223, 223, 223);
+    animation-name: inSchool;
+    animation-duration: 0.5s;
     box-shadow: 0px 2px 5px rgb(161, 161, 161);
 }
 
@@ -205,3 +209,13 @@ app-map-button {
     right: 40px;
 }
 
+@keyframes inSchool {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
