@@ -5,6 +5,7 @@ import { Business } from '../../../../../../core/Interfaces/business/Business';
 import { environment } from '../../../../../../../environments/environment';
 import Swal from 'sweetalert2';
 import * as mapboxgl from "mapbox-gl";
+import { UserService } from '../../../../Services/UserService/user.service';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class EditBusinessComponent implements OnInit {
   constructor(
     private rutaActiva: ActivatedRoute,
     private businessService: BusinessService,
-    private router: Router
+    private router: Router,
+    private userSrv: UserService
   ) { }
 
   selectTutor: boolean = false;
@@ -25,11 +27,16 @@ export class EditBusinessComponent implements OnInit {
   mapbox = mapboxgl as typeof mapboxgl;
   map: mapboxgl.Map | null = null;
   showSaveUbication = false;
+  isAdmin :boolean = false;
 
   business!: Business;
 
   ngOnInit(): void {
     this.mapbox.accessToken = environment.mapBoxToken;
+
+    if (this.userSrv.getPerson()?.rol + "" == "ROLE_ADMIN") {
+      this.isAdmin = true;
+    }
 
     this.loadBusiness();
   }
@@ -79,9 +86,8 @@ export class EditBusinessComponent implements OnInit {
           text: ((response.error.mensaje == undefined)? 'Servidor no disponible' : response.error.mensaje),
         });
       }
-    }).unsubscribe();
+    });
   }
-
 
 
   editNumberOfStudents() {
@@ -132,12 +138,6 @@ export class EditBusinessComponent implements OnInit {
       inputAttributes: {
         autocapitalize: 'on'
       },
-      preConfirm: (name: string) => {
-        if (name.trim().length == 0) {
-          Swal.showValidationMessage("Indique un nombre válido");
-        }
-      },
-
       showCancelButton: true,
       
       confirmButtonText: 'Cambiar',
@@ -145,21 +145,26 @@ export class EditBusinessComponent implements OnInit {
       showLoaderOnConfirm: true,
       allowOutsideClick: () => !Swal.isLoading()
     }).then((result) => {
-      this.business.name = result.value!;
+      if (result.value.trim().length == 0) {
+        Swal.showValidationMessage("Indique un nombre válido");
+      }
+      else {
+        this.business.name = result.value!;
 
-      this.businessService.editBusiness(this.business).subscribe({
-        next: (business) => {
-          this.business = business;
-          this.loadUbication();
-        },
-        error: (response) => {
-          Swal.fire({                                                                     
-            icon: 'error',
-            title: 'Oops...',
-            text: ((response.error.mensaje == undefined)? 'Servidor no disponible' : response.error.mensaje),
-          });
-        }
-      })
+        this.businessService.editBusiness(this.business).subscribe({
+          next: (business) => {
+            this.business = business;
+            this.loadUbication();
+          },
+          error: (response) => {
+            Swal.fire({                                                                     
+              icon: 'error',
+              title: 'Oops...',
+              text: ((response.error.mensaje == undefined)? 'Servidor no disponible' : response.error.mensaje),
+            });
+          }
+        })
+      }
     }
   )
 
@@ -179,9 +184,8 @@ export class EditBusinessComponent implements OnInit {
             center: [location.longitude!, location.latitude!],
           });
 
-
           let marker = new mapboxgl.Marker({
-            draggable: true,
+            draggable: this.isAdmin,
             color: "#ff8000",
           })
             .setLngLat([
@@ -233,7 +237,21 @@ export class EditBusinessComponent implements OnInit {
 
 
   addTutor(dni: any) {
-    console.log(dni);
+    this.businessService.setBusinessToTutor(dni, this.business).subscribe({
+      next: () => {
+        Swal.fire({                                                         
+          icon: 'success',
+          title: '¡Guardado!'
+        })
+      },
+      error: (responseError) => {
+        Swal.fire({                                                         
+          icon: 'error',
+          title: 'Oops...',
+          text: ((responseError.error.mensaje == undefined)? 'Servidor no disponible' : responseError.error.mensaje),
+        })
+      }
+    })
   }
 
 

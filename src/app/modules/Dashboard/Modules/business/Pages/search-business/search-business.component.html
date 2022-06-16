@@ -20,7 +20,7 @@
         <p>{{ currentBusiness.cif }}</p>
         <img  src="assets/img/location.png" title="Ver ubicación" alt="Ver ubicación" routerLink="../ubication/{{ currentBusiness.latitude }}/{{ currentBusiness.longitude }}" title="Ver ubicación" alt="Ver ubicación">
         <img class="leftIcon" src="assets/img/call.png" title="Contacto" alt="Contacto" title="Obtener números de contacto" alt="Obtener números de contacto">
-        <img class="rightIcon" src="assets/img/edit.png" title="Editar" alt="Editar" routerLink="edit/{{ currentBusiness.cif }}">
+        <img class="rightIcon" src="assets/img/{{ (isAdmin)? 'edit.png': 'view.png' }}" title="{{ (isAdmin)? 'Editar':'Ver' }}" alt="{{ (isAdmin)? 'Editar':'Ver' }}" routerLink="edit/{{ currentBusiness.cif }}">
 
       </div>
     </div>
