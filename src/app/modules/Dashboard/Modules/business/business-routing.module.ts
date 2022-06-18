@@ -4,6 +4,7 @@ import { SearchBusinessComponent } from './Pages/search-business/search-business
 import { ViewUbicationComponent } from '../../../../shared/Components/view-ubication/view-ubication.component';
 import { NewBusinessComponent } from './Pages/new-business/new-business.component';
 import { EditBusinessComponent } from './Pages/edit-business/edit-business.component';
+import { AdministratorGuard } from '../../../../core/Guards/administrator-guard/administrator.guard';
 
 const routes: Routes = [
     {
@@ -12,7 +13,8 @@ const routes: Routes = [
     },
     {
       path: "new-business",
-      component: NewBusinessComponent
+      component: NewBusinessComponent,
+      canActivate: [AdministratorGuard]
     },
     {
       path: "ubication/:latitude/:longitude",

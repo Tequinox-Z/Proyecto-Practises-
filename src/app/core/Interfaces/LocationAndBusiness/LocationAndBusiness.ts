@@ -1,8 +1,11 @@
+
+// Localización y empresa
+
 export interface LocationAndBusiness {
-        cif: string,
-        name: string
-        numberOfStudents: number,
-        image: string,     
-        longitude: number,
-        latitude: number
+        cif: string,                        // Cif
+        name: string                        // Nombre
+        numberOfStudents: number,           // Número de estudiantes
+        image: string,                      // Imagen
+        longitude: number,                  // Longitud
+        latitude: number                    // Latitud
 }

@@ -22,18 +22,22 @@ export class NoCenterSettedAdminGuard implements CanActivate, CanDeactivate<unkn
     return true;
   }
 
+  // Evita que el administrador salga de la selección de centro si no administra ninguno
+
   canDeactivate(
     component: unknown,
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    
-      console.log(nextState?.url);
 
+
+    // Si el usuario quiere cerrar sesión lo dejamos salir
 
     if (nextState!.url == "/" || nextState?.url == "/dashboard/center/new-center" || nextState?.url == "/dashboard/center/centers") {
       return true;
     }
+
+    // Si es administrador comprobamos si administra ya un centro y de esta forma decidimo si dejarlo salir o no
 
     if (this.userSrv.getPerson()!.rol?.toString() == "ROLE_ADMIN") {
        return this.centerService.getCenterOfAdministrator().toPromise()
@@ -41,6 +45,9 @@ export class NoCenterSettedAdminGuard implements CanActivate, CanDeactivate<unkn
          return true;
        }
        ).catch(res => {
+
+        // En caso de que no pueda salir le avisamos
+
         Swal.fire({
           icon: 'error',
           title: 'Antes de comenzar...',

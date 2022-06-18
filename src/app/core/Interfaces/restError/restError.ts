@@ -1,5 +1,8 @@
+
+// Interfaz de error
+
 export interface RestError {
-    estado ?: string,
-    fecha ?: Date,
-    mensaje ?: string
+    estado ?: string,            // Código de estado
+    fecha ?: Date,               // Fecha del error
+    mensaje ?: string            // Mensaje de error
 }

@@ -12,7 +12,7 @@ export interface School {
 	password?: string,										// Contraseña de la escuela
 	administrators?: Administrator[],						// Lista de administradores 
 	professionalDegrees?: ProfessionalDegree[],				// Lista de ciclos
-	openingTime ?: string,
-	closingTime ?: string,
-	location ?: Location
+	openingTime ?: string,									// Hora de apertura
+	closingTime ?: string,									// Hora de cierre
+	location ?: Location									// Localización
 }

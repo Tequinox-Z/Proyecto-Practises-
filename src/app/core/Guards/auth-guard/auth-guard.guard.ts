@@ -11,11 +11,12 @@ import { AuthService } from 'src/app/modules/Auth/Services/Auth-service/auth.ser
 })
 export class AuthGuardGuard implements CanActivate {
 
-  constructor(private authService: AuthService) {
+  constructor (private authService: AuthService) {
 
   }
 
-  // Checkea si se puede acceder a la ruta
+  // Checkea si tiene un token válido
+
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authService.isValidToken();                                                              // Checkeamos si el token es válido
   }

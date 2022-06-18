@@ -7,6 +7,7 @@ import { ViewUbicationComponent } from '../../../../shared/Components/view-ubica
 import { UnusualMovementsComponent } from './Pages/unusual-movements/unusual-movements.component';
 import { TemperatureHumidityComponent } from './Pages/temperature-humidity/temperature-humidity.component';
 import { NoCenterSettedAdminGuard } from '../../../../core/Guards/noCenterGuard/no-center-setted-admin.guard';
+import { AdministratorGuard } from '../../../../core/Guards/administrator-guard/administrator.guard';
 
 const routes: Routes = [
     {
@@ -16,12 +17,14 @@ const routes: Routes = [
     },
     {
       path: "my-center",
-      component: MyCenterComponent
+      component: MyCenterComponent,
+      canActivate: [AdministratorGuard]
     },
     {
       path: "new-center",
       component: NewCenterComponent,
-      canDeactivate: [NoCenterSettedAdminGuard]
+      canDeactivate: [NoCenterSettedAdminGuard],
+      canActivate: [AdministratorGuard]
     },
     {
       path: "ubication/:latitude/:longitude",
@@ -29,11 +32,13 @@ const routes: Routes = [
     },
     {
       path: "movements",
-      component: UnusualMovementsComponent
+      component: UnusualMovementsComponent,
+      canActivate: [AdministratorGuard]
     },
     {
       path: "temperature-humidity",
-      component: TemperatureHumidityComponent
+      component: TemperatureHumidityComponent,
+      canActivate: [AdministratorGuard]
     }
 ];
 

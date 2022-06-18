@@ -26,7 +26,6 @@ export class ViewPractiseComponent implements OnInit, AfterViewInit {
 
   isAdmin: boolean = false;
 
-
   setBusiness (cif :string) {
     if (!this.currentEnrollment.practise?.business) {
       this.practiseSrv.setBusiness(cif, this.currentEnrollment.practise!.id!).subscribe({

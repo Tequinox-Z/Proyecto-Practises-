@@ -343,8 +343,6 @@ export class PersonManagementComponent implements OnInit {
   addPerson (rol : Rol) {
     this.rolToCreate = rol;
 
-    console.log(this.rolToCreate);
-
     let container = document.querySelector("#newPersonContainer") as HTMLElement;
     container.classList.remove("noShow");
   }

@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PersonManagementComponent } from './Pages/person-management/person-management.component';
 import { EditPersonComponent } from './Pages/edit-person/edit-person.component';
+import { AdministratorGuard } from '../../../../core/Guards/administrator-guard/administrator.guard';
 
 const routes: Routes = [
     {
       path: "management",
-      component: PersonManagementComponent
+      component: PersonManagementComponent,
+      canActivate: [AdministratorGuard]
     },
     {
       path: "management/:dni/edit",

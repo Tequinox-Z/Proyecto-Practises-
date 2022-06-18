@@ -10,7 +10,7 @@ export class AccesibilityComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(document.querySelector("html"));
+    document.querySelector("html");
   }
 
 }

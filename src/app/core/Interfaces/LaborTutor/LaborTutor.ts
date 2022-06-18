@@ -2,6 +2,8 @@ import { Practise } from '../Practise/Practise';
 import { Business } from '../business/Business';
 import { Rol } from '../personDto/person-dto';
 
+// Interfaz de tutor laboral
+
 export interface LaborTutor {
     dni?: string,                                    // Dni del administrador
     birthDate?: string,                              // Fecha de nacimiento
@@ -10,10 +12,10 @@ export interface LaborTutor {
     lastName?: string,                               // Apellidos
     image?: string,                                  // Imagen
     telefone?: string,                               // Teléfono
-    address?: string,
-    practises ?: Practise[],
-    business ?: Business,
-    enabled ?: boolean,
-    email ?: string,
-    rol?: Rol                                    // Rol
+    address?: string,                                // Dirección
+    practises ?: Practise[],                         // Lista de prácticas
+    business ?: Business,                            // Empresa
+    enabled ?: boolean,                              // Habilitado    
+    email ?: string,                                 // Correo
+    rol?: Rol                                        // Rol
 }

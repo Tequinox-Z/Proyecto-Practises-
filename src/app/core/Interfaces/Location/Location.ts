@@ -1,5 +1,8 @@
+
+// Localización
+
 export interface Location {
-    id ?: number,
-    latitude ?: number,
-    longitude ?: number
+    id ?: number,                // Id
+    latitude ?: number,          // Latitud
+    longitude ?: number          // Longitud
 }

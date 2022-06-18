@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 
-// Opciones de HTTP
+
+// Headers options
 
 export interface HttpOptions {
         headers: HttpHeaders                                                // Headers

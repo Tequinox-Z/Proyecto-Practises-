@@ -22,9 +22,6 @@ export class SelectTeacherComponent implements OnInit {
     this.teacherSrv.getAllTeachers().subscribe({
       next: (teachersData : any) => {
         this.teachers = teachersData;
-      },
-      error: (error) => {
-        console.log(error);
       }
     });
   }

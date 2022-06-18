@@ -21,9 +21,6 @@ export class SelectStudentComponent implements OnInit {
     this.studentSrv.getAllStudents().subscribe({
       next: (studentsData : any) => {
         this.students = studentsData;
-      },
-      error: (error) => {
-        console.log(error);
       }
     });
   }

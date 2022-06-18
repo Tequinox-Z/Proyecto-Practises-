@@ -11,7 +11,7 @@ export interface Teacher {
     telefone?: string,                                           // Teléfono
     address?: string,                                            // Dirección
     password?: string,                                           // Contraseña
-    enabled ?: boolean,
-    email ?: string,
+    enabled ?: boolean,                                          // Habilitado
+    email ?: string,                                             // Correo electrónico
     rol?: Rol,                                                   // Rol
 }

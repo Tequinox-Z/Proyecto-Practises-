@@ -10,8 +10,8 @@ export interface Student {
     image?: string,                                                          // Imagen
     telefone?: string,                                                       // Teléfono
     address?: string,                                                        // Dirección
-    password?: string,                                                        // Contraseña
-    enabled ?: boolean,
-    email ?: string,
-    rol?: Rol                                    // Rol
+    password?: string,                                                       // Contraseña
+    enabled ?: boolean,                                                      // Habilitado
+    email ?: string,                                                         // Correo electrónico
+    rol?: Rol                                                                // Rol
 }

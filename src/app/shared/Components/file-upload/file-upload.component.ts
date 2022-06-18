@@ -42,12 +42,10 @@ export class FileUploadComponent implements OnInit {
             if (event.type === HttpEventType.UploadProgress) {
               this.progress = Math.round(100 * event.loaded / event.total);
             } else if (event instanceof HttpResponse) {
-              console.log(event);
               this.fileName.emit(event.body.id);
             }
           },
           error: (err: any) => {
-            console.log(err);
             this.progress = 0;
             if (err.error && err.error.message) {
               this.message = err.error.message;

@@ -114,8 +114,6 @@ export class SearchBusinessComponent implements OnInit {
           searchBox.placeholder = "Buscar";
 
           locations.forEach((currentLocation: LocationAndBusiness) => {
-          
-            console.log(currentLocation);
             
             const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
               "<span>" + currentLocation.name + "</span>" + "<div class='enginepop'>" + "</div>"

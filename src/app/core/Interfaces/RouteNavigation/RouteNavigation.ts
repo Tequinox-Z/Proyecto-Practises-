@@ -1,4 +1,10 @@
 
+
+
+// Interfaces para la geolocalización
+//             De mapbox
+
+
 export interface RouteNavigation {
     routes: Route[];
     waypoints: Waypoint[];

@@ -1,4 +1,7 @@
+
+// Movimiento inusual
+
 export interface UnusualMovement {
-    id ?: number,
-    date ?: Date
+    id ?: number,            // Id
+    date ?: Date             // Hora y fecha del movimiento
 }
