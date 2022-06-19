@@ -45,7 +45,7 @@
             <img (click)="setDateEnd()" src="assets/img/edit.png" *ngIf="isAdmin">
         </div>
     </div>
-    <div id="modal-zone" *ngIf="selectBusiness || selectTutor || selectTeacher">
+    <div id="modal-zone" *ngIf="selectBusiness || selectTutor || selectTeacher" (click)="closeAll()">
         <app-select-business *ngIf="selectBusiness" (cif)="setBusiness($event)" class="selectModal"></app-select-business>
         <app-select-teacher *ngIf="selectTeacher" (dni)="setTeacher($event)" class="selectModal"></app-select-teacher>
         <app-select-tutor *ngIf="selectTutor" (dni)="setTutor($event)" [cif]="this.currentEnrollment.practise!.business!.cif!" (dni)="setTutor($event)" class="selectModal"></app-select-tutor>
