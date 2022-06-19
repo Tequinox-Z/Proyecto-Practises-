@@ -14,6 +14,8 @@ export class WelcomeComponent implements AfterViewInit, OnInit {
       this.scroll();
   }
 
+  accesibility: boolean = false;
+
   constructor(private auth: AuthService, private router: Router, private route: ActivatedRoute) { 
     
   }
@@ -65,6 +67,11 @@ export class WelcomeComponent implements AfterViewInit, OnInit {
 
       }, 500)
     }
+  }
+
+  
+  closeAccesibility() {
+    this.accesibility = false;
   }
 
   // Cambia el color de la barra al hacer scroll

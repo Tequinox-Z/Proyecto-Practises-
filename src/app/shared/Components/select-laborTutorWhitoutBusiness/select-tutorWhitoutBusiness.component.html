@@ -1,6 +1,7 @@
 <div id="businessDiv">
     <p>Seleccione tutor</p>
     <div id="businessDivs">
+        <p id="noContent" *ngIf="tutors && tutors.length == 0">Sin tutores. Agrege antes un nuevo tutor</p>
         <div *ngFor="let tutor of tutors" class="business" (click)="select(tutor.dni!)">
             <img src="{{ tutor.image }}">
             <p>{{ tutor.name }}</p>

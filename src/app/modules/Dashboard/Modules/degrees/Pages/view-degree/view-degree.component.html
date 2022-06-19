@@ -14,7 +14,7 @@
                 <p>+ Añadir</p>
             </div>
 
-            <div class="businessOption" *ngFor="let business of currentDegree.businesses!.slice(0,5)">
+            <div (click)="viewBusiness(business.cif!)" class="businessOption" *ngFor="let business of currentDegree.businesses!.slice(0,5)">
                 <div id="addOptionBusiness" class="imageOption">
                     <img src="{{ business.image }}" class="imgOption">
                 </div>
@@ -36,7 +36,7 @@
                 <p>Alumnos</p>
 
                 <div  class="teacherOption" *ngFor="let currentEnrollment of currentDegree.enrollments!.slice(0,4)">
-                    <img src="{{ currentEnrollment.student?.image }}">
+                    <img (click)="viewPerson(currentEnrollment.student!.dni!)" src="{{ currentEnrollment.student?.image }}">
                     <p (click)="viewPractise(currentEnrollment.id!)" title="{{ currentEnrollment.student!.name }} {{ currentEnrollment.student!.lastName }}">{{ currentEnrollment.student!.name }}</p>
                     <img *ngIf="isAdmin" src="assets/img/delete.png" (click)="quitStudent(currentEnrollment.id!)" title="Quitar" alt="Quitar">
                 </div>
@@ -47,10 +47,10 @@
 
                 <p *ngIf="isAdmin" class="addButton" (click)="selectStudent = true">+ Añadir</p>
             </div>
-            <div class="peopleZoneDiv">
+            <div class="peopleZoneDiv" *ngIf="currentDegree && currentDegree.teachers">
                 <p>Profesores</p>
-                <div class="teacherOption" *ngFor="let currentTeacher of currentDegree.teachers!.slice(0,4)">
-                    <img src="{{ currentTeacher.image }}">
+                <div class="teacherOption"  *ngFor="let currentTeacher of currentDegree.teachers!.slice(0,4)">
+                    <img (click)="viewPerson(currentTeacher.dni!)" src="{{ currentTeacher.image }}">
                     <p title="{{ currentTeacher.name }} {{ currentTeacher.lastName }}">{{ currentTeacher.name }}</p>
                     <img *ngIf="isAdmin" src="assets/img/delete.png" (click)="quitTeacher(currentTeacher.dni!)" title="Quitar" alt="Quitar">
                 </div>

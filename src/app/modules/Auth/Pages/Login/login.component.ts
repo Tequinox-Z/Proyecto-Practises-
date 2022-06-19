@@ -43,6 +43,18 @@ export class LoginComponent implements AfterViewInit, OnInit {
     }
   }
 
+
+  changePass() {
+    let element = document.querySelector("#contraseña");
+
+    if (element?.getAttribute("type") == "password") {
+      element!.setAttribute("type", "text");
+    }
+    else {
+      element!.setAttribute("type", "password");
+    }
+  }
+
   ngAfterViewInit(): void {
 
     // Realizamos una pequeña transición de entrada

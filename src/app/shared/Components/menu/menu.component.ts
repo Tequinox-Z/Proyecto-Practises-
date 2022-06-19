@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../../../modules/Dashboard/Services/UserService/user.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../../modules/Auth/Services/Auth-service/auth.service';
@@ -12,6 +12,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class MenuComponent implements OnInit {
 
   // Componente de menú
+
+  @Output() accesibility = new EventEmitter();                           
 
   constructor (
     private userService: UserService,
@@ -58,6 +60,11 @@ export class MenuComponent implements OnInit {
 
   myUser() {
     this.router.navigateByUrl("dashboard/person/management/" +  this.userService.getDni() + "/edit");
+  }
+
+
+  accesibilityShow() {
+    this.accesibility.emit();
   }
 
 }

@@ -7,6 +7,7 @@ import { AsyncValidator, AbstractControl, ValidationErrors } from '@angular/form
 import { catchError, delay, EMPTY, map, Observable } from 'rxjs';
 import { Business } from '../../../../../core/Interfaces/business/Business';
 import { Location } from 'src/app/core/Interfaces/Location/Location';
+import { LaborTutor } from '../../../../../core/Interfaces/LaborTutor/LaborTutor';
 
 
 // Servicio de empresa
@@ -106,6 +107,13 @@ export class BusinessService implements AsyncValidator {
   
   setBusinessToTutor(dni: string, business : Business) {
     return this.http.post(environment.serverAddress + "/labor-tutor/" + dni + "/business", business, this.authService.getHeadersToken());
+  }
+
+
+  // Obtiene los tutores de una empresa
+
+  getTutorsFromBusiness(cif: string) {
+    return this.http.get<LaborTutor[]>(environment.serverAddress + "/business/" + cif + "/labor-tutor", this.authService.getHeadersToken());
   }
 
 }

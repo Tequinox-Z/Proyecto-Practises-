@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { KeyboardService } from '../../Services/Keyboard-service/keyboard-service';
 
 @Component({
   selector: 'app-accesibility',
@@ -10,10 +11,28 @@ export class AccesibilityComponent implements OnInit {
 
   // Componente de accesibilidad
 
-  constructor() { }
+  constructor(private  keySrv :KeyboardService) { }
+
+  @Output() closeKey = new EventEmitter();                           
 
   ngOnInit(): void {
-    document.querySelector("html");
+    
   }
 
+  showKeyboard() {
+    this.keySrv.showKeyboard(true);
+  }
+
+
+  close() {
+    this.closeKey.emit();
+  }
+
+  greyScale() {
+    document.querySelector("html")?.classList.toggle("grayScale");
+  }
+  
+  contrast() {
+    document.querySelector("html")?.classList.toggle("hightContrast");
+  }
 }

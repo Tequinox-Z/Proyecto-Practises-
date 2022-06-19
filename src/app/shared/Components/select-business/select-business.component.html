@@ -4,6 +4,7 @@
 
     </div>
     <div id="businessDivs">
+        <p id="noContent" *ngIf="business && business.length == 0">No hay empresas</p>
         <div *ngFor="let business of business" class="business" (click)="select(business.cif!)">
             <img src="{{ business.image }}">
             <p>{{ business.name }}</p>

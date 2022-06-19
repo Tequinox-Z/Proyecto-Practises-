@@ -287,8 +287,18 @@ export class ViewDegreeComponent implements OnInit {
     this.router.navigateByUrl("/dashboard/practise/view/" + idEnrollment);
   }
 
+  // Ver una empresa
+
+  viewBusiness(cif: string) {
+    this.router.navigateByUrl("/dashboard/business/search-business/edit/" + cif);
+  }
 
 
+  // Ver un persona
+
+  viewPerson(dni: string) {
+    this.router.navigateByUrl("/dashboard/person/management/" + dni + "/edit");
+  }
 }
 
 

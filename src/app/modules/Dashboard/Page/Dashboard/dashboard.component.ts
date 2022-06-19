@@ -22,8 +22,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   administratorDefaultPage : String = "center/my-center";                            // Ruta por defecto para el administrador
   teacherDefaultPage : String = "center/centers";                                                         // Ruta por defecto para al estudiante
 
+
+  title = "";
+
   showActions: boolean = true;
   menu: boolean = false;
+  accesibility: boolean = false;
 
   roleAssign = "";
   
@@ -38,6 +42,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.displayLoadingService.setShowDisplayLoading(false);
+
+    setInterval(() => {
+      this.title = this.dashboardService.getTitle();
+    }, 100);
+  }
+
+
+  closeAccesibility() {
+    this.accesibility = false;
   }
 
   ngOnInit(): void {

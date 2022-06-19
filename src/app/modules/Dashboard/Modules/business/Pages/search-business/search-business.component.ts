@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BusinessService } from '../../Service/business.service';
 import { LocationAndBusiness } from '../../../../../../core/Interfaces/LocationAndBusiness/LocationAndBusiness';
 import { UserService } from '../../../../Services/UserService/user.service';
+import { LaborTutor } from '../../../../../../core/Interfaces/LaborTutor/LaborTutor';
 
 
 // Página de buscar empresas
@@ -27,13 +28,14 @@ export class SearchBusinessComponent implements OnInit {
     private userSrv: UserService
   ) {}
 
+  tutors :LaborTutor[] = [];
 
   isAdmin: boolean = false;                                    // Indica si es administrador
   mapbox = mapboxgl as typeof mapboxgl;                        // Construye el mapa
   map: mapboxgl.Map | null = null;                             // Mapa
 
 
-  locations: LocationAndBusiness[] = [];                       // Lista de localizaciones
+  locationsAndBusiness: LocationAndBusiness[] = [];                       // Lista de localizaciones
 
   mapMode: boolean = false;                                    // Modo mapa
 
@@ -59,7 +61,7 @@ export class SearchBusinessComponent implements OnInit {
       next: (business: any) => {
         request.unsubscribe();
         
-        this.locations = business;            // Establecemos las ubicaciones
+        this.locationsAndBusiness = business;            // Establecemos las ubicaciones
       },
       error: (response) => {
 
@@ -92,7 +94,7 @@ export class SearchBusinessComponent implements OnInit {
 
         request.unsubscribe();
 
-        this.locations = business;          // Establecemos los datos
+        this.locationsAndBusiness = business;          // Establecemos los datos
       },
       error: (response) => {
 
@@ -109,6 +111,51 @@ export class SearchBusinessComponent implements OnInit {
         });
       },
     });
+  }
+
+
+
+  // Obtiene los teléfonos de los tutores
+
+  getTelefoneTutors(cif: string) {
+    let request = this.businessSvr.getTutorsFromBusiness(cif).subscribe({
+      next: (tutors: LaborTutor[]) => {
+
+        request.unsubscribe();
+
+        // Establecemos los tutores en la variable tutores
+
+        this.tutors = tutors;
+
+        // Iniciamos una variable con los teléfonos
+
+        let telefones = "";
+
+        // Si no hay lo indicamos
+
+      if (tutors.length == 0) {
+        telefones = "Sin teléfonos";
+      }
+      else {
+
+        // Si hay los vamos añadiendo
+
+        this.tutors.forEach((tutor: LaborTutor) => {
+          telefones += "<p>" + tutor.telefone! + "</p>" 
+        });
+      }
+
+      // Mostramos
+
+        Swal.fire({
+          title: 'Teléfonos',
+          icon: 'info',
+          html: telefones,
+          showCloseButton: true,
+          focusConfirm: false
+        })
+      }
+    })
   }
 
   /**
@@ -133,7 +180,7 @@ export class SearchBusinessComponent implements OnInit {
       next: (locations: any) => {
         request.unsubscribe();
 
-        this.locations = locations;      // Establecemos los datos
+        this.locationsAndBusiness = locations;      // Establecemos los datos
 
         // Obtenemos la posición actual y cremaos el mapa
 

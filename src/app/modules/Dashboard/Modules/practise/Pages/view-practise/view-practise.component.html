@@ -20,17 +20,17 @@
         <p id="text-practise">Prácticas del alumno</p>
 
         <div class="element" id="topElement">
-            <img src="assets/img/business.png">
+            <img src="assets/img/business.png" (click)="viewBusiness()">
             <p>Empresa</p>
             <p (click)=" (isAdmin) ? selectBusiness = true : false">{{ (this.currentEnrollment.practise.business) ? this.currentEnrollment.practise.business.name : "No establecido" }}  <img *ngIf="isAdmin" class="editOption" src="assets/img/edit.png"></p>
         </div>
         <div class="element">
-            <img src="assets/img/teacherImg.png">
+            <img src="assets/img/teacherImg.png" (click)="viewTutor()">
             <p>Tutor laboral</p>
             <p (click)="(isAdmin) ? selectNewTutor(): false">{{ (this.currentEnrollment.practise.laborTutor) ? this.currentEnrollment.practise.laborTutor.name : "No establecido" }}<img *ngIf="isAdmin" class="editOption" src="assets/img/edit.png"></p>
         </div>
         <div class="element" (click)="(isAdmin) ? this.selectTeacher = true: false">
-            <img src="assets/img/teacherImg.png">
+            <img src="assets/img/teacherImg.png" (click)="viewTeacher()">
             <p>Profesor de prácticas</p>
             <p>{{ (this.currentEnrollment.practise.teacher) ? this.currentEnrollment.practise.teacher.name : "No establecido" }}<img class="editOption" *ngIf="isAdmin" src="assets/img/edit.png"></p>
         </div>
@@ -45,7 +45,7 @@
             <img (click)="setDateEnd()" src="assets/img/edit.png" *ngIf="isAdmin">
         </div>
     </div>
-    <div id="modal-zone" *ngIf="selectBusiness || selectTutor || selectTeacher"  (click)="closeAll()">
+    <div id="modal-zone" *ngIf="selectBusiness || selectTutor || selectTeacher">
         <app-select-business *ngIf="selectBusiness" (cif)="setBusiness($event)" class="selectModal"></app-select-business>
         <app-select-teacher *ngIf="selectTeacher" (dni)="setTeacher($event)" class="selectModal"></app-select-teacher>
         <app-select-tutor *ngIf="selectTutor" (dni)="setTutor($event)" [cif]="this.currentEnrollment.practise!.business!.cif!" (dni)="setTutor($event)" class="selectModal"></app-select-tutor>

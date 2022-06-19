@@ -107,15 +107,15 @@ export class SearchCenterComponent implements OnInit {
     });
   }
 
-  // Obtiene los teléfonos de los tutores 
+  // Obtiene los teléfonos de los administradores 
 
-  getTelefoneTutors(idSchool: number) {
+  getTelefoneAdmins(idSchool: number) {
     let request = this.centerSvr.getAdministrators(idSchool).subscribe({
       next: (administrators: any) => {
 
         request.unsubscribe();
 
-        // Establecemos los tutores en la variable administradores
+        // Establecemos los administradores en la variable administradores
 
         this.administrators = administrators;
 

@@ -1,9 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { PracticeService } from '../../Service/practice.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Enrollment } from 'src/app/core/Interfaces/Enrollment/Enrollment';
 import { UserService } from '../../../../Services/UserService/user.service';
+import { Business } from '../../../../../../core/Interfaces/business/Business';
 
 // Vista de practica
 
@@ -17,7 +18,8 @@ export class ViewPractiseComponent implements OnInit, AfterViewInit {
   constructor(
     private practiseSrv: PracticeService,
     private rutaActiva: ActivatedRoute,
-    private userSrv: UserService
+    private userSrv: UserService,
+    private route: Router
   ) { }
 
   currentEnrollment !: Enrollment;                  // Practica actual
@@ -31,6 +33,7 @@ export class ViewPractiseComponent implements OnInit, AfterViewInit {
   // Establece una empresa
 
   setBusiness (cif :string) {
+    this.closeAll();
 
     // Comprobamos si está establecida
 
@@ -110,6 +113,7 @@ export class ViewPractiseComponent implements OnInit, AfterViewInit {
 
   // Establece un profesor
   setTeacher (dni :string) {
+    this.closeAll();
     // Editamos
     let request = this.practiseSrv.editTeacher(this.currentEnrollment!.practise!, dni).subscribe({
       next: () => {
@@ -132,6 +136,7 @@ export class ViewPractiseComponent implements OnInit, AfterViewInit {
   // Establece el tutor
   setTutor (dni :string) {
 
+    this.closeAll();
     // Editamos
 
     let request = this.practiseSrv.editTutor(this.currentEnrollment!.practise!, dni).subscribe({
@@ -508,4 +513,26 @@ export class ViewPractiseComponent implements OnInit, AfterViewInit {
       return result;
     }
   }
+
+
+
+  viewBusiness() {
+    if (this.currentEnrollment.practise?.business?.cif != null) {
+      this.route.navigateByUrl("/dashboard/business/search-business/edit/" + this.currentEnrollment.practise?.business?.cif);
+    }
+  }
+
+  viewTeacher() {
+    if (this.currentEnrollment.practise?.teacher?.dni != null) {
+      this.route.navigateByUrl("/dashboard/person/management/" + this.currentEnrollment.practise?.teacher?.dni + "/edit");
+    }
+  }
+
+
+  viewTutor() {
+    if (this.currentEnrollment.practise?.laborTutor?.dni != null) {
+      this.route.navigateByUrl("/dashboard/person/management/" + this.currentEnrollment.practise?.laborTutor?.dni + "/edit");
+    }
+  }
+
 }

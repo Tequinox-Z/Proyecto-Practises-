@@ -13,18 +13,18 @@
   </div>
 
   <div>
-    <div *ngIf="locations.length != 0" id="schools">
-      <div *ngFor="let currentBusiness of locations" class="school">
+    <div *ngIf="locationsAndBusiness.length != 0" id="schools">
+      <div *ngFor="let currentBusiness of locationsAndBusiness" class="school">
         <img src="{{ currentBusiness.image }}"/>
         <p>{{ currentBusiness.name }}</p>
         <p>{{ currentBusiness.cif }}</p>
         <img  src="assets/img/location.png" title="Ver ubicación" alt="Ver ubicación" routerLink="../ubication/{{ currentBusiness.latitude }}/{{ currentBusiness.longitude }}" title="Ver ubicación" alt="Ver ubicación">
-        <img class="leftIcon" src="assets/img/call.png" title="Contacto" alt="Contacto" title="Obtener números de contacto" alt="Obtener números de contacto">
+        <img class="leftIcon" src="assets/img/call.png" (click)="getTelefoneTutors(currentBusiness.cif)" title="Contacto" alt="Contacto" title="Obtener números de contacto" alt="Obtener números de contacto">
         <img class="rightIcon" src="assets/img/{{ (isAdmin)? 'edit.png': 'view.png' }}" title="{{ (isAdmin)? 'Editar':'Ver' }}" alt="{{ (isAdmin)? 'Editar':'Ver' }}" routerLink="edit/{{ currentBusiness.cif }}">
 
       </div>
     </div>
-    <div *ngIf="locations.length == 0" id="no-centers">
+    <div *ngIf="locationsAndBusiness.length == 0" id="no-centers">
       <img src="assets/img/business.png" />
       <p>Ninguna empresa coincide con la búsqueda</p>
     </div>

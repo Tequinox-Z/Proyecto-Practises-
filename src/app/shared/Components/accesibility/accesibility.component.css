@@ -32,3 +32,38 @@
     transition: 0.5s;
     height: 27%;
 }
+
+#title {
+    font-size: 20px;
+    position: relative;
+    top: 20px;
+    left: 20px;
+    display: inline-block;
+}
+
+#options {
+    margin-top: 14%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+#options > div {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#options p {
+    text-align: center;
+}
+
+#options img {
+    height: 70px;
+}

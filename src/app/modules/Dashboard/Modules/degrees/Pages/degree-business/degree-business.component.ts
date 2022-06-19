@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DegreeService } from '../../Service/degree.service';
 import { ProfessionalDegree } from '../../../../../../core/Interfaces/ProfessionalDegree/ProfessionalDegree';
 import Swal from 'sweetalert2';
@@ -18,7 +18,8 @@ export class DegreeBusinessComponent implements OnInit {
   constructor(
     private rutaActiva: ActivatedRoute,
     private degreeSrv: DegreeService,
-    public userSrv: UserService
+    public userSrv: UserService,
+    private router: Router
   ) { }
 
 
@@ -142,6 +143,11 @@ export class DegreeBusinessComponent implements OnInit {
         })
       }
     })
+  }
+
+
+  viewBusiness(cif: string) {
+    this.router.navigateByUrl("/dashboard/business/search-business/edit/" + cif);
   }
 
 }

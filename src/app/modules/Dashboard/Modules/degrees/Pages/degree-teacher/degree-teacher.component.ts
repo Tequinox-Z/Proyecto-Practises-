@@ -149,4 +149,11 @@ loadDegree() {
         }
       })
     }
+
+
+  // Ver un persona
+
+  viewPerson(dni: string) {
+    this.router.navigateByUrl("/dashboard/person/management/" + dni + "/edit");
+  }
 }

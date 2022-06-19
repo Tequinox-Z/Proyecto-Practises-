@@ -1,6 +1,7 @@
 <div id="businessDiv">
     <p>Seleccione estudiante</p>
     <div id="businessDivs">
+        <p id="noContent" *ngIf="students && students.length == 0">Sin estudiantes. Agrege antes algún estudiante</p>
         <div *ngFor="let student of students" class="business" (click)="select(student.dni!)">
             <img src="{{ student.image }}">
             <p>{{ student.name }}</p>

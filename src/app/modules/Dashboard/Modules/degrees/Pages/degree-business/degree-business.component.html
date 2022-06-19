@@ -16,8 +16,8 @@
                 <p>Añadir</p>
             </div>
 
-            <div class="businessOption" [ngClass]="{'animatedTx' : editMode}" *ngFor="let business of currentDegree.businesses">
-                <div id="addOptionBusiness" class="imageOption">
+            <div  class="businessOption" [ngClass]="{'animatedTx' : editMode}" *ngFor="let business of currentDegree.businesses">
+                <div id="addOptionBusiness" class="imageOption" (click)="viewBusiness(business.cif!)">
                     <img src="{{ business.image }}" class="imgOption">
                 </div>
                 <p>{{ business.name }}</p>

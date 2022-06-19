@@ -1,7 +1,7 @@
 <div id="container-main" *ngIf="userService.getPerson() != null" class="inNewIntro">
     <div id="navigator">
-        <img  id="menu" src="assets/img/menu.png" (click)="this.showActions = !showActions">
-        <p>{{ this.dashboardService.getTitle() }}</p>
+        <img id="menu" src="assets/img/menu.png" (click)="this.showActions = !showActions">
+        <p>{{ title }}</p>
 
         <div id="user-zone">
             <img (click)="menu = !menu" src="{{ (userService.getPerson() && userService.getPerson()?.image) ? userService.getPerson()!.image : 'assets/img/not_image.png' }}" title="{{ (userService.getPerson()) ? userService.getPerson()!.name : '' }} {{ (userService.getPerson()) ? userService.getPerson()!.lastName : '' }} ({{ this.roleAssign }})">
@@ -71,8 +71,8 @@
     </div>
 </div>
 
-<app-menu *ngIf="menu"></app-menu>
+<app-menu (accesibility)="this.accesibility = true" *ngIf="menu"></app-menu>
 
-<!-- <div id="acccesibility">
-    <app-accesibility></app-accesibility>
-</div> -->
+<div id="acccesibility" *ngIf="accesibility">
+    <app-accesibility (closeKey)="this.accesibility = false"></app-accesibility>
+</div>

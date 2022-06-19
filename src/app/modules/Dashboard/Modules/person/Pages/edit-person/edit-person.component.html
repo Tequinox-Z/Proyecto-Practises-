@@ -7,7 +7,7 @@
     <div id="content">
         <div>
             <div id="image">
-                <app-file-upload (fileName)="setNewImage($event)" id="imageUpload"></app-file-upload>
+                <app-file-upload *ngIf="editMode" (fileName)="setNewImage($event)" id="imageUpload"></app-file-upload>
                 <img src="{{ this.currentPerson.image }}">
             </div>
         </div>
@@ -20,24 +20,28 @@
                     <div>
                         <label>Nombre</label>
                         <input name="name"
+                        [attr.disabled]="!editMode ? '' : null"
                               formControlName="name"
                               type="text"/>
                               <img *ngIf="this.formGroup.get('name')!.touched && this.formGroup.get('name')?.errors" class="warning" src="assets/img/warning.png" title="Nombre es requerido">
                   
                         <label>Apellidos</label>
                         <input name="lastName"
+                        [attr.disabled]="!editMode ? '' : null"
                               formControlName="lastName"
                               type="text"/>
                               <img class="warning" src="assets/img/warning.png" *ngIf="this.formGroup.get('lastName')!.touched && this.formGroup.get('lastName')?.errors" title="Apellidos requeridos">
                   
                         <label for="birthDate">Nacimiento</label>
                         <input name="birthDate"
+                        [attr.disabled]="!editMode ? '' : null"
                               formControlName="birthDate"
                               type="date" max="{{ date | date: 'yyyy-MM-dd' }}"/>
                               <img class="warning" src="assets/img/warning.png" *ngIf="this.formGroup.get('birthDate')!.touched && this.formGroup.get('birthDate')?.errors" title="La fecha de nacimiento es requerido">
                   
                         <label for="address">Dirección</label>
                         <input name="address"
+                        [attr.disabled]="!editMode ? '' : null"
                               formControlName="address"
                               type="text"/>
                               <img class="warning" src="assets/img/warning.png" *ngIf="this.formGroup.get('address')!.touched && this.formGroup.get('address')?.errors" title="La dirección es requerida">    
@@ -45,20 +49,22 @@
                     <div>
                         <label for="telefone">Teléfono</label>
                         <input name="telefone"
+                        [attr.disabled]="!editMode ? '' : null"
                               formControlName="telefone"
                               type="tel"/>
                               <img class="warning" src="assets/img/warning.png" *ngIf="this.formGroup.get('telefone')!.touched && this.formGroup.get('telefone')?.errors" title="El teléfono es requerido">
                   
                         <label for="email">Correo</label>
                         <input name="email"
+                        [attr.disabled]="!editMode ? '' : null"
                               formControlName="email"
                               type="email"/> 
                               <img class="warning" src="assets/img/warning.png"  *ngIf="this.formGroup.get('email')!.touched && this.formGroup.get('email')?.errors" title="El correo es requerido">
                     </div>
                 </div>
               </form>
-            <button id="save" (click)="save()">Guardar</button>
-            <button id="save2" (click)="changePassword()">Cambiar Contraseña</button>
+            <button *ngIf="this.editMode" id="save" (click)="save()">Guardar</button>
+            <button *ngIf="this.editMode" id="save2" (click)="changePassword()">Cambiar Contraseña</button>
         </div>
         
     </div>

@@ -38,7 +38,7 @@
             required
             #password="ngModel"
           />
-          <img class="icon-input" src="assets/img/password-icon.png" alt="Contraseña" title="Contraseña-">
+          <img (click)="changePass()" class="icon-input" src="assets/img/password-icon.png" alt="Contraseña" title="Contraseña-">
           <img
             *ngIf="password.invalid && password.touched"
             class="err"
@@ -66,9 +66,6 @@
         </div>
         <div id="keyboard" (click)="this.keyboardService.showKeyboard(true)">
           <img  src="assets/img/keyboard.png" alt="Teclado en pantalla">
-        </div>
-        <div >
-            <img src="assets/img/google.png" alt="Iniciar con Google" title="Iniciar con Google">
         </div>
     </div>
   </div>

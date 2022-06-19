@@ -4,6 +4,7 @@ import { CenterService } from '../../Service/center.service';
 import { School } from '../../../../../../core/Interfaces/school/school';
 import { RegTemp } from '../../../../../../core/Interfaces/RegTemp/RegTemp';
 import Swal from 'sweetalert2';
+import { DashboardService } from '../../../../Services/Dashboard-service/dashboard.service';
 
 @Component({
   selector: 'app-temperature-humidity',
@@ -15,11 +16,18 @@ export class TemperatureHumidityComponent implements OnInit {
 
   // Página de ambiente del centro
 
-  constructor(private centerSvr: CenterService) { }
+  constructor(
+    private centerSvr: CenterService,
+    private dashboardSvr: DashboardService
+    ) { }
 
   data: RegTemp[] = [];                              // Registros de temperatura
 
   ngOnInit() {
+
+    // Establecemos el título
+    
+    this.dashboardSvr.setTitle("Ambiente");
 
     // Obtenemos el centro del administrador
 

@@ -12,7 +12,7 @@
     <div id="maxWidthDiv">
         <div id="zone" *ngIf="this.currentDegree.enrollments && this.currentDegree.enrollments.length != 0">
             <div class="listOption" *ngFor="let enrollment of this.currentDegree.enrollments">
-                <img src="{{ enrollment.student?.image }}">
+                <img (click)="viewPerson(enrollment.student!.dni!)" src="{{ enrollment.student?.image }}">
                 <p>{{ enrollment.student!.name }}</p>
                 <p>{{ enrollment.student!.lastName }}</p>
                 <img class="deleteOption" src="assets/img/delete.png" *ngIf="editMode" alt="Quitar" title="Quitar" (click)="quitStudent(enrollment.id!)">

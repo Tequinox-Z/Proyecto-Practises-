@@ -332,6 +332,10 @@ button.toast-close-button {
   display: none !important;
 }
 
+.hightContrast {
+  filter: contrast(1.2);
+}
+
 .toast-container .ngx-toastr {
   position: relative;
   overflow: hidden;

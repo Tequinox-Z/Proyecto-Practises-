@@ -1,9 +1,23 @@
 <div id="mainAccesibility">
-    <div id="close">
-        <img src="assets/img/close.png" title="Cerrar" alt="Cerrar">
+    <div id="close" (click)="close()">
+        <img (close)="close()" src="assets/img/close.png" title="Cerrar" alt="Cerrar">
     </div>
 
 
-    <p>Accesbilidad</p>
-    <p>Adapte la interfaz a sus necesidades</p>
+    <p id="title">Accesibilidad</p>
+    <div id="options">
+        <div>   
+            <img (click)="showKeyboard()" src="assets/img/keyboard2.png">
+            <p>Teclado en pantalla</p>
+        </div>
+        <div>
+            <img src="assets/img/grises.jpg" (click)="greyScale()">
+            <p>Escala de grises</p>
+        </div>
+        <div>
+            <img src="assets/img/contraste.png" (click)="contrast()">
+            <p>Alto constraste</p>
+        </div>
+    </div>
+    
 </div>

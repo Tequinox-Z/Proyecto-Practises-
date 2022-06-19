@@ -5,6 +5,7 @@ import { PersonDto, Rol } from '../../../../../../core/Interfaces/personDto/pers
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from '../../../../../../../environments/environment';
+import { UserService } from '../../../../Services/UserService/user.service';
 
 // Edición de persona
 
@@ -20,11 +21,13 @@ export class EditPersonComponent implements OnInit {
   public formGroup!: FormGroup;                        // Formulario
   date : Date = new Date();                            // Fecha actual
   
+  editMode: boolean = false;                           // ¿Permitir editar?
 
   constructor(
     private personServiceService: PersonServiceService,
     private rutaActiva: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private userSrv: UserService
   ) { }
 
 
@@ -43,7 +46,13 @@ export class EditPersonComponent implements OnInit {
 
         this.currentPerson = person;
 
-        // COnstruimos el formulario
+        // Comprobamos si puede editar
+        
+        if (this.userSrv.getDni() == dni || this.userSrv.getPerson()?.rol?.toString() == "ROLE_ADMIN") {
+          this.editMode = true;
+        }
+
+        // Construimos el formulario
         this.buildForm();
       },
       error: (response) => {
