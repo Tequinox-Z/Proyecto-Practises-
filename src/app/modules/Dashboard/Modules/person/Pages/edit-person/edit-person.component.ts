@@ -290,7 +290,7 @@ export class EditPersonComponent implements OnInit {
 
     Swal.fire({
       title: 'Indique nueva contraseña',
-      input: 'password',
+      input: 'text',
       inputAttributes: {
         autocapitalize: 'off'
       },

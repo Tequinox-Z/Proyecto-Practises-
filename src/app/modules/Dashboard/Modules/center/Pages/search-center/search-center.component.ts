@@ -338,7 +338,7 @@ export class SearchCenterComponent implements OnInit {
 
     Swal.fire({
       title: "Indique contraseña",
-      input: "password",
+      input: "text",
       inputAttributes: {
         autocapitalize: "off",
       },

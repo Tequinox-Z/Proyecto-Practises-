@@ -260,14 +260,14 @@ form > div input {
     }
 
     .warning2 {
-        top: 4px !important;
+        top: 28px !important;
         right: -29px !important;
     }
 }
 
 .warning2 {
     position: absolute;
-    top: 15px;
+    top: 38px;
     right: -40px;
 }
 
