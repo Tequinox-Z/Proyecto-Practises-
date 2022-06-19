@@ -36,6 +36,7 @@ export class FileUploadComponent implements OnInit {
     this.upload();
   }
 
+
   // Sube el fichero
 
   upload(): void {

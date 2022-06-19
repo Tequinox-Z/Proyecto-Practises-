@@ -255,6 +255,9 @@ export class MyCenterComponent implements OnInit {
         // Establecemos los datos y mostramos un mensaje
         
         this.school = school;
+
+        this.loadMap(school);
+
         Swal.fire({                                                         
           icon: 'success',
           title: '¡Guardado!'

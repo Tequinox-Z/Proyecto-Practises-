@@ -62,8 +62,15 @@
 
 #options p {
     text-align: center;
+    margin-top: 10px;
 }
 
 #options img {
     height: 70px;
+    transition: 0.5s;
+}
+
+
+#options img:hover {
+    filter: opacity(0.5);
 }

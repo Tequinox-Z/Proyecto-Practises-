@@ -1,5 +1,5 @@
 <div class="custom-input-file col-md-6 col-sm-6 col-xs-6">
-    <input type="file" class="input-file" accept=".bmp,.jpg,.png" (change)="selectFile($event)">
+    <input type="file" class="input-file" accept=".bmp, .jpg, .png"  (change)="selectFile($event)">
     {{ textToShow }}
     <img src="assets/img/upload.png">
     <p id = "progress" *ngIf="progress != 0">{{ progress }} %</p>
