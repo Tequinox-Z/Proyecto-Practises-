@@ -13,16 +13,26 @@ import * as geojson from 'geojson';
 })
 export class ViewUbicationComponent implements OnInit {
 
+
+  // Componente de vista de ubicación
+
+
   constructor(
     private route: ActivatedRoute,
     private routeNavigation: RouteNavigationServiceService) { }
 
-  mapbox = mapboxgl as typeof mapboxgl;
-  map: mapboxgl.Map | null = null;
+  mapbox = mapboxgl as typeof mapboxgl;                            // Constructor de mapa
+  map: mapboxgl.Map | null = null;                                 // Mapa
+
 
   ngOnInit(): void {
 
+    //  Obtenemos la posición actual
+
     navigator.geolocation.getCurrentPosition((ubication) => {
+
+      // Creamos el mapa
+
       this.map = new mapboxgl.Map({
         container: "mapCenters",
         style: "mapbox://styles/mapbox/light-v10",
@@ -30,6 +40,7 @@ export class ViewUbicationComponent implements OnInit {
         center: [ubication.coords.longitude, ubication.coords.latitude],
       });
   
+      // Creamos el marcador
   
       new mapboxgl.Marker({
         draggable: false,
@@ -41,35 +52,54 @@ export class ViewUbicationComponent implements OnInit {
         ])
         .addTo(this.map!);
   
+        // Añadimos los controles
+
       this.map.addControl(new mapboxgl.NavigationControl());
       this.map.addControl(new mapboxgl.FullscreenControl());
   
+      // Cargamos la ruta
+
       this.map.on("load", () => {
         this.loadRoute();
       })
   
   
+      // Acualizamos la ruta cada 500 milisegundos
+
       setTimeout(() => {
         this.loadRoute()
       }, 500);
     });
   }
 
+  // Vuelve atrás
+
   back() {
     javascript:history.back();
   }
 
 
+  // Carga la ruta más óptima desde la api
+
   loadRoute() {
+
+    // Obtenemos la posición actual
+
     navigator.geolocation.getCurrentPosition((ubication) => {
+
+      // Obtenemos las coordenadas
 
       let longitudeToGo: number = this.route.snapshot.params["longitude"];
       let latitudeToGo: number = this.route.snapshot.params["latitude"];
 
+      // Obtenemos la ruta
+
       this.routeNavigation.getRoute(ubication.coords.longitude, ubication.coords.latitude, longitudeToGo, latitudeToGo).subscribe((response: any) => {
         const data = response;
         const routes = data.routes[0].geometry.coordinates;
-        
+      
+        // Creamos un objeto geojson
+
         const geojson: any = {
           type: 'Feature',
           properties: {},
@@ -79,12 +109,17 @@ export class ViewUbicationComponent implements OnInit {
           }
         };
 
+        // Si ta existe lo editamos
+
         if (this.map!.getSource('route')) {
           const source : mapboxgl.GeoJSONSource = this.map!.getSource('route') as mapboxgl.GeoJSONSource;
 
           source.setData(geojson);
         }
         else {
+
+          // Si no existe creamos la ruta
+
           this.map!.addLayer({
             id: 'route',
             type: 'line',
@@ -103,6 +138,8 @@ export class ViewUbicationComponent implements OnInit {
             }
           });
         }
+
+        // Añadimos la posición de destino 
 
         this.map!.addLayer({
           id: 'point',

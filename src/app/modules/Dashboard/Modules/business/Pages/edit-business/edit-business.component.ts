@@ -8,6 +8,8 @@ import * as mapboxgl from "mapbox-gl";
 import { UserService } from '../../../../Services/UserService/user.service';
 
 
+// Página de editar empresa
+
 @Component({
   selector: 'app-edit-business',
   templateUrl: './edit-business.component.html',
@@ -22,32 +24,47 @@ export class EditBusinessComponent implements OnInit {
     private userSrv: UserService
   ) { }
 
-  selectTutor: boolean = false;
+  selectTutor: boolean = false;            // Modal de selección de tutor
 
-  mapbox = mapboxgl as typeof mapboxgl;
-  map: mapboxgl.Map | null = null;
-  showSaveUbication = false;
-  isAdmin :boolean = false;
+  mapbox = mapboxgl as typeof mapboxgl;    // Constructor de mapa
+  map: mapboxgl.Map | null = null;         // Mapa
+  showSaveUbication = false;               // Indica si mostrar el botón de guardar
+  isAdmin :boolean = false;                // Indica si es administrador
 
-  business!: Business;
+  business!: Business;                     // Empresa actual
 
   ngOnInit(): void {
+
+    // Establecemos el token 
+
     this.mapbox.accessToken = environment.mapBoxToken;
+
+    // Comprobamos si es administrador
 
     if (this.userSrv.getPerson()?.rol + "" == "ROLE_ADMIN") {
       this.isAdmin = true;
     }
 
+    // Cargamos la empresa
+
     this.loadBusiness();
   }
 
 
+  /**
+   * Carga la ubicación de la empresa
+   */
   loadUbication() {
-    this.businessService.getUbication(this.business).subscribe({
+    let request = this.businessService.getUbication(this.business).subscribe({
       next: (ubication) => {
-        this.business.location = ubication;
+        request.unsubscribe();
+        this.business.location = ubication;      // Asignamos la empresa
       },
       error: (response) => {
+        request.unsubscribe();
+
+        // Lanzamos error
+
         Swal.fire({                                                                     
           icon: 'error',
           title: 'Oops...',
@@ -57,29 +74,62 @@ export class EditBusinessComponent implements OnInit {
     })
   }
 
+  /**
+   * Carga la empresa
+   */
   loadBusiness() {
+
+    // Obtenemos el cif
+
     let cif = this.rutaActiva.snapshot.params['cif'];
 
-    this.businessService.getBusiness(cif).subscribe({
+    // Cargamos la empresa
+
+    let request = this.businessService.getBusiness(cif).subscribe({
       next: (business) => {
-        this.business = business;
-        this.loadMap(business);
+        request.unsubscribe();
+
+        this.business = business;          // Asignamos la empresa
+        this.loadMap(business);            // Cargamos el mapa
       },
       error: () => {
-        history.back();
+        request.unsubscribe();
+
+        history.back();                    // En caso de error volvemos atrás
       }
     })
   }
 
+  /**
+   * Cambia la imagen de la empresa
+   * @param image Nueva imagen
+   */
   changeImage(image: string) {
+    
+    // Establecemos la ruta de la imagen
+
     this.business.image = environment.serverFileAddress + "/files/" + image;
 
-    this.businessService.editBusiness(this.business).subscribe({
+    // Editamos la imagen
+
+    let request = this.businessService.editBusiness(this.business).subscribe({
       next: (business) => {
+
+        request.unsubscribe();
+
+        // Establecemos la nueva empresa
+
         this.business = business;
+
+        // Cargamos el mapa
+
         this.loadUbication();
       },
       error: (response) => {
+        request.unsubscribe();
+
+        // Indicamos error
+
         Swal.fire({                                                                     
           icon: 'error',
           title: 'Oops...',
@@ -89,8 +139,13 @@ export class EditBusinessComponent implements OnInit {
     });
   }
 
-
+  /**
+   * Edita el número de estudiantes
+   */
   editNumberOfStudents() {
+
+    // Pedimos el número de estudiantes
+
     Swal.fire({
       title: 'Indique número de estudiantes que se pueden matricular este año',
       input: 'number',
@@ -107,15 +162,29 @@ export class EditBusinessComponent implements OnInit {
       allowOutsideClick: () => !Swal.isLoading()
     }).then((result) => {
 
+      // Si es válido continuamos
+
       if (!isNaN(result.value!)) {
+
+        // Convertimos a entero
+
         this.business.numberOfStudents = parseInt(result.value!);
 
-        this.businessService.editBusiness(this.business).subscribe({
+        let request = this.businessService.editBusiness(this.business).subscribe({
           next: (business) => {
+
+            request.unsubscribe();
+
+            // Asignamos la empresa y recargamos la ubicación
+
             this.business = business;
             this.loadUbication();
           },
           error: (response) => {
+            request.unsubscribe();
+
+            // Mostramos error
+
             Swal.fire({                                                                     
               icon: 'error',
               title: 'Oops...',
@@ -130,8 +199,13 @@ export class EditBusinessComponent implements OnInit {
   }
 
 
-
+  /**
+   * Edita en nombre de la empresa
+   */
   editName() {
+
+    // Pedimos el nombre
+
     Swal.fire({
       title: 'Indique nuevo nombre',
       input: 'text',
@@ -145,18 +219,35 @@ export class EditBusinessComponent implements OnInit {
       showLoaderOnConfirm: true,
       allowOutsideClick: () => !Swal.isLoading()
     }).then((result) => {
+  
+      // Comprobamos si es válido
+
       if (result.value.trim().length == 0) {
         Swal.showValidationMessage("Indique un nombre válido");
       }
       else {
+
+        // Establecemos el nombre
+
         this.business.name = result.value!;
 
-        this.businessService.editBusiness(this.business).subscribe({
+        // Editamos
+
+        let request = this.businessService.editBusiness(this.business).subscribe({
           next: (business) => {
+            request.unsubscribe();
+
+            // Establecemos la empresa y cargamos la ubicación
+
             this.business = business;
             this.loadUbication();
           },
           error: (response) => {
+
+            request.unsubscribe();
+            
+            // Mostramos error
+            
             Swal.fire({                                                                     
               icon: 'error',
               title: 'Oops...',
@@ -171,11 +262,23 @@ export class EditBusinessComponent implements OnInit {
   }
 
 
-
+  /**
+   * Carga el mapa
+   * @param business
+   */
   loadMap(business: Business) {
-    this.businessService.getUbication(business).subscribe({
+
+    // Obtenemos la ubicación
+
+    let request = this.businessService.getUbication(business).subscribe({
         next: (location :any) => {
+          request.unsubscribe();
+
+          // La establecemos
+
           this.business.location = location;
+
+          // Cargamos el mapa
 
           this.map = new mapboxgl.Map({
             container: "map",
@@ -183,6 +286,8 @@ export class EditBusinessComponent implements OnInit {
             zoom: 15,
             center: [location.longitude!, location.latitude!],
           });
+
+          // Añadimos el marcador
 
           let marker = new mapboxgl.Marker({
             draggable: this.isAdmin,
@@ -194,18 +299,29 @@ export class EditBusinessComponent implements OnInit {
             ])
             .addTo(this.map!);
 
+          // Añadimos un evento al arrastrar
+
           marker.on("drag", (event: any) => {
 
             event!.target._lngLat.lat;
             event!.target._lngLat.lng;
 
+            // Establecemos las nuevas coordenadas
+
             this.business.location!.latitude = event!.target._lngLat.lat;
             this.business.location!.longitude = event!.target._lngLat.lng;
 
+            // Mostramos el botón de guardar
+            
             this.showSaveUbication = true;
           });
         },
         error: (responseError: any) => {
+
+          request.unsubscribe();
+
+          // Mostramos el error
+
           Swal.fire({                                                         
             icon: 'error',
             title: 'Oops...',
@@ -215,17 +331,33 @@ export class EditBusinessComponent implements OnInit {
     });
   }
 
-
+  /**
+   * Actualiza la ubicación
+   */
   updateLocation() {
-    this.businessService.editUbication(this.business).subscribe({
+    
+    //Lanzamos la petición
+
+    let request = this.businessService.editUbication(this.business).subscribe({
       next: () => {
+        request.unsubscribe();
+
+        // Ocultamos el boton
+
         this.showSaveUbication = false;
+        
+        // Mostramos el mensaje
+        
         Swal.fire({                                                         
           icon: 'success',
           title: '¡Guardado!'
         })
       },
       error: (responseError) => {
+        request.unsubscribe();
+
+        // Mostramos error
+
         Swal.fire({                                                         
           icon: 'error',
           title: 'Oops...',
@@ -235,16 +367,24 @@ export class EditBusinessComponent implements OnInit {
     })
   }
 
-
+  /**
+   * Añade un tutor
+   * @param dni Dni
+   */
   addTutor(dni: any) {
-    this.businessService.setBusinessToTutor(dni, this.business).subscribe({
+    let request = this.businessService.setBusinessToTutor(dni, this.business).subscribe({
       next: () => {
+        request.unsubscribe();
+
         Swal.fire({                                                         
           icon: 'success',
           title: '¡Guardado!'
         })
       },
       error: (responseError) => {
+
+        request.unsubscribe();
+
         Swal.fire({                                                         
           icon: 'error',
           title: 'Oops...',
@@ -254,7 +394,9 @@ export class EditBusinessComponent implements OnInit {
     })
   }
 
-
+  /**
+   * Cierra todos los modales
+   */
   closeAll() {
     this.selectTutor = false;
   }

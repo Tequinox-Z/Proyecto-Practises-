@@ -8,6 +8,9 @@ import Typed from 'typed.js';
 })
 export class LoadingComponent implements OnInit {
 
+
+  // Componente de pantalla de carga
+
   constructor() { }
 
   ngOnInit(): void {

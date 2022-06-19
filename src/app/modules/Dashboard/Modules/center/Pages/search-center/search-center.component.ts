@@ -14,6 +14,9 @@ import { UserService } from '../../../../Services/UserService/user.service';
 import { Administrator } from '../../../../../../core/Interfaces/administrator/administrator';
 import { ProfessionalDegree } from '../../../../../../core/Interfaces/ProfessionalDegree/ProfessionalDegree';
 
+
+// Página de búsqueda de centro
+
 @Component({
   selector: "app-search-center",
   templateUrl: "./search-center.component.html",
@@ -28,48 +31,70 @@ export class SearchCenterComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  mapbox = mapboxgl as typeof mapboxgl;
-  map: mapboxgl.Map | null = null;
 
-  centers: School[] = [];
-  locations: LocationAndSchool[] = [];
+  mapbox = mapboxgl as typeof mapboxgl;              // Constructor de mapa
+  map: mapboxgl.Map | null = null;                   // Mapa
 
-  administrators : Administrator[] = [];
-  degrees : ProfessionalDegree[] = [];
+  centers: School[] = [];                            // Lista de centros
+  locations: LocationAndSchool[] = [];               // Lista de localizaciones
 
-  setMode: boolean = true;
+  administrators : Administrator[] = [];             // Lista de administradores
+  degrees : ProfessionalDegree[] = [];               // Lista de ciclos
 
-  mapMode: boolean = false;
+  setMode: boolean = true;                           // Modo de selección
+
+  mapMode: boolean = false;                          // Modo mapa
 
   ngOnInit(): void {
 
+    // Comprobamos si es un administrador
+
     if (this.userService.getPerson()?.rol + "" == "ROLE_ADMIN") {
-      this.centerSvr.getCenterOfAdministrator()
+
+      // Obtenemos el centro del administrador para saber si poner el modo set
+
+      let request = this.centerSvr.getCenterOfAdministrator()
       .subscribe(
         {
           next: () => {
-            this.setMode = false;
+            request.unsubscribe();
+            this.setMode = false;            // Deshabilitamos el modo set
           },
           error: () => {
-            this.setMode = true;
+            request.unsubscribe();
+            this.setMode = true;             // Habilitamos el modo set
           }
         }
       );
     }
     else {
-      this.setMode = false;
+      this.setMode = false;                  // Deshabilitamos el modo set
     }
 
 
+    // Establecemos el título
+
     this.dashboardSvr.setTitle("Centros");
 
+    // Establecemos el token
     this.mapbox.accessToken = environment.mapBoxToken;
 
-    this.centerSvr.getAllCenters().subscribe({
+    // Obtenemos los centros
+
+    let request = this.centerSvr.getAllCenters().subscribe({
       next: (schools: any) => {
+        request.unsubscribe();
+        
+        // Establcemos los centros
+        
         this.centers = schools;
       },
       error: (response) => {
+
+        request.unsubscribe();
+        
+        // Mostramos error
+        
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -82,22 +107,37 @@ export class SearchCenterComponent implements OnInit {
     });
   }
 
+  // Obtiene los teléfonos de los tutores 
 
   getTelefoneTutors(idSchool: number) {
-    this.centerSvr.getAdministrators(idSchool).subscribe({
+    let request = this.centerSvr.getAdministrators(idSchool).subscribe({
       next: (administrators: any) => {
+
+        request.unsubscribe();
+
+        // Establecemos los tutores en la variable administradores
+
         this.administrators = administrators;
 
+        // Iniciamos una variable con los teléfonos
+
         let telefones = "";
+
+        // Si no hay lo indicamos
 
       if (administrators.length == 0) {
         telefones = "Sin teléfonos";
       }
       else {
+
+        // Si hay los vamos añadiendo
+
         this.administrators.forEach((administrator: Administrator) => {
           telefones += "<p>" + administrator.telefone! + "</p>" 
         });
       }
+
+      // Mostramos
 
         Swal.fire({
           title: 'Teléfonos',
@@ -110,22 +150,32 @@ export class SearchCenterComponent implements OnInit {
     })
   }
 
-
+  /**
+   * Obtiene los ciclos de un centro
+   */
   getDegrees(idSchool: number) {
-    this.centerSvr.getDegreesFromSchoolId(idSchool).subscribe({
+    let request = this.centerSvr.getDegreesFromSchoolId(idSchool).subscribe({
       next: (degrees: any) => {
-        this.degrees = degrees;
 
-        let names = "";
+        request.unsubscribe();
+
+        this.degrees = degrees;            // Establecemos los ciclos
+
+        let names = "";                    // Lista de nombres de ciclos
 
       if (degrees.length == 0) {
-        names = "Sin ciclos";
+        names = "Sin ciclos";              // Si no hay lo indicamos
       }
       else {
+
+        // Si hay los vamos añadiendo
+
         this.degrees.forEach((degree: ProfessionalDegree) => {
           names += "<p>" + degree.name! + "</p>" 
         });
       }
+
+      // Mostramos los ciclos
 
         Swal.fire({
           title: 'Ciclos',
@@ -138,12 +188,23 @@ export class SearchCenterComponent implements OnInit {
     })
   }
 
+  // Busca centros por nombre
+
   buscar(name: String) {
-    this.centerSvr.getCentersByName(name).subscribe({
+    let request = this.centerSvr.getCentersByName(name).subscribe({
       next: (schools: any) => {
+        request.unsubscribe();
+
+        // Establecemos los centros
+
         this.centers = schools;
       },
       error: (response) => {
+
+        request.unsubscribe();
+
+        // Mostramos el error
+
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -156,16 +217,29 @@ export class SearchCenterComponent implements OnInit {
     });
   }
 
+  // Activa el modo listado
+
   showListOfSchool() {
     this.mapMode = false;
   }
 
+  // Muestra el mapa
   showMap() {
+
+    // habilitamos el modo mapa
+
     this.mapMode = true;
 
-    this.centerSvr.getAllLocations().subscribe({
+    let request = this.centerSvr.getAllLocations().subscribe({
       next: (locations: any) => {
+
+        request.unsubscribe();
+
+        // Establecemos las localizaciones
+
         this.locations = locations;
+
+        // Obtenemos la localización y creamos el mapa 
 
         navigator.geolocation.getCurrentPosition((data) => {
           this.map = new mapboxgl.Map({
@@ -175,6 +249,8 @@ export class SearchCenterComponent implements OnInit {
             center: [data.coords.longitude, data.coords.latitude],
           });
 
+          // Añadimos los controles
+
           this.map.addControl(new mapboxgl.NavigationControl());
           this.map.addControl(new mapboxgl.FullscreenControl());
           this.map.addControl(
@@ -183,12 +259,19 @@ export class SearchCenterComponent implements OnInit {
             })
           );
 
+
+          // Cambiamos el placeholder de búsqueda
+
           let searchBox = document.querySelector(
             ".mapboxgl-ctrl-geocoder--input"
           ) as HTMLInputElement;
           searchBox.placeholder = "Buscar";
 
+          // Creamos un marcador por cada localización
+
           locations.forEach((currentLocation: LocationAndSchool) => {
+
+            // Creamos el pop-pup
 
             let result;
 
@@ -203,6 +286,8 @@ export class SearchCenterComponent implements OnInit {
               result
             );
 
+            // Creamos el marcador
+
             new mapboxgl.Marker({
               draggable: false,
               color: "#ff8000"
@@ -214,6 +299,8 @@ export class SearchCenterComponent implements OnInit {
               ])
               .addTo(this.map!);
           });
+
+          // Añadimos el evento
 
           document
             .querySelector("#mapCenters")
@@ -227,6 +314,10 @@ export class SearchCenterComponent implements OnInit {
         });
       },
       error: (response) => {
+        request.unsubscribe();
+
+        // Mostramos el mensaje en caso de error
+
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -239,7 +330,12 @@ export class SearchCenterComponent implements OnInit {
     });
   }
 
+  // Configura un centro
+
   configureSchool(idSchool: number) {
+
+    // Pedimos la contraseña
+
     Swal.fire({
       title: "Indique contraseña",
       input: "password",
@@ -247,9 +343,14 @@ export class SearchCenterComponent implements OnInit {
         autocapitalize: "off",
       },
       preConfirm: (login) => {
+
+        // Obtenemos la escuela y establecemos el centro
+
         let school: School = {};
         school.id = idSchool;
         school.password = login;
+
+        // Retornamos el resultado
 
         return this.centerSvr.setCurrentAdministrator(school)
         .toPromise()
@@ -268,15 +369,28 @@ export class SearchCenterComponent implements OnInit {
     });
   }
 
+  // Muestra una ubicación
+
   viewUbication(idSchool: number) {
+
+    // Obtenemos la escuela
+
     let school: School = {};
     school.id = idSchool;
 
-    this.centerSvr.getUbication(school).subscribe({
+    let request = this.centerSvr.getUbication(school).subscribe({
       next: (location: Location) => {
+        request.unsubscribe();
+        
+        // Dirigimos al usuario a la ubicación
+
         this.router.navigate(["../ubication/", location.latitude, location.longitude], {relativeTo: this.route});
       },
       error: (response) => {
+        request.unsubscribe();
+
+        // Mostramos el error
+        
         Swal.fire({
           icon: "error",
           title: "Oops...",

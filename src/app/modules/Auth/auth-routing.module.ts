@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'reset-my-password/:token-id',
-    component: RestartPasswordComponent
+    component: RestartPasswordComponent                                        // Ruta de reseteo de contraseña
   }
 ];
 

@@ -12,6 +12,9 @@ import { UserService } from '../../../../Services/UserService/user.service';
 })
 export class DegreeBusinessComponent implements OnInit {
 
+
+  // Página de Empresas de un ciclo
+
   constructor(
     private rutaActiva: ActivatedRoute,
     private degreeSrv: DegreeService,
@@ -19,29 +22,50 @@ export class DegreeBusinessComponent implements OnInit {
   ) { }
 
 
-  isAdmin : boolean = false;
+  isAdmin : boolean = false;                    // Indica si es administrador
 
-  selectBusiness:boolean = false;
+  selectBusiness :boolean = false;              // Modal de selección de empresa
 
-  currentDegree!: ProfessionalDegree;
-  editMode: boolean = false;
+  currentDegree!: ProfessionalDegree;           // Ciclo actual
+  editMode: boolean = false;                    // Modo edición
 
   ngOnInit(): void {
+
+    // Comprobamos si es un administrador
+
     if (this.userSrv.getPerson()?.rol?.toString() == "ROLE_ADMIN") {
       this.isAdmin = true;
    }
+
+   // Leemos el ciclo
+
     this.loadDegree();
   }
 
 
+  // Añade una empresa al ciclo
+
   addBusiness(cif: string) {
+
+    // Ocultamos el modal de empresa
+
     this.selectBusiness = false;
 
-    this.degreeSrv.addBusiness(this.currentDegree, cif).subscribe({
+    // Lo añadimos
+
+    let request = this.degreeSrv.addBusiness(this.currentDegree, cif).subscribe({
       next: () => {
+
+        request.unsubscribe();
+        
+        // Cargamos el ciclo
         this.loadDegree();
       },
       error: (response) => {
+        request.unsubscribe();
+
+        // Mostramos el mensaje
+
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -52,15 +76,33 @@ export class DegreeBusinessComponent implements OnInit {
   }
 
 
+  // Carga el ciclo actual
+
   loadDegree() {
+
+    // Leemos el id del ciclo
+
     let idDegree = this.rutaActiva.snapshot.params['idDegree'];
 
-    this.degreeSrv.getByDegreeOnly(idDegree).subscribe({
+    // Leemos el ciclo
+
+    let request = this.degreeSrv.getByDegreeOnly(idDegree).subscribe({
       next: (degree: any) => {
+        request.unsubscribe();
+
+        // Guardamos el ciclo
+
         this.currentDegree = degree;
 
-        this.degreeSrv.getBusinessFromDegree(degree).subscribe({
+        // Obtenemos la empresa del ciclo
+
+        let request2 = this.degreeSrv.getBusinessFromDegree(degree).subscribe({
           next: (business: any) => {
+
+            request2.unsubscribe();
+            
+            // Almacenamos la empresa
+
             this.currentDegree.businesses = business;
           }
         });
@@ -69,8 +111,12 @@ export class DegreeBusinessComponent implements OnInit {
   }
 
 
+  // Quita una empresa
 
   quitBusiness(cif: string) {
+
+    // Avisamos
+
     Swal.fire({
       title: '¿Quitar empresa?',
       text: "Dejará de estar disponible para ser elegida",
@@ -82,8 +128,15 @@ export class DegreeBusinessComponent implements OnInit {
       confirmButtonText: 'Quitar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.degreeSrv.quitFromDegree(this.currentDegree, cif).subscribe({
+
+        // Quitamos la empresa del ciclo
+
+        let request = this.degreeSrv.quitFromDegree(this.currentDegree, cif).subscribe({
           next: () => {
+            request.unsubscribe();
+
+            // Leemos de nuevo el ciclo
+            
             this.loadDegree();
           }
         })

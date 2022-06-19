@@ -7,6 +7,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class MapButtonComponent implements OnInit {
 
+
+  // Botón de modo mapa
+
   constructor() { }
 
   ngOnInit(): void {
@@ -14,6 +17,8 @@ export class MapButtonComponent implements OnInit {
   
   @Output() mapMode = new EventEmitter<String>();
 
+  // Al hacer click emitimos el evento 
+  
   click() {
     this.mapMode.emit();
   }

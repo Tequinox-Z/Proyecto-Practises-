@@ -8,6 +8,8 @@ import { Component, HostListener, Inject, OnInit } from '@angular/core';
 })
 export class ScrollToUpComponent implements OnInit {
 
+  // Componente de scroll hasta arriba
+
   windowScrolled: boolean = false;                                            // Indica si la ventana esta siendo scrolleada
 
   constructor(@Inject(DOCUMENT) private document: Document) {}

@@ -7,6 +7,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class NextComponent implements OnInit {
 
+
+  // Botón siguiente
+
   constructor() { }
 
   ngOnInit(): void {
@@ -14,6 +17,8 @@ export class NextComponent implements OnInit {
 
   @Output() next = new EventEmitter();
 
+  // Al hacer click lanzamos el evento
+  
   click() {
     this.next.emit();
   }

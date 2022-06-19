@@ -3,6 +3,9 @@ import { AuthService } from '../../../modules/Auth/Services/Auth-service/auth.se
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 
+
+// Servicio de estudiantes
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +16,8 @@ export class StudentService {
     private authService: AuthService
   ) { }
 
+  // Obtiene todos los estudiantes
+  
   getAllStudents() {
     return this.http.get(environment.serverAddress + "/student/", this.authService.getHeadersToken());
   }

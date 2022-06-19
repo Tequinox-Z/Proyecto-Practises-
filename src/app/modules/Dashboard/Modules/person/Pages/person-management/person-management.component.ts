@@ -15,6 +15,9 @@ import { DashboardService } from '../../../../Services/Dashboard-service/dashboa
 import { Router, ActivatedRoute } from '@angular/router';
 
 
+// Vista de administración de personas
+
+
 @Component({
   selector: 'app-person-management',
   templateUrl: './person-management.component.html',
@@ -33,26 +36,32 @@ export class PersonManagementComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
-  rolSelected : Rol = Rol.ROLE_TEACHER;
-  rolSelectedString :string = "";
-  rolToCreate !: Rol;
-  rolAdmin: Rol = Rol.ROLE_ADMIN;
+  rolSelected : Rol = Rol.ROLE_TEACHER;                          // Rol seleccionado
+  rolSelectedString :string = "";                                // Rol en string
+  rolToCreate !: Rol;                                            // ROl a crear
+  rolAdmin: Rol = Rol.ROLE_ADMIN;                                // Indica si es admin
   
-  imageSelected = '';
-  date : Date = new Date();
+  imageSelected = '';                                           // Imagen seleccionada
+  date : Date = new Date();                                     // Fecha actual
 
-  public formGroup!: FormGroup;
-  persons : Teacher[] | Student[] | LaborTutor[] = [];
+  public formGroup!: FormGroup;                                 // Formularios
+  persons : Teacher[] | Student[] | LaborTutor[] = [];          // Personas
 
   ngOnInit(): void {
+
+    // Construimos el formulario y cargamos el mapa
+
     this.buildForm();
     this.getPersons();
   }
+
+  // Establece la imagen
 
   setImage(event: string) {
     this.imageSelected = environment.serverFileAddress + "/files/" + event;
   }
 
+  // Muestra el input de ficheros
   showFileInput() {
     let container = document.querySelector("#newPersonContainer") as HTMLElement;
     
@@ -64,6 +73,8 @@ export class PersonManagementComponent implements OnInit {
     }
   }
 
+  // Cierra el modal
+
   closeModal() {
     this.getPersons();
     this.formGroup.reset();
@@ -72,6 +83,7 @@ export class PersonManagementComponent implements OnInit {
     container.classList.add("noShow");
   }
 
+  // Construye el formulario
   private buildForm(){
     this.formGroup = this.formBuilder.group({
       name: ['', [
@@ -101,6 +113,7 @@ export class PersonManagementComponent implements OnInit {
     });
   }
 
+  // Comprueba si existe la persona
   get existPerson() {
 
     let errors = this.formGroup.get('dni')?.errors!;
@@ -114,71 +127,108 @@ export class PersonManagementComponent implements OnInit {
 
   }
 
+  // Obtiene personas
+
   getPersons() {
     if (this.rolSelected == Rol.ROLE_TEACHER) {
-      
+
+      // SI son tutores
+      // Establecemos los títulos
+
       this.rolSelectedString = "Profesores";
       this.dashboardService.setTitle("Profesores");
 
-      this.personSvr.getTeachers().subscribe({
+      // Cargamos
+
+      let request = this.personSvr.getTeachers().subscribe({
         next: (persons: any) => {
+          request.unsubscribe();
+
           this.persons = persons;
         }
       });
     }
     else if (this.rolSelected == Rol.ROLE_STUDENT) {
+
+      // SI es estudiante, indicamos los títulos
       this.rolSelectedString = "Estudiantes";
       this.dashboardService.setTitle("Estudiantes");
 
-      this.personSvr.getStudents().subscribe({
+      // Cargamos
+
+      let request = this.personSvr.getStudents().subscribe({
         next: (persons: any) => {
+          request.unsubscribe();
+
           this.persons = persons;
         }
       });
     }
     else if (this.rolSelected == Rol.ROLE_LABOR_TUTOR) {
+
+      // Si es un tutor
+      // Indicamos los títulos
+
       this.rolSelectedString = "Tutores";
       this.dashboardService.setTitle("Tutores laborales");
 
-      this.personSvr.getLaborTutor().subscribe({
+      // Cargamos
+
+      let request = this.personSvr.getLaborTutor().subscribe({
         next: (persons: any) => {
+          request.unsubscribe();
           this.persons = persons;
         }
       });
     }
   }
 
+  // Busca personas por nombre y rol
   find (event: String) {
     if (this.rolSelected == Rol.ROLE_TEACHER) {
-      
+      // Si es profesor
       this.rolSelectedString = "Profesores";
 
-      this.personSvr.getTeachersFind(event).subscribe({
+      let request = this.personSvr.getTeachersFind(event).subscribe({
         next: (persons: any) => {
+          request.unsubscribe();
+          
+          // Recargamos
           this.persons = persons;
         }
       });
     }
     else if (this.rolSelected == Rol.ROLE_STUDENT) {
+      // Si es estudiante
+
       this.rolSelectedString = "Estudiantes";
 
-      this.personSvr.getStudentsFind(event).subscribe({
+      let request = this.personSvr.getStudentsFind(event).subscribe({
         next: (persons: any) => {
+          request.unsubscribe();
+          // Recargamos
           this.persons = persons;
         }
       });
     }
     else if (this.rolSelected == Rol.ROLE_LABOR_TUTOR) {
+
+      // Si es tutor
+
       this.rolSelectedString = "Tutores";
 
-      this.personSvr.getLaborTutorFind(event).subscribe({
+      let request = this.personSvr.getLaborTutorFind(event).subscribe({
         next: (persons: any) => {
+          request.unsubscribe();
+
+          // Recargamos
           this.persons = persons;
         }
       });
     }
   }
 
+  // Establece el rol a ver
   setPerson(event: any) {
     let option = event.target.value;
 
@@ -195,12 +245,14 @@ export class PersonManagementComponent implements OnInit {
     this.getPersons();
   }
 
+  // Muestra el menu
   showMenu(event : Event) {
     let currentElement = event.target as HTMLElement;
 
     currentElement.parentElement?.classList.add("viewMenu");
   }
 
+  // Oculta el menu
   noShowMenu(event: Event) {
     let element = event.target as HTMLElement;
 
@@ -214,10 +266,18 @@ export class PersonManagementComponent implements OnInit {
 
   }
 
+  // Deshbailitao habilit un usuario
   toggleDisable (dni: string, enabled : boolean) {
     if (enabled) {
-      this.personSvr.disable(dni).subscribe({
+
+      // SI está habilitado lo cambiamos
+
+      let request = this.personSvr.disable(dni).subscribe({
         next: () => {
+          request.unsubscribe();
+          
+          // Indicamos y recargamos
+          
           Swal.fire({
             icon: 'success',
             title: '¡Hecho!',
@@ -226,6 +286,10 @@ export class PersonManagementComponent implements OnInit {
           this.getPersons();
         },
         error: (response) => {
+          request.unsubscribe();
+
+          // Recargamos
+
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -236,8 +300,13 @@ export class PersonManagementComponent implements OnInit {
       })
     }
     else {
-      this.personSvr.enable(dni).subscribe({
+      // Si está deshabilitado
+
+      let request = this.personSvr.enable(dni).subscribe({
         next: () => {
+          request.unsubscribe();
+          
+          // Recargamos
           Swal.fire({
             icon: 'success',
             title: '¡Hecho!',
@@ -246,6 +315,9 @@ export class PersonManagementComponent implements OnInit {
           this.getPersons();
         },
         error: (response) => {
+          request.unsubscribe();
+          
+          // Recargamos
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -258,7 +330,10 @@ export class PersonManagementComponent implements OnInit {
   }
 
 
+  // Borra una persona
   remove(event: Event, dni: string) {
+
+    // Preguntamos
 
     Swal.fire({
       title: 'Borrar usuario',
@@ -273,8 +348,13 @@ export class PersonManagementComponent implements OnInit {
       if (result.isConfirmed) {
         switch (this.rolSelected) {
           case Rol.ROLE_TEACHER: {
-            this.personSvr.removeTeacher(dni).subscribe({
+
+            // Si es profesor
+
+            let request = this.personSvr.removeTeacher(dni).subscribe({
               next: () => {
+                request.unsubscribe();
+
                 Swal.fire({
                   icon: 'success',
                   title: '¡Hecho!',
@@ -284,6 +364,9 @@ export class PersonManagementComponent implements OnInit {
                 this.getPersons();
               },
               error: (response) => {
+
+                request.unsubscribe();
+
                 Swal.fire({
                   icon: 'error',
                   title: 'Oops...',
@@ -294,17 +377,27 @@ export class PersonManagementComponent implements OnInit {
             break;
           }
           case Rol.ROLE_LABOR_TUTOR: {
-            this.personSvr.removeLaborTutor(dni).subscribe({
+            // En caso de tutor
+
+            let request = this.personSvr.removeLaborTutor(dni).subscribe({
               next: () => {
+                request.unsubscribe();
+
                 Swal.fire({
                   icon: 'success',
                   title: '¡Hecho!',
                   text:  "Borrado"
                 })
-
+                
+                // Recargamos
                 this.getPersons();
               },
               error: (response) => {
+
+                request.unsubscribe();
+
+                // Recargamos
+
                 Swal.fire({
                   
                   title: 'Oops...',
@@ -315,8 +408,12 @@ export class PersonManagementComponent implements OnInit {
             break;
           } 
           case Rol.ROLE_STUDENT: {
-            this.personSvr.removeStudent(dni).subscribe({
+
+            // EN caso de estudiante
+            let request = this.personSvr.removeStudent(dni).subscribe({
               next: () => {
+                request.unsubscribe();
+
                 Swal.fire({
                   icon: 'success',
                   title: '¡Hecho!',
@@ -326,6 +423,9 @@ export class PersonManagementComponent implements OnInit {
                 this.getPersons();
               },
               error: (response) => {
+
+                request.unsubscribe();
+
                 Swal.fire({
                   icon: 'error',
                   title: 'Oops...',
@@ -340,6 +440,8 @@ export class PersonManagementComponent implements OnInit {
     })
   }
 
+  // Añade una persona con dicho rol
+
   addPerson (rol : Rol) {
     this.rolToCreate = rol;
 
@@ -347,7 +449,10 @@ export class PersonManagementComponent implements OnInit {
     container.classList.remove("noShow");
   }
 
+  // Crea un usuario
   createUser () {
+
+    // COmprobamos si es válido
 
     if (!this.formGroup.valid) {
       Swal.fire({
@@ -364,17 +469,28 @@ export class PersonManagementComponent implements OnInit {
       });
     }
     else {
+
+      // Si es válido creamos la persona
+
       let newPerson : PersonDto = this.formGroup.value;
 
       newPerson.image = this.imageSelected;
       newPerson.rol = this.rolToCreate;
 
-      this.personSvr.createPerson(newPerson).subscribe({
+      // Guardamos...
+
+      let request = this.personSvr.createPerson(newPerson).subscribe({
         next: () => {
+
+          // Actualizamos
+          request.unsubscribe();
           this.getPersons();
 
         },
         error: (response) => {
+          request.unsubscribe();
+
+          // Actualizamos
           this.getPersons();
           Swal.fire({
             icon: 'error',
@@ -384,6 +500,8 @@ export class PersonManagementComponent implements OnInit {
         }
       })
 
+      // Reseteamos los datos
+
       this.formGroup.reset();
       this.imageSelected = "";
       let container = document.querySelector("#newPersonContainer") as HTMLElement;
@@ -391,6 +509,7 @@ export class PersonManagementComponent implements OnInit {
     }
   }
 
+  // Ir a persona
   edit (event: Event, dni: string) {
     this.router.navigate([dni + "/edit"], {relativeTo: this.route});
   }

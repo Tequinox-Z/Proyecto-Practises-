@@ -11,6 +11,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
+  // Componente de menú
+
   constructor (
     private userService: UserService,
     private auth: AuthService,
@@ -52,6 +54,7 @@ export class MenuComponent implements OnInit {
     })
   }
 
+  // Redirige al usuario actual
 
   myUser() {
     this.router.navigateByUrl("dashboard/person/management/" +  this.userService.getDni() + "/edit");

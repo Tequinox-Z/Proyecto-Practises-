@@ -25,27 +25,29 @@ export class NewBusinessComponent implements OnInit {
       private businessSvr: BusinessService
   ) { }
 
-  newBusiness : Business = {};
+  newBusiness : Business = {};                      // Nueva empresa
 
-  formGroup!: FormGroup;
-  page: number = 1;
-  showNext: boolean = true;
-  showBack: boolean = true;
-  mapbox = (mapboxgl as typeof mapboxgl);
-  map: mapboxgl.Map | null = null;
-  marker: any;
-  finish: boolean = false;
-  serverStep: number = 0; 
+  formGroup!: FormGroup;                            // Constructor de formulario
+  page: number = 1;                                 // Contador de página
+  showNext: boolean = true;                         // ¿Mostrar siguiente? 
+  showBack: boolean = true;                         // ¿Mostrar atrás?
+  mapbox = (mapboxgl as typeof mapboxgl);           // Constructor de mapa
+  map: mapboxgl.Map | null = null;                  // Mapa
+  marker: any;                                      // Marcador
+  finish: boolean = false;                          // ¿Finalizado?
+  serverStep: number = 0;                           // Paso en servidor
 
-  location: Location = {};
+  location: Location = {};                          // Localización
 
   ngOnInit(): void {
-    this.dashboardSvr.setTitle("Nueva empresa");
-    this.mapbox.accessToken = environment.mapBoxToken;
-    this.buildForm();
+    this.dashboardSvr.setTitle("Nueva empresa");            // Establecemos el título
+    this.mapbox.accessToken = environment.mapBoxToken;      // Indicamos el token del mapa
+    this.buildForm();                                       // Construimos el form
   }
 
-
+  /**
+   * Construye el formulario
+   */
   private buildForm() {
     this.formGroup = this.formBuilder.group({
         name:  ['', [Validators.required]],
@@ -54,11 +56,16 @@ export class NewBusinessComponent implements OnInit {
         ], [this.businessSvr]]
     });
   }
-
+  
+  /**
+   * Comprueba si existe la empresa
+   */
   get existBusiness() {
 
     let errors = this.formGroup.get('cif')?.errors!;
       
+    // Si existe lo indicamos, si no evaluamos el error
+
     if (errors['exist']) {
       return "Cif registrado";
     }
@@ -71,17 +78,26 @@ export class NewBusinessComponent implements OnInit {
 
   }
 
-
+  /**
+   *  Establece el nombre del fichero
+   */
   setFileName(event: Event) {
     this.newBusiness.image = environment.serverFileAddress + "/files/" + event;
   }
 
+  /**
+   * Muestra el mapa
+   */
   showMap() {
-    this.page = this.page + 1;
+    this.page = this.page + 1;                                // Incrementamos la página
     
     navigator.geolocation.getCurrentPosition((data) => {
 
+      // Obtenemos la ubicación y añadimos un marcador
+
       let markerLocation :Location = {};
+
+      // Asignamos las coordenadas
 
       if (this.location.longitude != null && this.location.latitude != null) {
         markerLocation = this.location;
@@ -91,6 +107,7 @@ export class NewBusinessComponent implements OnInit {
         markerLocation.longitude = data.coords.longitude;
       }
 
+      // Creamos el mapa
       
       this.map = new mapboxgl.Map({
         container: 'mapa',
@@ -98,14 +115,20 @@ export class NewBusinessComponent implements OnInit {
         zoom: 15,
         center: [markerLocation.longitude!, markerLocation.latitude!]
       });
+
+      // Creamos el marcador
       
       this.marker = new mapboxgl.Marker({
         color: "#ff8000"
       });
+
+      // Establecemos las coordenadas
       
       if (this.location.longitude != null && this.location.latitude != null) {
         this.marker.setLngLat([markerLocation.longitude!, markerLocation.latitude!]).addTo(this.map);  
       }
+
+      // Añadimos controles y eventos
 
       this.map.on('click', this.add_marker.bind(this));
 
@@ -115,6 +138,9 @@ export class NewBusinessComponent implements OnInit {
     });
   }
 
+  /**
+   * Añade un marcador al mapa
+   */
   add_marker(event: any) {
     let coordinates = event.lngLat;
 
@@ -124,23 +150,39 @@ export class NewBusinessComponent implements OnInit {
     this.marker.setLngLat(coordinates).addTo(this.map);
   }
 
-
+  /**
+   * Envía todos los datos y crea la empresa
+   */
   sendData() {
-    this.page = this.page + 1;
+    this.page = this.page + 1;                                  // Incrementamos la página
 
-    let image = this.newBusiness.image;
-    this.newBusiness = this.formGroup.value;
+    // Asignamos los datos
+
+    let image = this.newBusiness.image;                         
+    this.newBusiness = this.formGroup.value;                    
     this.newBusiness.image = image;
+
+    // Creamos...
     
-    this.businessSvr.createBusiness(this.newBusiness).subscribe({
+    let request = this.businessSvr.createBusiness(this.newBusiness).subscribe({
       next: (business) => {
-        this.serverStep++;
-        this.businessSvr.setUbication(business, this.location).subscribe({
+        request.unsubscribe();
+
+        this.serverStep++;      // Aumentamos el paso
+        
+        let request2 = this.businessSvr.setUbication(business, this.location).subscribe({
           next: () => {
-            this.serverStep++;
-            this.finish = true;
+            request2.unsubscribe();
+
+            this.serverStep++;      // Aumentamos el paso
+            this.finish = true;     // Informamos de que ha terminado
           },
           error: (response) => {
+
+            request2.unsubscribe();
+
+            // Mostramos el error
+
             Swal.fire({                                                                     
               icon: 'error',
               title: 'Oops...',
@@ -150,6 +192,10 @@ export class NewBusinessComponent implements OnInit {
         });
       },
       error: (response) => {
+            request.unsubscribe();
+
+            // Mostramos el error
+
             Swal.fire({                                                                     
               icon: 'error',
               title: 'Oops...',

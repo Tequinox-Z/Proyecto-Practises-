@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { DashboardComponent } from './Page/Dashboard/dashboard.component';
 import { AuthGuardGuard } from '../../core/Guards/auth-guard/auth-guard.guard';
-import { PractiseModule } from './Modules/practise/practise.module';
-import { PersonModule } from './Modules/person/person.module';
 
 
 // Rutas del DashBoard

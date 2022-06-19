@@ -10,6 +10,9 @@ import { environment } from '../../../../../../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../../Services/UserService/user.service';
 
+
+// Vista de mis ciclos
+
 @Component({
   selector: 'app-my-degrees',
   templateUrl: './my-degrees.component.html',
@@ -27,22 +30,34 @@ export class MyDegrees implements OnInit {
   ) { }
 
   
-  editMode: boolean = false;
-  years!: YearsDegree;
+  editMode: boolean = false;          // Modo de edición
+  years!: YearsDegree;                // Años
 
-  degrees!: ProfessionalDegree[];
+  degrees!: ProfessionalDegree[];     // Ciclos
 
   ngOnInit(): void {
+
+    // Cambiamos el titulo y cargamos
+
     this.dashboardSrv.setTitle("Mis ciclos");
     this.loadDegrees();    
   }
 
+
+  // Carga los ciclos
+  
   loadDegrees() {
-    this.centerSvr.getDegreesFromDni(this.userSrv.getDni()!).subscribe({
+
+    let request = this.centerSvr.getDegreesFromDni(this.userSrv.getDni()!).subscribe({
       next: (degrees: any) => {
+        request.unsubscribe();
+
         this.degrees = degrees;
       },
       error: (response) => {
+
+        request.unsubscribe();
+
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -53,6 +68,7 @@ export class MyDegrees implements OnInit {
   }
 
 
+  // Ir a ciclo
 
   goTo(idDegree: any) {
     if (!this.editMode) {

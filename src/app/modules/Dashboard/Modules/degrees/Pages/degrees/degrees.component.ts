@@ -9,6 +9,10 @@ import { YearsDegree } from '../../../../../../core/Interfaces/YearsDegree/Years
 import { environment } from '../../../../../../../environments/environment';
 import { Router, ActivatedRoute } from '@angular/router';
 
+
+// Vista de ciclos
+
+
 @Component({
   selector: 'app-degrees',
   templateUrl: './degrees.component.html',
@@ -24,20 +28,26 @@ export class DegreesComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
-  yearSelected!: string;
-  editMode: boolean = false;
-  years!: YearsDegree;
+  yearSelected!: string;                // Año seleccionado
+  editMode: boolean = false;            // Modo edición
+  years!: YearsDegree;                  // Años
 
-  degrees!: ProfessionalDegree[];
-  school !: School;
+  degrees!: ProfessionalDegree[];        // CIclos
+  school !: School;                    // Centro
 
   ngOnInit(): void {
+    // Establecemos el titulo y cargamos los datos
+
     this.dashboardSrv.setTitle("Ciclos");
     this.loadDegrees(new Date().getFullYear());    
   }
 
 
+  // Borra un ciclo
   deleteDegree(idDegree :number) {
+
+    // Preguntamos
+
     Swal.fire({
       title: '¿Estás seguro?',
       text: "Se borrarán todas las matriculaciones y prácticas",
@@ -48,8 +58,11 @@ export class DegreesComponent implements OnInit {
       confirmButtonText: 'Borrar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.degreeSvr.deleteDegree(this.school, idDegree).subscribe({
+        // Borramos
+        let request = this.degreeSvr.deleteDegree(this.school, idDegree).subscribe({
           next: () => {
+            request.unsubscribe();
+            // Cargamos de nuevo
             this.loadDegrees(new Date().getFullYear());
           }
         })
@@ -58,28 +71,50 @@ export class DegreesComponent implements OnInit {
   }
 
 
+  // Cambia el año
   changeYear(event:any) {
+    // Cargamos los ciclos
     this.loadDegrees(parseInt(event.target.value));
   }
 
-  loadDegrees(year :number) {
-    this.centerSvr.getCenterOfAdministrator().subscribe({
-      next: (school: School) => {
+  // Carga los ciclos
 
-        this.degreeSvr.getYears(school).subscribe({
+  loadDegrees(year :number) {
+
+    // Obtenemos la escuela
+
+    let request = this.centerSvr.getCenterOfAdministrator().subscribe({
+      next: (school: School) => {
+        request.unsubscribe();
+
+        // Obtenemos los años
+
+        let request2 = this.degreeSvr.getYears(school).subscribe({
           next: (data: any) => {
+
+            request2.unsubscribe();
+
             this.years = data;
             this.years.years.reverse();
           }
         });
 
+        // Establecemos la escuela
+
         this.school = school;
 
-        this.degreeSvr.getDegreesByYear(school, year.toString()).subscribe({
+
+        // Cargamos los ciclos
+
+        let request3 = this.degreeSvr.getDegreesByYear(school, year.toString()).subscribe({
           next: (degrees: any) => {
+            request3.unsubscribe();
+
             this.degrees = degrees;
           },
           error: (response) => {
+            request3.unsubscribe();
+
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -89,6 +124,8 @@ export class DegreesComponent implements OnInit {
         })
       },
       error: (response) => {
+        request.unsubscribe();
+
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -99,25 +136,42 @@ export class DegreesComponent implements OnInit {
   }
 
 
+  // Añade un nuevo ciclo
+
   addDegree() {
-    this.degreeSvr.addDegree(this.school).subscribe({
+    // Añadimos
+
+    let request = this.degreeSvr.addDegree(this.school).subscribe({
       next: () => {
+        request.unsubscribe();
+        // Cargamos
         this.loadDegrees(new Date().getFullYear());
       }
     })
   }
 
+  // Cambia la imagen de un ciclo
+
   changeImage(event: string, idDegree: number) {
-    this.degreeSvr.getDegree(this.school, idDegree).subscribe({
+
+    // Cambiamos
+
+    let request = this.degreeSvr.getDegree(this.school, idDegree).subscribe({
       next: (degree: ProfessionalDegree) => {
+
+        request.unsubscribe();
 
         degree.image = environment.serverFileAddress + "/files/" + event;
         
-        this.degreeSvr.updateDegree(this.school, degree).subscribe({
+        let request2 = this.degreeSvr.updateDegree(this.school, degree).subscribe({
           next: () => {
+            request2.unsubscribe();
+
             this.loadDegrees(new Date().getFullYear());
           },
           error: (response) => {
+            request2.unsubscribe();
+
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -129,6 +183,7 @@ export class DegreesComponent implements OnInit {
     });
   }
 
+  // Ir a ciclo
 
   goTo(idDegree: any) {
     if (!this.editMode) {
@@ -136,8 +191,12 @@ export class DegreesComponent implements OnInit {
     }
   }
 
+  // Cambia el nombre
+
   changeName(idDegree:any) {
     if (this.editMode) {
+      
+      // Preguntamos...
 
       Swal.fire({
         title: 'Indique nuevo nombre',
@@ -151,19 +210,29 @@ export class DegreesComponent implements OnInit {
         showLoaderOnConfirm: true,
         preConfirm: (result) => {
           if (result.trim().length == 0) {
+            // Vovemos a preguntar por el nombre
             this.changeName(idDegree);
           }
           else {
-            this.degreeSvr.getDegree(this.school, idDegree).subscribe({
+            let request = this.degreeSvr.getDegree(this.school, idDegree).subscribe({
               next: (degree: ProfessionalDegree) => {
+                request.unsubscribe();
 
                 degree.name = result;
                 
-                this.degreeSvr.updateDegree(this.school, degree).subscribe({
+                // Obtenemos el ciclo
+                
+                let request2 = this.degreeSvr.updateDegree(this.school, degree).subscribe({
                   next: () => {
+                    request2.unsubscribe();
+
+                    // Cargamos los ciclos
+                    
                     this.loadDegrees(new Date().getFullYear());
                   },
                   error: (response) => {
+                    request2.unsubscribe();
+
                     Swal.fire({
                       icon: 'error',
                       title: 'Oops...',

@@ -20,23 +20,31 @@ export class ViewDegreeComponent implements OnInit {
     private studentService: StudentService,
     public userSrv: UserService) { }
 
-    public currentDegree!: ProfessionalDegree;
+    public currentDegree!: ProfessionalDegree;           // Ciclo actual
 
-    public selectBusiness :boolean = false;
-    public selectTeacher :boolean = false;
-    public selectStudent :boolean = false;
+    public selectBusiness :boolean = false;              // Selección de empresa
+    public selectTeacher :boolean = false;               // Selección de profesor
+    public selectStudent :boolean = false;               // Selección de estudiante
 
     public isAdmin: boolean = false;
 
   ngOnInit(): void {
+    // Comprobamos si es admin
+
      if (this.userSrv.getPerson()?.rol?.toString() == "ROLE_ADMIN") {
         this.isAdmin = true;
      }
      
+     // Cargamos
      this.loadDegree();
   }
 
+
+  // Quita un profesor
+
   quitTeacher(dniTeacher: string) {
+
+    // Preguntamos
 
     Swal.fire({
       title: '¿Quitar profesor?',
@@ -49,11 +57,19 @@ export class ViewDegreeComponent implements OnInit {
       confirmButtonText: 'Quitar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.degreeSrv.quitTeacherFromDegree(this.currentDegree, dniTeacher).subscribe({
+
+        // Quitamos
+
+        let request = this.degreeSrv.quitTeacherFromDegree(this.currentDegree, dniTeacher).subscribe({
           next: () => {
+            request.unsubscribe();
+            // Cargamos
             this.loadDegree();
           },
           error: (response) => {
+
+            request.unsubscribe();
+
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -67,18 +83,31 @@ export class ViewDegreeComponent implements OnInit {
 
 
 
+  // Carga un ciclo
   loadDegree() {
+
+    // Obtenemos id
     let idDegree = this.rutaActiva.snapshot.params['idDegree'];
 
-    this.degreeSrv.getByDegreeOnly(idDegree).subscribe({
+  // Leemos el ciclo
+    let request = this.degreeSrv.getByDegreeOnly(idDegree).subscribe({
       next: (degree: any) => {
+        request.unsubscribe();
+
         this.currentDegree = degree;
 
-        this.degreeSrv.getBusinessFromDegree(degree).subscribe({
+        // Cargamos las empresas
+
+        let request2 = this.degreeSrv.getBusinessFromDegree(degree).subscribe({
           next: (business: any) => {
+            
+            request2.unsubscribe();
+
             this.currentDegree.businesses = business;
           },
           error: (response) => {
+            request2.unsubscribe();
+
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -87,11 +116,16 @@ export class ViewDegreeComponent implements OnInit {
           }
         });
 
-        this.degreeSrv.getTeachersFromDegree(degree).subscribe({
+        // Cargamos profesores
+
+        let request3 = this.degreeSrv.getTeachersFromDegree(degree).subscribe({
           next: (teachers: any) => {
+            request3.unsubscribe();
             this.currentDegree.teachers = teachers;
           },
           error: (response) => {
+            request3.unsubscribe();
+
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -100,11 +134,18 @@ export class ViewDegreeComponent implements OnInit {
           }
         });
 
-        this.degreeSrv.getStudentsFromDegree(degree).subscribe({
+        // Obtiene los estudiantes
+
+        let request4 = this.degreeSrv.getStudentsFromDegree(degree).subscribe({
           next: (enrollments: any) => {
+            request4.unsubscribe();
+
             this.currentDegree.enrollments = enrollments;
           },
           error: (response) => {
+
+            request4.unsubscribe();
+
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -115,13 +156,20 @@ export class ViewDegreeComponent implements OnInit {
 
       },
       error: () => {
+        // En caso de error volvemos atrás
+
         this.router.navigate(["../../degrees"], { relativeTo: this.rutaActiva});
       }
     });
   }
 
 
+  // Quita un estudiante
+
   quitStudent(idEnrollment: number) {
+
+    // Preguntamos
+
     Swal.fire({
       title: '¿Desmatricular alumno?',
       text: "Se borrarán los datos de sus prácticas",
@@ -133,11 +181,18 @@ export class ViewDegreeComponent implements OnInit {
       confirmButtonText: 'Quitar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.degreeSrv.quitEnrollmentFromDegree(this.currentDegree, idEnrollment).subscribe({
+
+        // Lo quitamos
+
+        let request = this.degreeSrv.quitEnrollmentFromDegree(this.currentDegree, idEnrollment).subscribe({
           next: () => {
+            request.unsubscribe();
+            // Cargamos
             this.loadDegree();
           },
           error: (response) => {
+            request.unsubscribe();
+
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -149,14 +204,22 @@ export class ViewDegreeComponent implements OnInit {
     })
   }
 
+  // Añade una empresa
+
   addBusiness(cif: string) {
     this.selectBusiness = false;
 
-    this.degreeSrv.addBusiness(this.currentDegree, cif).subscribe({
+    // Añadimos
+
+    let request = this.degreeSrv.addBusiness(this.currentDegree, cif).subscribe({
       next: () => {
+        request.unsubscribe();
+        // Cargamos
         this.loadDegree();
       },
       error: (response) => {
+
+        request.unsubscribe();
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -166,13 +229,21 @@ export class ViewDegreeComponent implements OnInit {
     })
   }
 
+  // Añade un profesor
   addTeacher(dni: string) {
     this.selectTeacher = false;
-    this.degreeSrv.addTeacherToDegree(this.currentDegree, dni).subscribe({
+
+    // Añadimos
+
+    let request = this.degreeSrv.addTeacherToDegree(this.currentDegree, dni).subscribe({
       next: () => {
+        request.unsubscribe();
+        // Cargamos
         this.loadDegree();
       },
       error: (response) => {
+        request.unsubscribe();
+
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -182,13 +253,18 @@ export class ViewDegreeComponent implements OnInit {
     })
   }
 
+  // Añade un estudiante
   addStudent(dni: string) {
     this.selectStudent = false;
-    this.degreeSrv.addStudentToDegree(this.currentDegree, dni).subscribe({
+    // Añadimos
+    let request = this.degreeSrv.addStudentToDegree(this.currentDegree, dni).subscribe({
       next: () => {
+        request.unsubscribe();
         this.loadDegree();
       },
       error: (response: any) => {
+        request.unsubscribe();
+
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -198,6 +274,7 @@ export class ViewDegreeComponent implements OnInit {
     })
   }
 
+  // Cierra todos los modales
   closeAll() {
     this.selectBusiness = false;
     this.selectStudent = false;
@@ -205,6 +282,7 @@ export class ViewDegreeComponent implements OnInit {
   }
 
 
+  // Ver una practica
   viewPractise(idEnrollment: number) {
     this.router.navigateByUrl("/dashboard/practise/view/" + idEnrollment);
   }

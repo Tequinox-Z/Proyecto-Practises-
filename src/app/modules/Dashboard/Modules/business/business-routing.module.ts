@@ -6,6 +6,8 @@ import { NewBusinessComponent } from './Pages/new-business/new-business.componen
 import { EditBusinessComponent } from './Pages/edit-business/edit-business.component';
 import { AdministratorGuard } from '../../../../core/Guards/administrator-guard/administrator.guard';
 
+// Rutas de empresa
+
 const routes: Routes = [
     {
       path: "search-business",

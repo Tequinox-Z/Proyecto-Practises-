@@ -8,6 +8,8 @@ import { DegreeStudentComponent } from './Pages/degree-student/degree-student.co
 import { MyDegrees } from './Pages/myDegrees/my-degrees.component';
 
 
+// Rutas de ciclos
+
 const routes: Routes = [
     {
       path: "",

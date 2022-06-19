@@ -8,6 +8,9 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
+
+  // Componente de búsqueda
+
   constructor() { }
 
   ngOnInit(): void {
@@ -16,6 +19,8 @@ export class SearchComponent implements OnInit {
   
   @Output() query = new EventEmitter<String>();
 
+  // Al buscar lanzamos un evento con la cadena a buscar
+  
   send(event: Event) {
     let input = event.target as HTMLInputElement;
     this.query.emit(input.value);

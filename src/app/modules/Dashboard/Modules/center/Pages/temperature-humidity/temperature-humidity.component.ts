@@ -12,17 +12,29 @@ import Swal from 'sweetalert2';
 })
 export class TemperatureHumidityComponent implements OnInit {
 
+
+  // Página de ambiente del centro
+
   constructor(private centerSvr: CenterService) { }
 
-  data: RegTemp[] = [];
+  data: RegTemp[] = [];                              // Registros de temperatura
 
   ngOnInit() {
 
+    // Obtenemos el centro del administrador
 
-    this.centerSvr.getCenterOfAdministrator().subscribe({
+    let request = this.centerSvr.getCenterOfAdministrator().subscribe({
       next: (school: School) => {
-        this.centerSvr.getTemperature(school).subscribe({
+
+        // Obtenemos los registros de temperatura
+        request.unsubscribe();
+
+        let request2 = this.centerSvr.getTemperature(school).subscribe({
           next: (response: any) => {
+
+            request2.unsubscribe();
+
+            // Añadimos los registros en cada lista
            
             let humedad: any = [];
             let grados: any = [];
@@ -30,6 +42,8 @@ export class TemperatureHumidityComponent implements OnInit {
             let labels: any = [];
 
             this.data = response;
+
+            // Por cada dato añadimos los registros 
 
             this.data.forEach((current: RegTemp) => {
               let hour: Date = new Date(current.date!);
@@ -40,6 +54,8 @@ export class TemperatureHumidityComponent implements OnInit {
               humedad.push(current.humidity);
             });
       
+            // Creamos una nueva línea en el gráfico
+
             new Chart(this.elemento.nativeElement, {
               type: "line",
               data: {
@@ -68,6 +84,11 @@ export class TemperatureHumidityComponent implements OnInit {
             });      
           },
           error: (response) => {
+
+            request2.unsubscribe();
+
+            // Mostramos el error
+
             Swal.fire({
               icon: "error",
               title: "Oops...",
@@ -80,6 +101,10 @@ export class TemperatureHumidityComponent implements OnInit {
         })
       },
       error: (response) => {
+        request.unsubscribe();
+
+        // Mostramos el error
+
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -93,7 +118,6 @@ export class TemperatureHumidityComponent implements OnInit {
 
 
   }
-
 
   @ViewChild("graphic", { static: true}) elemento!: ElementRef;
 }

@@ -12,22 +12,34 @@ import Swal from 'sweetalert2';
 })
 export class SelectTutorComponent implements OnInit {
 
+
+  // Modal de selección de tutor 
+
   constructor(
     private laborService: TutorServiceService
   ) { }
 
-  tutors !: LaborTutor[];
+  tutors !: LaborTutor[];                                          // Tutores
 
-  @Output() dni = new EventEmitter();
+  @Output() dni = new EventEmitter();                              // Dni seleccionado
 
-  @Input() cif = "";
+  @Input() cif = "";                                               // Cif
 
   ngOnInit(): void {
-    this.laborService.getTutors(this.cif).subscribe({
+
+    // Cargamos los tutores
+
+    let request =this.laborService.getTutors(this.cif).subscribe({
       next: (data: any) => {
+
+        request.unsubscribe();
+
         this.tutors = data;
       },
       error: (response) => {
+
+        request.unsubscribe();
+
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -37,6 +49,8 @@ export class SelectTutorComponent implements OnInit {
     });
   }
 
+  // Selecciona un tutor
+  
   select(dni: string) {
     this.dni.emit(dni);
   }

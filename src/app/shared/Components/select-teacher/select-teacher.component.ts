@@ -10,22 +10,31 @@ import { TeacherServiceService } from '../../Services/teacherService/teacher-ser
 })
 export class SelectTeacherComponent implements OnInit {
 
+  // Selección de profesor
+
   constructor(
     private teacherSrv: TeacherServiceService
   ) { }
 
-  teachers !: Teacher[];
+  teachers !: Teacher[];                                                // Lista de profesores
 
   @Output() dni = new EventEmitter();
 
   ngOnInit(): void {
-    this.teacherSrv.getAllTeachers().subscribe({
+
+    // Obtenemos los profesores
+
+    let request = this.teacherSrv.getAllTeachers().subscribe({
       next: (teachersData : any) => {
+        request.unsubscribe();
+
         this.teachers = teachersData;
       }
     });
   }
 
+  // Emite el dni seleccionado
+  
   select(dni: string) {
     this.dni.emit(dni);
   }

@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from '../../../../../../../environments/environment';
 
+// Edición de persona
+
 @Component({
   selector: 'app-edit-person',
   templateUrl: './edit-person.component.html',
@@ -14,9 +16,9 @@ import { environment } from '../../../../../../../environments/environment';
 export class EditPersonComponent implements OnInit {
 
 
-  currentPerson : PersonDto = {};
-  public formGroup!: FormGroup;
-  date : Date = new Date();
+  currentPerson : PersonDto = {};                      // Persona actual
+  public formGroup!: FormGroup;                        // Formulario
+  date : Date = new Date();                            // Fecha actual
   
 
   constructor(
@@ -28,58 +30,89 @@ export class EditPersonComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // Obtenemos el dni
+
     let dni = this.rutaActiva.snapshot.params['dni'];
 
-    this.personServiceService.getPersonByDni(dni).subscribe({
+    // Cargamos la persona
+
+    let request = this.personServiceService.getPersonByDni(dni).subscribe({
       next: (person) => {
+
+        request.unsubscribe();
+
         this.currentPerson = person;
+
+        // COnstruimos el formulario
         this.buildForm();
       },
       error: (response) => {
+        request.unsubscribe();
+
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text:  response.error.mensaje
         });
+
+        // Volvemos atrás
         this.back();
       }
     })
   }
 
 
+  // Recarga la persona
+
   reloadPerson() {
-    this.personServiceService.getPersonByDni(this.rutaActiva.snapshot.params['dni']).subscribe({
+
+    // Cargamos
+
+    let request = this.personServiceService.getPersonByDni(this.rutaActiva.snapshot.params['dni']).subscribe({
       next: (person) => {
+        request.unsubscribe();
+
         this.currentPerson = person;
       },
       error: (response) => {
+
+        request.unsubscribe();
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text:  response.error.mensaje
         });
+
+        // Volvemos atrás
         this.back();
       }
     })
   }
 
 
+  // Establece una nueva imagen
+
   setNewImage(event: String) {
 
-    this.personServiceService.getPersonByDni(this.currentPerson.dni!).subscribe({
+    let request = this.personServiceService.getPersonByDni(this.currentPerson.dni!).subscribe({
       next: (person) => {
-        person
+        request.unsubscribe();
       
+      // Modificamos sus datos
       let personWithNewImage : PersonDto = person;
 
       personWithNewImage.password = undefined;
 
       personWithNewImage.image = environment.serverFileAddress + "/files/" + event;
 
+    // Comprobamos su rol
     if (this.currentPerson.rol?.toString() == "ROLE_TEACHER") {
       
-      this.personServiceService.editTeacher(personWithNewImage).subscribe({
+      let request = this.personServiceService.editTeacher(personWithNewImage).subscribe({
         next: () => {
+          request.unsubscribe();
+
+          // Recargamos
           this.reloadPerson();
           Swal.fire({
             icon: 'success',
@@ -87,6 +120,9 @@ export class EditPersonComponent implements OnInit {
           });
         },
         error: (response) => {
+
+          request.unsubscribe();
+
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -96,8 +132,15 @@ export class EditPersonComponent implements OnInit {
       })
     }
     else if (this.currentPerson.rol?.toString() == "ROLE_STUDENT") {
-      this.personServiceService.editStudent(personWithNewImage).subscribe({
+
+      // Si es estudiante lo indicamos
+
+      let request = this.personServiceService.editStudent(personWithNewImage).subscribe({
         next: () => {
+          request.unsubscribe();
+
+          // Cargamos
+
           this.reloadPerson();
           Swal.fire({
             icon: 'success',
@@ -105,6 +148,9 @@ export class EditPersonComponent implements OnInit {
           });
         },
         error: (response) => {
+
+          request.unsubscribe();
+
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -114,8 +160,15 @@ export class EditPersonComponent implements OnInit {
       })
     }
     else if (this.currentPerson.rol?.toString() == "ROLE_LABOR_TUTOR") {
-      this.personServiceService.editTutor(personWithNewImage).subscribe({
+
+      // En caso de un tutor
+
+      let request = this.personServiceService.editTutor(personWithNewImage).subscribe({
         next: () => {
+          request.unsubscribe();
+
+          // Cargamos
+
           this.reloadPerson();
           Swal.fire({
             icon: 'success',
@@ -123,6 +176,9 @@ export class EditPersonComponent implements OnInit {
           });
         },
         error: (response) => {
+
+          request.unsubscribe();
+
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -132,8 +188,13 @@ export class EditPersonComponent implements OnInit {
       })
     }
     else if (this.currentPerson.rol?.toString() == "ROLE_ADMIN") { 
-      this.personServiceService.editAdmin(personWithNewImage).subscribe({
+
+      // En caso de administrador
+
+      let request = this.personServiceService.editAdmin(personWithNewImage).subscribe({
         next: () => {
+          request.unsubscribe();
+
           this.reloadPerson();
           Swal.fire({
             icon: 'success',
@@ -141,6 +202,7 @@ export class EditPersonComponent implements OnInit {
           });
         },
         error: (response) => {
+          request.unsubscribe();
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -151,16 +213,22 @@ export class EditPersonComponent implements OnInit {
     }
       },
       error: (response) => {
+        request.unsubscribe();
+
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text:  response.error.mensaje
         });
+
+        // Vovemos atrás
+
         this.back();
       }
     })
   }
 
+  // Construye el formulario
   private buildForm(){
     let dateString = this.currentPerson.birthDate?.toString().split("T")[0];
 
@@ -187,10 +255,12 @@ export class EditPersonComponent implements OnInit {
   }
 
 
+  // Vuelve atrás
   back() {
     history.back();
   }
 
+  // Guarda la persona
   save() {
     if (!this.formGroup.valid) {
       Swal.fire({
@@ -204,7 +274,11 @@ export class EditPersonComponent implements OnInit {
     }
   }
 
+  // Cambia su contraseña
   changePassword() {
+
+    // Preguntamos
+
     Swal.fire({
       title: 'Indique nueva contraseña',
       input: 'password',
@@ -213,6 +287,7 @@ export class EditPersonComponent implements OnInit {
       },
       preConfirm: (password: string) => {
         if (password.length < 8) {
+          // SI no es válida indicamos error
           Swal.showValidationMessage("La contraseña debe ser igual o superior a 8 carácteres");
         }
       },
@@ -225,14 +300,19 @@ export class EditPersonComponent implements OnInit {
       allowOutsideClick: () => !Swal.isLoading()
     }).then((result) => {
 
+      // Obtenemos la persona e insertamos los datos
       let personWithNewPassword = this.currentPerson;
 
       personWithNewPassword.password = result.value!;
 
       if (this.currentPerson.rol?.toString() == "ROLE_TEACHER") {
+        // Si es admin
       
-        this.personServiceService.editTeacher(personWithNewPassword).subscribe({
+        let request = this.personServiceService.editTeacher(personWithNewPassword).subscribe({
           next: () => {
+            request.unsubscribe();
+            
+            // Recargamos
             this.reloadPerson();
             Swal.fire({
               icon: 'success',
@@ -240,6 +320,8 @@ export class EditPersonComponent implements OnInit {
             });
           },
           error: (response) => {
+            request.unsubscribe();
+
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -249,8 +331,15 @@ export class EditPersonComponent implements OnInit {
         })
       }
       else if (this.currentPerson.rol?.toString() == "ROLE_STUDENT") {
-        this.personServiceService.editStudent(personWithNewPassword).subscribe({
+
+        // En caso de estudiante
+
+        let request = this.personServiceService.editStudent(personWithNewPassword).subscribe({
           next: () => {
+            request.unsubscribe();
+
+            // Recargamos
+
             this.reloadPerson();
             Swal.fire({
               icon: 'success',
@@ -258,6 +347,9 @@ export class EditPersonComponent implements OnInit {
             });
           },
           error: (response) => {
+
+            request.unsubscribe();
+
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -267,8 +359,14 @@ export class EditPersonComponent implements OnInit {
         })
       }
       else if (this.currentPerson.rol?.toString() == "ROLE_LABOR_TUTOR") {
-        this.personServiceService.editTutor(personWithNewPassword).subscribe({
+
+        // Si es un tutor
+
+        let request = this.personServiceService.editTutor(personWithNewPassword).subscribe({
           next: () => {
+            request.unsubscribe();
+            // Recargamos
+
             this.reloadPerson();
             Swal.fire({
               icon: 'success',
@@ -276,6 +374,9 @@ export class EditPersonComponent implements OnInit {
             });
           },
           error: (response) => {
+
+            request.unsubscribe();
+
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -285,8 +386,14 @@ export class EditPersonComponent implements OnInit {
         })
       }
       else if (this.currentPerson.rol?.toString() == "ROLE_ADMIN") { 
-        this.personServiceService.editAdmin(personWithNewPassword).subscribe({
+
+        // Si es administrador
+
+        let request = this.personServiceService.editAdmin(personWithNewPassword).subscribe({
           next: () => {
+            request.unsubscribe();
+
+            // Recargamos
             this.reloadPerson();
             Swal.fire({
               icon: 'success',
@@ -294,6 +401,8 @@ export class EditPersonComponent implements OnInit {
             });
           },
           error: (response) => {
+            request.unsubscribe();
+
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -306,15 +415,23 @@ export class EditPersonComponent implements OnInit {
     
   }
 
+  // Edita una persona
   editPerson () {
+    // Establecemos sus datos
     let newPersonData : PersonDto = this.formGroup.value;
 
     newPersonData.dni = this.currentPerson.dni;
     newPersonData.password = undefined;
 
+
     if (this.currentPerson.rol?.toString() == "ROLE_TEACHER") {
-      this.personServiceService.editTeacher(newPersonData).subscribe({
+
+      // SI es profesor
+      let request = this.personServiceService.editTeacher(newPersonData).subscribe({
         next: () => {
+          request.unsubscribe();
+
+          // Recargamos
           this.reloadPerson();
           Swal.fire({
             icon: 'success',
@@ -322,6 +439,8 @@ export class EditPersonComponent implements OnInit {
           });
         },
         error: (response) => {
+          request.unsubscribe();
+
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -331,8 +450,13 @@ export class EditPersonComponent implements OnInit {
       })
     }
     else if (this.currentPerson.rol?.toString() == "ROLE_STUDENT") {
-      this.personServiceService.editStudent(newPersonData).subscribe({
+      // SI es estudiante
+
+      let request = this.personServiceService.editStudent(newPersonData).subscribe({
         next: () => {
+          request.unsubscribe();
+          
+          // Recargamos
           this.reloadPerson();
           Swal.fire({
             icon: 'success',
@@ -340,6 +464,8 @@ export class EditPersonComponent implements OnInit {
           });
         },
         error: (response) => {
+
+          request.unsubscribe();
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -349,8 +475,13 @@ export class EditPersonComponent implements OnInit {
       })
     }
     else if (this.currentPerson.rol?.toString() == "ROLE_LABOR_TUTOR") {
-      this.personServiceService.editTutor(newPersonData).subscribe({
+
+      // SI es tutor laboral
+
+      let request = this.personServiceService.editTutor(newPersonData).subscribe({
         next: () => {
+          request.unsubscribe();
+          // Recargamos
           this.reloadPerson();
           Swal.fire({
             icon: 'success',
@@ -358,6 +489,9 @@ export class EditPersonComponent implements OnInit {
           });
         },
         error: (response) => {
+          request.unsubscribe();
+
+          // Recargamos
           this.reloadPerson();
           Swal.fire({
             icon: 'error',
@@ -368,8 +502,14 @@ export class EditPersonComponent implements OnInit {
       })
     }
     else if (this.currentPerson.rol?.toString() == "ROLE_ADMIN") { 
-      this.personServiceService.editAdmin(newPersonData).subscribe({
+
+      // SI es administrador
+
+      let request = this.personServiceService.editAdmin(newPersonData).subscribe({
         next: () => {
+          request.unsubscribe();
+          // Recargamos
+
           this.reloadPerson();
           Swal.fire({
             icon: 'success',
@@ -377,6 +517,10 @@ export class EditPersonComponent implements OnInit {
           });
         },
         error: (response) => {
+
+          request.unsubscribe();
+
+          // Recargamos
           this.reloadPerson();
           Swal.fire({
             icon: 'error',

@@ -13,39 +13,63 @@ import { DashboardService } from '../../../../Services/Dashboard-service/dashboa
 })
 export class UnusualMovementsComponent implements OnInit {
 
+  
+  // Página de movimientos inusuales
+
+
   constructor(
     private centerSvr: CenterService,
     private router: Router,
     private dashboardSrv: DashboardService
   ) { }
 
-  school!: School;
+  school!: School;                        // Centro
 
-  movements: UnusualMovement[] = [];
+  movements: UnusualMovement[] = [];      // Lista de movimientos inusuales
 
   ngOnInit(): void {
+
+    // Asignamos el título
+
     this.dashboardSrv.setTitle("Movimientos inusuales");
     
-    this.centerSvr.getCenterOfAdministrator().subscribe({
+    // Obtenemos el centro del administrador
+
+    let request = this.centerSvr.getCenterOfAdministrator().subscribe({
       next: (school: School) => {
+        request.unsubscribe();
         
+        // Establecemos el centro
+
         this.school = school;
 
-        this.centerSvr.getMovementsBySchool(school).subscribe({
+        let request2 = this.centerSvr.getMovementsBySchool(school).subscribe({
           next: (movements: any) => {
+            request2.unsubscribe();
+
+            // Establecemos los movimientos inusuales
+            
             this.movements = movements.reverse();
           }
         })
       },
       error: () => {
+        request.unsubscribe();
+
+        // En caso de error navegamos más arriba
+        
         this.router.navigateByUrl("../centers");
       }
     });
 
   }
 
+  // Borra todos los registros
 
   deleteAll() {
+
+    // Preguntamos al usuario
+
     Swal.fire({
       title: '¿Borrar todo?',
       text: "Esta acción es no es reversible",
@@ -57,8 +81,13 @@ export class UnusualMovementsComponent implements OnInit {
       confirmButtonText: 'Borrar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.centerSvr.deleteAllMovement(this.school).subscribe({
+
+        // Borramos en caso afirmativo
+
+        let request = this.centerSvr.deleteAllMovement(this.school).subscribe({
           next: () => {
+            request.unsubscribe();
+            
             this.movements = [];
           }
         })

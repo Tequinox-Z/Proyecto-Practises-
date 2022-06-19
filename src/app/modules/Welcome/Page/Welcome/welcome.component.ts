@@ -19,6 +19,9 @@ export class WelcomeComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
+
+    // Si tiene token lo redirigimos al inicio
+
     if (this.auth.getToken() != null) {
       this.router.navigateByUrl('/dashboard');                                              // Comprobamos si el usuario tiene un token, si lo tiene lo redirigimos a la aplicación
     }
@@ -42,6 +45,8 @@ export class WelcomeComponent implements AfterViewInit, OnInit {
 
   }
 
+  // Indica si mostrar el menú de usuario o no
+
   toggleMenu() {
     let actions = document.querySelector('#actions') as HTMLDivElement;
     let menu = document.querySelector("#menu");
@@ -62,6 +67,8 @@ export class WelcomeComponent implements AfterViewInit, OnInit {
     }
   }
 
+  // Cambia el color de la barra al hacer scroll
+  
   scroll () {
     let currentPosition = window.pageYOffset;
     let nav = document.querySelector('#nav');

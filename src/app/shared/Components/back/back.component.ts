@@ -7,12 +7,18 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class BackComponent implements OnInit {
 
+
+  // Botón de volver atrás
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  
   @Output() back = new EventEmitter();
+
+  // Al pulsar lanzamos el evento back
 
   click() {
     this.back.emit();

@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccesibilityComponent implements OnInit {
 
+
+  // Componente de accesibilidad
+
   constructor() { }
 
   ngOnInit(): void {

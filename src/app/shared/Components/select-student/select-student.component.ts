@@ -9,22 +9,29 @@ import { Student } from '../../../core/Interfaces/student/student';
 })
 export class SelectStudentComponent implements OnInit {
 
+  // Selección de estudiante
+
   constructor(
     private studentSrv: StudentService
   ) { }
 
-  students !: Student[];
+  students !: Student[];                                        // Lista de estudiantes
 
   @Output() dni = new EventEmitter();
 
   ngOnInit(): void {
-    this.studentSrv.getAllStudents().subscribe({
+    // Cargamos los estudiantes
+
+    let request =this.studentSrv.getAllStudents().subscribe({
       next: (studentsData : any) => {
+        request.unsubscribe();
+
         this.students = studentsData;
       }
     });
   }
 
+  // Emite el dni seleccionado
   select(dni: string) {
     this.dni.emit(dni);
   }

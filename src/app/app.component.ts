@@ -26,14 +26,19 @@ export class AppComponent {
   ) {}
 
   ngAfterViewInit() {
-    this.configureKeyboard();
+    this.configureKeyboard();          // Configura el teclado
   }
 
   configureKeyboard() {
+
+    // Añadimos el evento click
+
     this.keyboard = new Keyboard({
       onKeyPress: (button: any) => this.onKeyPress(button),
       preventMouseDownDefault: true,
     });
+
+    // Añadimos los distintos mapas
 
     this.keyboard.setOptions({
       display: {
@@ -70,10 +75,14 @@ export class AppComponent {
       },
     });
 
+    // Hacemos que con jquery sea arrastrable
+
     this.keyboardDIVHTML = document.querySelector("#keyboard-div") as HTMLDivElement;
     $("#keyboard-div").draggable();
 
   }
+
+  // Oculta el teclado con animación
 
   hideKeyboard(): void {
     this.keyboardDIVHTML?.classList.add("toDOWN");
@@ -84,6 +93,8 @@ export class AppComponent {
     }, 600);
   }
 
+  // Cambia el mapa si se pulsa ciertas teclas
+
   onKeyPress(keyPress: string): void {
     if (keyPress === "{shift}" || 
         keyPress === "{shift2}") this.toggleMayus();
@@ -92,6 +103,8 @@ export class AppComponent {
     else if (keyPress == "{close}") this.hideKeyboard();
     else this.press(keyPress);
   }
+
+  // Realiza una función dependiendo de dónde se esté escribiendo
 
   press(key: string) {
     let element = document.activeElement as HTMLInputElement;
@@ -115,10 +128,14 @@ export class AppComponent {
     }
   }
 
+  // Muestra el teclado numérico
+
   showNumericKeyboard(showNumeric: boolean) {
     let layout = showNumeric ? "num" : "default";
     this.keyboard!.setOptions({ layoutName: layout });
   }
+
+  // Muestra las mayúsculas
 
   toggleMayus() {
     let currentLayout = this.keyboard!.options.layoutName;
@@ -129,6 +146,7 @@ export class AppComponent {
     });
   }
 
+  // Hace un sonido al hacer click e insert la tecla en el input
   click(event: Event) {
     if (true) {
       

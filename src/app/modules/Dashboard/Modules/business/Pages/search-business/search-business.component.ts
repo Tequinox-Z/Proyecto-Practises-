@@ -1,18 +1,17 @@
 import { Component, OnInit } from "@angular/core";
-import { School } from "../../../../../../core/Interfaces/school/school";
 import Swal from "sweetalert2";
 import { environment } from "../../../../../../../environments/environment";
-import { Location } from "../../../../../../core/Interfaces/Location/Location";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import * as mapboxgl from "mapbox-gl";
 import * as MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
-import { LocationAndSchool } from "../../../../../../core/Interfaces/LocationAndSchool/LocationAndSchool";
 import { DashboardService } from "../../../../Services/Dashboard-service/dashboard.service";
 import { Router, ActivatedRoute } from '@angular/router';
 import { BusinessService } from '../../Service/business.service';
-import { Business } from '../../../../../../core/Interfaces/business/Business';
 import { LocationAndBusiness } from '../../../../../../core/Interfaces/LocationAndBusiness/LocationAndBusiness';
 import { UserService } from '../../../../Services/UserService/user.service';
+
+
+// Página de buscar empresas
 
 @Component({
   selector: "app-search-business",
@@ -28,29 +27,46 @@ export class SearchBusinessComponent implements OnInit {
     private userSrv: UserService
   ) {}
 
-  isAdmin: boolean = false;
-  mapbox = mapboxgl as typeof mapboxgl;
-  map: mapboxgl.Map | null = null;
+
+  isAdmin: boolean = false;                                    // Indica si es administrador
+  mapbox = mapboxgl as typeof mapboxgl;                        // Construye el mapa
+  map: mapboxgl.Map | null = null;                             // Mapa
 
 
-  locations: LocationAndBusiness[] = [];
+  locations: LocationAndBusiness[] = [];                       // Lista de localizaciones
 
-  mapMode: boolean = false;
+  mapMode: boolean = false;                                    // Modo mapa
 
   ngOnInit(): void {
 
-    if(this.userSrv.getPerson()!.rol!.toString() == "ROLE_ADMIN") {
+    // Comprobamos si es admin
+
+    if (this.userSrv.getPerson()!.rol!.toString() == "ROLE_ADMIN") {
       this.isAdmin = true;
     }
+
+    // Establecemos el título
+
     this.dashboardSvr.setTitle("Empresas");
+
+    // Establecemos el token
 
     this.mapbox.accessToken = environment.mapBoxToken;
 
-    this.businessSvr.getAllLocations().subscribe({
+    // Obtenemos las ubicaciones
+
+    let request = this.businessSvr.getAllLocations().subscribe({
       next: (business: any) => {
-        this.locations = business;
+        request.unsubscribe();
+        
+        this.locations = business;            // Establecemos las ubicaciones
       },
       error: (response) => {
+
+        request.unsubscribe();
+
+        // Mostramos el error
+
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -62,13 +78,27 @@ export class SearchBusinessComponent implements OnInit {
       },
     });
   }
-
+  
+  /**
+   * Permite buscar empresas por nombre
+   * @param name Nombre
+   */
   buscar(name: String) {
-    this.businessSvr.getBusinessByName(name).subscribe({
+
+    // Lanzamos la petición
+
+    let request = this.businessSvr.getBusinessByName(name).subscribe({
       next: (business: any) => {
-        this.locations = business;
+
+        request.unsubscribe();
+
+        this.locations = business;          // Establecemos los datos
       },
       error: (response) => {
+
+        request.unsubscribe();
+
+        // Mostramos el error
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -81,16 +111,31 @@ export class SearchBusinessComponent implements OnInit {
     });
   }
 
+  /**
+   * Muestra el modo lista de escuelas
+   */
   showListOfSchool() {
     this.mapMode = false;
   }
 
+  /**
+   * Muestra el mapa
+   */
   showMap() {
+
+    // Habilitamos el modo mapa
+
     this.mapMode = true;
 
-    this.businessSvr.getAllLocations().subscribe({
+    // Obtenemos las localizaciones
+
+    let request = this.businessSvr.getAllLocations().subscribe({
       next: (locations: any) => {
-        this.locations = locations;
+        request.unsubscribe();
+
+        this.locations = locations;      // Establecemos los datos
+
+        // Obtenemos la posición actual y cremaos el mapa
 
         navigator.geolocation.getCurrentPosition((data) => {
           this.map = new mapboxgl.Map({
@@ -100,6 +145,8 @@ export class SearchBusinessComponent implements OnInit {
             center: [data.coords.longitude, data.coords.latitude],
           });
 
+          // Añadimos controles
+
           this.map.addControl(new mapboxgl.NavigationControl());
           this.map.addControl(new mapboxgl.FullscreenControl());
           this.map.addControl(
@@ -108,10 +155,14 @@ export class SearchBusinessComponent implements OnInit {
             })
           );
 
+          // Cambiamos el placeholder de la búsqueda
+
           let searchBox = document.querySelector(
             ".mapboxgl-ctrl-geocoder--input"
           ) as HTMLInputElement;
           searchBox.placeholder = "Buscar";
+
+          // Creamos los marcadores
 
           locations.forEach((currentLocation: LocationAndBusiness) => {
             
@@ -133,6 +184,11 @@ export class SearchBusinessComponent implements OnInit {
         });
       },
       error: (response) => {
+
+        request.unsubscribe();
+
+        // Indicamos el error
+        
         Swal.fire({
           icon: "error",
           title: "Oops...",

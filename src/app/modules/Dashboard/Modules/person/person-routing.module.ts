@@ -4,6 +4,10 @@ import { PersonManagementComponent } from './Pages/person-management/person-mana
 import { EditPersonComponent } from './Pages/edit-person/edit-person.component';
 import { AdministratorGuard } from '../../../../core/Guards/administrator-guard/administrator.guard';
 
+
+// Rutas de personas
+
+
 const routes: Routes = [
     {
       path: "management",

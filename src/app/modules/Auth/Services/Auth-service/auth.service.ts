@@ -4,9 +4,12 @@ import { Router } from '@angular/router';
 import { LoginResponse } from '../../../../core/Interfaces/login-response/login-response';
 import { UserLoginRequest } from '../../../../core/Interfaces/user-login-request/user-login-request';
 import { environment } from '../../../../../environments/environment';
-import * as CryptoJS from 'crypto-js';
 import { HttpOptions } from '../../../../core/Interfaces/httpOptions/http-options';
 import { PersonDto } from '../../../../core/Interfaces/personDto/person-dto';
+
+
+// Servicio de autenticación
+
 
 @Injectable({
   providedIn: 'root'
@@ -90,25 +93,41 @@ export class AuthService {
     })
   }
 
+  /**
+   * Retorna los headers con el token actual del usuario 
+   * ahorrando tener que ser construido en cada petición
+   * 
+   * Si no se indica ningún token se elege por defecto el 
+   * del usuario
+   */
   getHeadersToken(token ?: string | null): HttpOptions {
     if (token == undefined) {
-      token = this.getToken();
+      token = this.getToken();                
     }
 
     let options: HttpOptions = {
       headers: new HttpHeaders ({
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`          // Construimos las cabeceras y definimos la autenticación
       })
     }
 
-    return options;
+    return options;                                 // Retornamos las opciones
   }
 
 
+  /**
+   * Permite recuperar la contraseña desde 
+   * el dni del usuario
+   */
   restorePassword(dni: String) {
+
+    // Creamos un dto de persona
+
     let userData: PersonDto = {
       "dni": dni.toString().toUpperCase()
     };
+
+    // Lanzamos la petición de recuperación de usuario
 
     return this.http.post<PersonDto>(environment.serverAddress + "/send-reset-password", userData);
   }

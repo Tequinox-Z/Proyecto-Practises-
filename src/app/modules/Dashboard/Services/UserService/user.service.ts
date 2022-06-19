@@ -5,13 +5,16 @@ import { AuthService } from '../../../Auth/Services/Auth-service/auth.service';
 import { PersonDto, Rol } from '../../../../core/Interfaces/personDto/person-dto';
 import { Observable } from 'rxjs';
 
+
+// Servicio de usuario
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private person!: PersonDto | null;
-  private config = null;
+  private person!: PersonDto | null;                              // Persona actual
+  private config = null;                                          // Configuración
   
   constructor(private http: HttpClient, private auth: AuthService) { 
     
@@ -42,6 +45,8 @@ export class UserService {
     this.person!.dni = dni;
   }
 
+  // Establece la contraseña del usuario
+
   setPassword(password: string, token ?: string | null) {
       if (token == undefined) {
         token = this.auth.getToken();
@@ -51,10 +56,15 @@ export class UserService {
   }
 
 
+  // Establece la persona
+
   setPerson(newPerson: PersonDto | null) {
     this.person = newPerson;
   }
 
+
+  // Obtiene la persona
+  
   getPerson() {
     return this.person;
   }

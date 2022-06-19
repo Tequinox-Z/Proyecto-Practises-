@@ -9,6 +9,8 @@ import { TemperatureHumidityComponent } from './Pages/temperature-humidity/tempe
 import { NoCenterSettedAdminGuard } from '../../../../core/Guards/noCenterGuard/no-center-setted-admin.guard';
 import { AdministratorGuard } from '../../../../core/Guards/administrator-guard/administrator.guard';
 
+// Rutas de centros
+
 const routes: Routes = [
     {
       path: "centers",
