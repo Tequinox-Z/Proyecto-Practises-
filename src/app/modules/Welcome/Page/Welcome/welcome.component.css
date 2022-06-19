@@ -158,6 +158,7 @@
 }
 
 footer {
+    position: relative;
     width: 100%;
     height: 200px;
     background-color: rgb(75, 75, 75);
@@ -185,6 +186,18 @@ footer > a {
 @media (max-width: 650px) {
   footer > a {
     position: initial !important;
+  }
+
+  #css1 {
+    position: initial !important;
+    left: 20px;
+    top: 58px;
+  }
+  
+  #css2 {
+    position: initial !important;
+    top: 104px;
+    left: 20px;
   }
 }
 
@@ -665,3 +678,18 @@ footer > p:nth-child(3) {
   backdrop-filter: blur(10px)  !important;
 }
 
+#css1 {
+  position: absolute;
+  left: 20px;
+  top: 58px;
+}
+
+#css2 {
+  position: absolute;
+  top: 104px;
+  left: 20px;
+}
+
+#emailTx {
+  color: rgb(228, 228, 228);
+} 
